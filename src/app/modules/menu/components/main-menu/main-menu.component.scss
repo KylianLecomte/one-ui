@@ -1,0 +1,56 @@
+@import "../../../../../styles/variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border-right: $border-layout;
+}
+
+fa-icon {
+  color: $color-main;
+}
+
+.container-profil {
+  display: flex;
+  margin-bottom: 70px;
+
+  & .icon-profil {
+    padding: 10px;
+    border-radius: 1000px;
+    border: $border;
+    margin: $margin-icon;
+
+    & fa-icon {
+      display: block;
+      margin: 0;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+    }
+  }
+
+  & p {
+    margin: auto 0;
+  }
+}
+
+nav {
+  width: $width-menu;
+}
+
+li {
+  border-radius: $border-radius;
+  padding: 5px 0 5px 10px;
+  margin: 0 0 10px 0;
+
+  & a {
+    display: block;
+  }
+}
+
+li:hover, li:has(a.active) {
+  background-color: $color-hover;
+}
+

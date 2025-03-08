@@ -1,0 +1,6 @@
+<div class="left-part">
+  <ng-content select="[left-part]"></ng-content>
+</div>
+<div [ngClass]="openedRightSide() ? 'expanded' : 'collapsed'" class="right-part">
+  <ng-content select="[right-part]"></ng-content>
+</div>

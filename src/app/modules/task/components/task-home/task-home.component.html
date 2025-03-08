@@ -1,0 +1,41 @@
+<one-layout
+  [openedRightSide]="!!selectedTaskId"
+>
+  <div class="container" left-part>
+
+    <div class="mb-2">
+      <input (keyup.enter)="onClickAddTask()" [formControl]="taskControl" class="mr-2" type="text"/>
+      <button (click)="onClickAddTask()">Ajouter</button>
+    </div>
+
+    <div class="grid">
+      <div class="header">
+        <span>Due today</span>
+      </div>
+      @for (task of tasks; track task.id) {
+        <div [ngClass]="taskIsSelected(task.id) ? 'row selected' : 'row ' ">
+          <div class="cellCollapse">
+            <input [checked]="taskIsDone(task.state)" type="checkbox" (click)="onCheck(task)"/>
+          </div>
+          <div (click)="onSelected(task.id)">
+            <span>{{ task.state }}</span>
+          </div>
+          <div class="task-name" (click)="onSelected(task.id)">
+            <span>{{ task.name }}</span>
+          </div>
+          <div (click)="onSelected(task.id)">
+            <span>{{ task.description }}</span>
+          </div>
+          <div>
+            <button (click)="onDelete(task)" class="btn-icon">
+              <fa-icon [icon]="faTrashCan"></fa-icon>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="expended-content" right-part>
+    {{ selectedTask?.name }}
+  </div>
+</one-layout>

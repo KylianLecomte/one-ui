@@ -1,0 +1,18 @@
+@import "../../../../styles/variables";
+
+:host {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.left-part {
+  width: $width-layout-middle;
+  border-right: $border-layout;
+  padding: 20px;
+}
+
+.right-part {
+  width: $width-layout-right;
+  padding: 20px;
+}

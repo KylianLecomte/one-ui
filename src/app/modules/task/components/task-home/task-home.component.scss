@@ -1,0 +1,57 @@
+@import "../../../../../styles/variables";
+
+:host {
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+
+  & .header {
+    background-color: $color-light;
+    grid-column: 1 / 999;
+    border: $border;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    padding: 10px 20px;
+  }
+
+  & .row {
+    grid-column: 1 / 999;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 20px 40px auto auto 30px;
+    border-right: $border;
+    border-left: $border;
+    padding: 5px 20px;
+    grid-gap: 20px;
+    align-items: center;
+
+    & .task-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:last-child {
+      border-bottom: $border;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+
+    &:hover {
+      background-color: $color-hover;
+    }
+
+    &.selected {
+      background-color: $color-main-light;
+    }
+  }
+
+  & .expended-content {
+    padding: 8px;
+    width: 100%;
+    grid-column: 1 / 999;
+  }
+}
+

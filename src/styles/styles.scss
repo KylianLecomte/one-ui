@@ -1,0 +1,104 @@
+@import "./variables";
+
+/*** RESET ***/
+html, body {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  font-family: 'Montserrat', 'sans-serif', "Inter", sans-serif;
+  box-sizing: border-box;
+  font-size: $font-size-normal;
+  color: $font-color-main;
+}
+
+app-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  outline: none;
+}
+
+button {
+  height: $height-button;
+  padding: 8px;
+  cursor: pointer;
+  border: $border;
+  border-radius: $border-radius;
+  color: $font-color-main;
+  background-color: transparent;
+
+  &:hover {
+    background-color: $color-hover;
+  }
+
+  &.btn-icon {
+    border: none;
+    font-size: inherit;
+    width: 34px;
+    height: 34px;
+
+    &:hover {
+      background-color: $color-white;
+    }
+
+    & fa-icon {
+      margin: 0;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+p { margin: 0; padding: 0; }
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/*** COMMON ***/
+.card {
+  padding: 16px;
+  border-radius: 4px;
+  display: flex;
+}
+
+input[type="text"],
+input[type="password"]{
+  padding: $padding-input-text;
+  height: $height-input-text;
+  border-radius: 4px;
+  border: 1px solid $border-color-gray;
+
+  &:focus {
+    border: 1px solid $color-hover;
+  }
+}
+
+button.primary {
+  padding: 8px;
+  border-radius: 6px;
+  color: white;
+  border: none;
+  background-color: $color-main;
+
+  &:active, &:hover {
+    background-color: $color-main-hover;
+  }
+}
+
+.error-message {
+  color: $color-message-error;
+  font-size: $font-size-error-message;
+}
+
+fa-icon {
+  margin: $margin-icon;
+}
