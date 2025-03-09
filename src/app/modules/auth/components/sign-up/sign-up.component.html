@@ -1,21 +1,42 @@
 <form class="card" [formGroup]="signUpForm" (ngSubmit)="onClickSubmit()">
   <label for="inputEmail">E-mail<one-required /></label>
-  <input id="inputEmail" placeholder="Entrez votre adresse e-mail" type="text" formControlName="email">
-  @if (this.signUpForm.get('email')?.errors?.['require']) {
+  <input
+    id="inputEmail"
+    placeholder="Entrez votre adresse e-mail"
+    type="text"
+    formControlName="email"
+  />
+  @if (this.signUpForm.get("email")?.errors?.["require"]) {
     <span class="error-message">L'adresse e-mail est obligatoire</span>
   }
   <label for="inputPwd">Mot de passe<one-required /></label>
-  <input id="inputPwd" placeholder="Entrez votre mot de passe" type="text" formControlName="password">
-  @if (this.signUpForm.get('password')?.errors?.['require']) {
+  <input
+    id="inputPwd"
+    placeholder="Entrez votre mot de passe"
+    type="text"
+    formControlName="password"
+  />
+  @if (this.signUpForm.get("password")?.errors?.["require"]) {
     <span class="error-message">Le mot de passe est obligatoire</span>
   }
-  <label for="inputConfirmPwd">Confirmation du mot de passe<one-required /></label>
-  <input id="inputConfirmPwd" placeholder="Confirmez votre mot de passe" type="text" formControlName="confirmationPassword">
-  @if (this.signUpForm.get('confirmationPassword')?.errors?.['require']) {
-    <span class="error-message">La confirmation du mot de passe est obligatoire</span>
+  <label for="inputConfirmPwd"
+    >Confirmation du mot de passe<one-required
+  /></label>
+  <input
+    id="inputConfirmPwd"
+    placeholder="Confirmez votre mot de passe"
+    type="text"
+    formControlName="confirmationPassword"
+  />
+  @if (this.signUpForm.get("confirmationPassword")?.errors?.["require"]) {
+    <span class="error-message"
+      >La confirmation du mot de passe est obligatoire</span
+    >
   }
-  @if (this.signUpForm.errors?.['equalValues']) {
-    <span class="error-message">Le mot de passe sa confirmation doivent être identique</span>
+  @if (this.signUpForm.errors?.["equalValues"]) {
+    <span class="error-message"
+      >Le mot de passe sa confirmation doivent être identique</span
+    >
   }
   <button class="primary" type="submit">S'inscrire</button>
 </form>

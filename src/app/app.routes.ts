@@ -8,20 +8,26 @@ export const routes: Routes = [
   { path: '', redirectTo: AppUrlConf.task.base, pathMatch: 'full' },
   {
     path: AppUrlConf.signUp,
-    component: SignUpComponent
+    component: SignUpComponent,
   },
   {
     path: AppUrlConf.signIn,
-    component: SignInComponent
+    component: SignInComponent,
   },
   {
     path: AppUrlConf.task.base,
     canActivate: [authGuard],
-    loadComponent: () => import('./modules/task/components/task-home/task-home.component').then(c => c.TaskHomeComponent)
+    loadComponent: () =>
+      import('./modules/task/components/task-home/task-home.component').then(
+        (c) => c.TaskHomeComponent,
+      ),
   },
   {
     path: AppUrlConf.cook.base,
     canActivate: [authGuard],
-    loadComponent: () => import('./modules/cook/components/cook-home/cook-home.component').then(c => c.CookHomeComponent)
-  }
+    loadComponent: () =>
+      import('./modules/cook/components/cook-home/cook-home.component').then(
+        (c) => c.CookHomeComponent,
+      ),
+  },
 ];

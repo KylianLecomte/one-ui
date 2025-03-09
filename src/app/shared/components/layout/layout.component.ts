@@ -4,11 +4,9 @@ import { NgClass } from '@angular/common';
 @Component({
   selector: 'one-layout',
   standalone: true,
-  imports: [
-    NgClass
-  ],
+  imports: [NgClass],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss'
+  styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
   openedRightSide: InputSignal<boolean> = input(false);

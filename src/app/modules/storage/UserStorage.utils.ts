@@ -2,12 +2,12 @@ import { LocalStorageUtils } from './LocalStorage.utils';
 import { AuthUser } from '../auth/domain/dtos/auth.dto';
 
 export enum TypeToken {
-  ACCESS_TOKEN = "accessToken",
-  REFRESH_TOKEN = "refreshToken",
+  ACCESS_TOKEN = 'accessToken',
+  REFRESH_TOKEN = 'refreshToken',
 }
 
 export const UserStorageUtils = {
-  CURRENT_USER_KEY: "current_user",
+  CURRENT_USER_KEY: 'current_user',
 
   set(authUser: AuthUser): void {
     LocalStorageUtils.set(UserStorageUtils.CURRENT_USER_KEY, authUser);
@@ -31,5 +31,5 @@ export const UserStorageUtils = {
     }
 
     return token;
-  }
-}
+  },
+};

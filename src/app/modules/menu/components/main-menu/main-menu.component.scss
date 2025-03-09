@@ -50,7 +50,7 @@ li {
   }
 }
 
-li:hover, li:has(a.active) {
+li:hover,
+li:has(a.active) {
   background-color: $color-hover;
 }
-

@@ -1,10 +1,12 @@
-<one-layout
-  [openedRightSide]="!!selectedTaskId"
->
+<one-layout [openedRightSide]="!!selectedTaskId">
   <div class="container" left-part>
-
     <div class="mb-2">
-      <input (keyup.enter)="onClickAddTask()" [formControl]="taskControl" class="mr-2" type="text"/>
+      <input
+        (keyup.enter)="onClickAddTask()"
+        [formControl]="taskControl"
+        class="mr-2"
+        type="text"
+      />
       <button (click)="onClickAddTask()">Ajouter</button>
     </div>
 
@@ -13,9 +15,13 @@
         <span>Due today</span>
       </div>
       @for (task of tasks; track task.id) {
-        <div [ngClass]="taskIsSelected(task.id) ? 'row selected' : 'row ' ">
+        <div [ngClass]="taskIsSelected(task.id) ? 'row selected' : 'row '">
           <div class="cellCollapse">
-            <input [checked]="taskIsDone(task.state)" type="checkbox" (click)="onCheck(task)"/>
+            <input
+              [checked]="taskIsDone(task.state)"
+              type="checkbox"
+              (click)="onCheck(task)"
+            />
           </div>
           <div (click)="onSelected(task.id)">
             <span>{{ task.state }}</span>

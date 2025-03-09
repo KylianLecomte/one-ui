@@ -15,9 +15,9 @@ export const LocalStorageUtils = {
     try {
       return JSON.parse(data ?? '') as T;
     } catch (e) {
-      console.error("Failed to parse json:", key);
-      console.error("Error:", e);
+      console.error('Failed to parse json:', key);
+      console.error('Error:', e);
       return undefined;
     }
-  }
-}
+  },
+};

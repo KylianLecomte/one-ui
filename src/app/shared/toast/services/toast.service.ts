@@ -1,19 +1,28 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Toast, ToastType } from '../domain/dtos/toast.dto';
-import { faCheck, faInfoCircle, faTimesCircle, faWarning } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faInfoCircle,
+  faTimesCircle,
+  faWarning,
+} from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ToastService {
   private toasts: Toast[] = [];
-  private readonly toastSubject: BehaviorSubject<Toast[]> = new BehaviorSubject<Toast[]>([]);
+  private readonly toastSubject: BehaviorSubject<Toast[]> = new BehaviorSubject<
+    Toast[]
+  >([]);
   toasts$: Observable<Toast[]> = this.toastSubject.asObservable();
 
   remove(id: number): void {
-    this.toasts = this.toasts.filter((toast: Toast): boolean => toast.id !== id);
+    this.toasts = this.toasts.filter(
+      (toast: Toast): boolean => toast.id !== id,
+    );
     this.toastSubject.next(this.toasts);
   }
 
@@ -33,7 +42,12 @@ export class ToastService {
     return this.show(title, message, 'warning', faWarning);
   }
 
-  private show(title: string, message: string, type: ToastType, icon: IconDefinition): number {
+  private show(
+    title: string,
+    message: string,
+    type: ToastType,
+    icon: IconDefinition,
+  ): number {
     const id: number = Date.now();
     this.toasts.push({ id, title, message, type, icon });
     this.toastSubject.next(this.toasts);
@@ -41,5 +55,3 @@ export class ToastService {
     return id;
   }
 }
-
-

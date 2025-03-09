@@ -15,30 +15,36 @@ import { Toast } from '../../domain/dtos/toast.dto';
   animations: [
     trigger('toastAnimation', [
       transition(':enter', [
-        style({transform: 'translateY(100%)', opacity: 0}),
-        animate('300ms ease-out', style({transform: 'translateY(0%)', opacity: 1}))
+        style({ transform: 'translateY(100%)', opacity: 0 }),
+        animate(
+          '300ms ease-out',
+          style({ transform: 'translateY(0%)', opacity: 1 }),
+        ),
       ]),
       transition(':leave', [
-        animate('300ms ease-in', style({transform: 'translateX(100%)', opacity: 0}))
+        animate(
+          '300ms ease-in',
+          style({ transform: 'translateX(100%)', opacity: 0 }),
+        ),
       ]),
     ]),
-  ]
+  ],
 })
 export class ToasterComponent implements OnInit, OnDestroy {
-
-
   toasts: Toast[] = [];
   private readonly toastService: ToastService = inject(ToastService);
   private subscription: Subscription | undefined;
 
   ngOnDestroy(): void {
-    if(this.subscription) {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
 
   ngOnInit(): void {
-    this.subscription = this.toastService.toasts$.subscribe(toasts => this.toasts = toasts);
+    this.subscription = this.toastService.toasts$.subscribe(
+      (toasts) => (this.toasts = toasts),
+    );
   }
 
   removeToast(id: number): void {

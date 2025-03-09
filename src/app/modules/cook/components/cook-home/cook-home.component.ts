@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './cook-home.component.html',
-  styleUrl: './cook-home.component.scss'
+  styleUrl: './cook-home.component.scss',
 })
-export class CookHomeComponent {
-
-}
+export class CookHomeComponent {}

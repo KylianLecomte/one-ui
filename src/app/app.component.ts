@@ -10,7 +10,7 @@ import { AuthService } from './modules/auth/services/auth.service';
   standalone: true,
   imports: [CommonModule, RouterOutlet, ToasterComponent, MainMenuComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title: string = 'one-ui';

@@ -1,4 +1,4 @@
-export const LOCAL_API_PATH =  "http://localhost:3000/v1";
+export const LOCAL_API_PATH = 'http://localhost:3000/v1';
 
 export const API_URI_CONF = {
   auth: {
