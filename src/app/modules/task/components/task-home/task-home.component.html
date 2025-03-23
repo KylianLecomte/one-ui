@@ -1,4 +1,4 @@
-<one-layout [openedRightSide]="!!selectedTaskId">
+<one-layout [openedRightSide]="!!selectedTask">
   <div class="container" left-part>
     <div class="mb-2">
       <input
@@ -15,33 +15,11 @@
         <span>Due today</span>
       </div>
       @for (task of tasks; track task.id) {
-        <div [ngClass]="taskIsSelected(task.id) ? 'row selected' : 'row '">
-          <div class="cellCollapse">
-            <input
-              [checked]="taskIsDone(task.state)"
-              type="checkbox"
-              (click)="onCheck(task)"
-            />
-          </div>
-          <div (click)="onSelected(task.id)">
-            <span>{{ task.state }}</span>
-          </div>
-          <div class="task-name" (click)="onSelected(task.id)">
-            <span>{{ task.name }}</span>
-          </div>
-          <div (click)="onSelected(task.id)">
-            <span>{{ task.description }}</span>
-          </div>
-          <div>
-            <button (click)="onDelete(task)" class="btn-icon">
-              <fa-icon [icon]="faTrashCan"></fa-icon>
-            </button>
-          </div>
-        </div>
+        <one-task-row [task]="task"></one-task-row>
       }
     </div>
   </div>
-  <div class="expended-content" right-part>
-    {{ selectedTask?.name }}
-  </div>
+  <ng-container class="expended-content" right-part>
+    <one-task-details [task]="selectedTaskSignal"></one-task-details>
+  </ng-container>
 </one-layout>

@@ -15,4 +15,8 @@
 .right-part {
   width: $width-layout-right;
   padding: 20px;
+
+  &.collapsed {
+    display: none;
+  }
 }

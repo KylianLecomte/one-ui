@@ -1,0 +1,12 @@
+<input
+  (blur)="onBlur()"
+  (ngModelChange)="onTaskNameChange($event)"
+  [(ngModel)]="taskNameCtrl"
+  class="input-invisible"
+/>
+<input
+  (blur)="onBlur()"
+  [(ngModel)]="taskDescriptionCtrl"
+  class="input-invisible mt-2"
+  placeholder="Description"
+/>

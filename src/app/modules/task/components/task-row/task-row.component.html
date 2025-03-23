@@ -1,0 +1,26 @@
+<div (click)="onCheck()" class="task-state">
+  @switch (task.state) {
+    @case (TaskState.Todo) {
+      <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
+    }
+    @case (TaskState.Done) {
+      <fa-icon class="task-done" [icon]="faCircleCheck"></fa-icon>
+    }
+    @case (TaskState.Canceled) {
+      <fa-icon class="task-canceled" [icon]="faTimesCircle"></fa-icon>
+    }
+  }
+</div>
+<div class="task-name">
+  <input
+    (blur)="onBlur()"
+    (ngModelChange)="onTaskNameChange($event)"
+    [(ngModel)]="taskNameCtrl"
+    class="input-invisible"
+  />
+</div>
+<div>
+  <button (click)="onDelete()" class="btn-icon">
+    <fa-icon [icon]="faTrashCan"></fa-icon>
+  </button>
+</div>

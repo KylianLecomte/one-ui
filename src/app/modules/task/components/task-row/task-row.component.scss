@@ -1,0 +1,63 @@
+@import "../../../../../styles/variables";
+
+:host {
+  grid-column: 1 / 999;
+  border-right: $border;
+  border-left: $border;
+  padding: 5px 20px;
+
+  &:hover {
+    background-color: $color-hover;
+
+    & * {
+      background-color: $color-hover;
+    }
+  }
+
+  &:last-child {
+    border-bottom: $border;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+
+  &.selected {
+    background-color: $color-main-light;
+
+    & * {
+      background-color: $color-main-light;
+    }
+  }
+
+  &.row {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 20px auto 30px;
+    grid-gap: 20px;
+    align-items: center;
+  }
+
+  & .task-todo,
+  & .task-done,
+  & .task-canceled {
+    width: $size-task-state;
+    height: $size-task-state;
+  }
+
+  & .task-todo {
+    color: $color-task-todo;
+  }
+
+  & .task-done {
+    color: $color-task-done;
+  }
+
+  & .task-canceled {
+    color: $color-task-canceled;
+  }
+}
+
+.expended-content {
+  padding: 8px;
+  width: 100%;
+  grid-column: 1 / 999;
+}

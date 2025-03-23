@@ -17,6 +17,11 @@ $color-light: #e9effd89;
 $color-hover: #f3f6ffff;
 $color-white: white;
 
+// Task state
+$color-task-todo: #414141;
+$color-task-done: #49a942;
+$color-task-canceled: #a94442;
+
 // Spacing
 $padding-main-container: 10px;
 $margin-right-icon: 6px;
@@ -36,6 +41,7 @@ $width-layout-right: calc(100% - $width-menu - $width-layout-middle);
 $height-input-text: 12px;
 $padding-input-text: 10px;
 $height-button: 34px;
+$size-task-state: 20px;
 
 // Border
 $border-radius: 4px;
