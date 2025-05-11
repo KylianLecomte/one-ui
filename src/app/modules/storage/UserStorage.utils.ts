@@ -1,5 +1,6 @@
 import { LocalStorageUtils } from './LocalStorage.utils';
 import { AuthUser } from '../auth/domain/dtos/auth.dto';
+import { JwtTokens } from '../auth/domain/dtos/auth-token.dto';
 
 export enum TypeToken {
   ACCESS_TOKEN = 'accessToken',
@@ -29,7 +30,19 @@ export const UserStorageUtils = {
     } else if (typeToken === TypeToken.REFRESH_TOKEN) {
       token = UserStorageUtils.get()?.user.refreshToken;
     }
-
     return token;
+  },
+
+  updateTokens(tokens: JwtTokens): void {
+    const currentAuthUser: AuthUser | undefined = UserStorageUtils.get();
+
+    if (!currentAuthUser) {
+      throw new Error('Fail to get user from localStorage');
+    }
+
+    currentAuthUser.accessToken = tokens.accessToken;
+    currentAuthUser.user.refreshToken = tokens.refreshToken;
+
+    UserStorageUtils.set(currentAuthUser);
   },
 };

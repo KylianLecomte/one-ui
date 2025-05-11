@@ -1,4 +1,4 @@
-export const AppUrlConf = {
+export const APP_URL_CONF = {
   signUp: 'sign-up',
   signIn: 'sign-in',
   task: {

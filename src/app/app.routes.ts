@@ -2,20 +2,20 @@ import { Routes } from '@angular/router';
 import { SignUpComponent } from './modules/auth/components/sign-up/sign-up.component';
 import { SignInComponent } from './modules/auth/components/sign-in/sign-in.component';
 import { authGuard } from './modules/auth/guards/auth.guard';
-import { AppUrlConf } from '../configuration/app-url.conf';
+import { APP_URL_CONF } from '../configuration/app-url.conf';
 
 export const routes: Routes = [
-  { path: '', redirectTo: AppUrlConf.task.base, pathMatch: 'full' },
+  { path: '', redirectTo: APP_URL_CONF.task.base, pathMatch: 'full' },
   {
-    path: AppUrlConf.signUp,
+    path: APP_URL_CONF.signUp,
     component: SignUpComponent,
   },
   {
-    path: AppUrlConf.signIn,
+    path: APP_URL_CONF.signIn,
     component: SignInComponent,
   },
   {
-    path: AppUrlConf.task.base,
+    path: APP_URL_CONF.task.base,
     canActivate: [authGuard],
     loadComponent: () =>
       import('./modules/task/components/task-home/task-home.component').then(
@@ -23,11 +23,12 @@ export const routes: Routes = [
       ),
   },
   {
-    path: AppUrlConf.cook.base,
+    path: APP_URL_CONF.cook.base,
     canActivate: [authGuard],
     loadComponent: () =>
       import('./modules/cook/components/cook-home/cook-home.component').then(
         (c) => c.CookHomeComponent,
       ),
   },
+  // TODO ajouter une page 404
 ];

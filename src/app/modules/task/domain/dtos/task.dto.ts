@@ -1,13 +1,9 @@
 import { TaskState } from './task-state.enum';
+import { IDto } from '../../../../shared/api/domain/dtos/api.dtos';
 
-export type Task = {
-  id: string;
+export interface ITask extends IDto {
   name: string;
   state: TaskState;
   stateDate?: Date;
   description?: string;
-};
-
-export type TaskCreate = Omit<Task, 'id'>;
-
-export type TaskUpdate = Partial<Omit<Task, 'id'>>;
+}

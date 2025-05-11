@@ -7,14 +7,14 @@ export type JSONValue =
       [x: string]: JSONValue;
     }
   | Array<JSONValue>
-  | IApiDto;
+  | IDto;
 
 export type JSONObject =
   | {
       [x: string]: JSONValue;
     }
   | Array<JSONObject>
-  | IApiDto;
+  | IDto;
 
 export type JSON = {
   [x: string]: JSON | Primitif;
@@ -26,15 +26,10 @@ export type Target = {
   };
 };
 
-export interface IApiDto {
+export interface IDto {
   id?: ID;
   creationDate?: string;
   updatedDate?: string;
   deletedDate?: string;
   active?: boolean;
-}
-
-export interface IDto {
-  id: ID;
-  [x: string]: JSON | Primitif;
 }

@@ -1,17 +1,13 @@
-import { Component, inject, OnInit, WritableSignal } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
-import { Task, TaskCreate } from '../../domain/dtos/task.dto';
+import { ITask } from '../../domain/dtos/task.dto';
 import { TaskState } from '../../domain/dtos/task-state.enum';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LayoutComponent } from '../../../../shared/components/layout/layout.component';
 import { TaskRowComponent } from '../task-row/task-row.component';
 import { TaskDetailsComponent } from '../task-details/task-details.component';
+import { TaskStateService } from '../../services/task.state.service';
 
 @Component({
   selector: 'one-task-home',
@@ -29,20 +25,16 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
 export class TaskHomeComponent implements OnInit {
   taskService: TaskService = inject(TaskService);
   formBuilder: FormBuilder = inject(FormBuilder);
-  taskControl: FormControl = this.formBuilder.control('', [
-    Validators.required,
-  ]);
+  taskStateService: TaskStateService = inject(TaskStateService);
 
-  get selectedTask(): Task | undefined {
-    return this.taskService.selectedTask();
+  taskControl: FormControl = this.formBuilder.control('', [Validators.required]);
+
+  get selectedTask(): ITask | undefined {
+    return this.taskStateService.selectedTask();
   }
 
-  get selectedTaskSignal(): WritableSignal<Task | undefined> {
-    return this.taskService.selectedTask;
-  }
-
-  get tasks(): Task[] {
-    return this.taskService.tasks();
+  get tasks(): ITask[] {
+    return this.taskStateService.tasks();
   }
 
   ngOnInit(): void {
@@ -54,7 +46,7 @@ export class TaskHomeComponent implements OnInit {
       return;
     }
 
-    const task: TaskCreate = {
+    const task: ITask = {
       name: this.taskControl.value,
       state: TaskState.Todo,
       stateDate: new Date(),

@@ -9,20 +9,14 @@ import {
   OnInit,
   Signal,
 } from '@angular/core';
-import {
-  FontAwesomeModule,
-  IconDefinition,
-} from '@fortawesome/angular-fontawesome';
-import {
-  faCircle,
-  faCircleCheck,
-  faTrashCan,
-} from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
+import { faCircle, faCircleCheck, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { TaskState } from '../../domain/dtos/task-state.enum';
-import { Task } from '../../domain/dtos/task.dto';
+import { ITask } from '../../domain/dtos/task.dto';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { TaskStateService } from '../../services/task.state.service';
 
 @Component({
   selector: 'one-task-row',
@@ -39,22 +33,23 @@ export class TaskRowComponent implements OnInit {
   readonly TaskState: typeof TaskState = TaskState;
 
   taskService: TaskService = inject(TaskService);
+  taskStateService: TaskStateService = inject(TaskStateService);
 
-  @Input({ required: true }) task!: Task;
+  @Input({ required: true }) task!: ITask;
   taskNameCtrl!: string;
 
   @HostBinding('class') hostClass: string = 'row';
 
   isSelected: Signal<boolean> = computed(
-    (): boolean => this.taskService.selectedTask()?.id === this.task.id,
+    (): boolean => this.taskStateService.selectedTask()?.id === this.task.id,
   );
 
   constructor() {
     effect((): void => {
       this.hostClass = this.isSelected() ? 'row selected' : 'row ';
 
-      const selectedTask: Task | undefined = this.taskService.selectedTask();
-      if (selectedTask?.id === this.task.id) {
+      const selectedTask: ITask | undefined = this.taskStateService.selectedTask();
+      if (selectedTask && selectedTask?.id === this.task.id) {
         this.taskNameCtrl = selectedTask.name;
       }
     });
@@ -64,28 +59,25 @@ export class TaskRowComponent implements OnInit {
     this.taskNameCtrl = this.task.name;
   }
 
-  @HostListener('click', ['$event'])
-  onSelected(event: any): void {
-    event.preventDefault();
-    this.taskService.selectedTaskChanged(this.task);
+  @HostListener('click')
+  onSelected(): void {
+    this.taskStateService.setSelectedTask(this.task);
   }
 
   onCheck(): void {
-    this.task.state =
-      this.task.state === TaskState.Todo ? TaskState.Done : TaskState.Todo;
+    this.task.state = this.task.state === TaskState.Todo ? TaskState.Done : TaskState.Todo;
 
     this.taskService.update(this.task.id, this.task);
   }
 
   @HostListener('window:keydown.delete', ['$event'])
-  onDelete(): void {
-    if (this.isSelected()) {
-      this.taskService.delete(this.task.id);
-    }
+  onDelete(event: any): void {
+    this.taskService.delete(this.task.id);
+    event.stopPropagation();
   }
 
   onTaskNameChange(value: string): void {
-    this.taskService.selectedTaskNameChanged(value);
+    this.taskStateService.selectedTaskNameChanged(value);
   }
 
   onBlur(): void {

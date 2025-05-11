@@ -19,8 +19,6 @@
     class="input-invisible"
   />
 </div>
-<div>
-  <button (click)="onDelete()" class="btn-icon">
-    <fa-icon [icon]="faTrashCan"></fa-icon>
-  </button>
-</div>
+<button (click)="onDelete($event)" class="btn-icon">
+  <fa-icon [icon]="faTrashCan"></fa-icon>
+</button>
