@@ -17,18 +17,12 @@ export const routes: Routes = [
   {
     path: APP_URL_CONF.task.base,
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./modules/task/components/task-home/task-home.component').then(
-        (c) => c.TaskHomeComponent,
-      ),
+    loadComponent: () => import('./modules/task/task.component').then((c) => c.TaskComponent),
   },
   {
     path: APP_URL_CONF.cook.base,
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./modules/cook/components/cook-home/cook-home.component').then(
-        (c) => c.CookHomeComponent,
-      ),
+    loadComponent: () => import('./modules/cook/cook.component').then((c) => c.CookComponent),
   },
   // TODO ajouter une page 404
 ];

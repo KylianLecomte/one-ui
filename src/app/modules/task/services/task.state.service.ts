@@ -6,11 +6,9 @@ import { getTasksFilteredOnId } from '../domain/utils/task.utils';
 @Injectable({
   providedIn: 'root',
 })
-export class TaskStateService {
+export abstract class TaskStateService {
   private readonly _tasks: WritableSignal<ITask[]> = signal([]);
   private readonly _selectedTask: WritableSignal<ITask | undefined> = signal(undefined);
-
-  constructor() {}
 
   get tasks(): Signal<ITask[]> {
     return this._tasks.asReadonly();
@@ -18,6 +16,10 @@ export class TaskStateService {
 
   get selectedTask(): Signal<ITask | undefined> {
     return this._selectedTask.asReadonly();
+  }
+
+  get selectedTaskValue(): ITask | undefined {
+    return this._selectedTask();
   }
 
   setSelectedTask(task: ITask): void {
@@ -29,8 +31,11 @@ export class TaskStateService {
   }
 
   selectedTaskNameChanged(name: string): void {
-    // TODO: pourquoi obligé le as Task ?
-    this._selectedTask.set({ ...this._selectedTask(), name: name } as ITask);
+    if (!this.selectedTaskValue) {
+      return;
+    }
+
+    this._selectedTask.set({ ...this.selectedTaskValue, name: name });
   }
 
   deleteTask(id: ID): void {
@@ -39,5 +44,13 @@ export class TaskStateService {
     if (this._selectedTask() && this._selectedTask()?.id === id) {
       this._selectedTask.set(undefined);
     }
+  }
+
+  setObject(object: ITask): void {
+    this._selectedTask.set(object);
+  }
+
+  setObjects(objects: ITask[]): void {
+    this._tasks.set(objects);
   }
 }

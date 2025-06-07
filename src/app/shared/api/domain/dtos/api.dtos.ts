@@ -1,23 +1,12 @@
 export type ID = string | number | undefined | null;
 export type Primitif = string | number | boolean | undefined | null;
 
-export type JSONValue =
-  | Primitif
-  | {
-      [x: string]: JSONValue;
-    }
-  | Array<JSONValue>
-  | IDto;
+export type JSONValue = Primitif | JSON | Array<JSONValue> | IDto;
 
-export type JSONObject =
-  | {
-      [x: string]: JSONValue;
-    }
-  | Array<JSONObject>
-  | IDto;
+export type JSONObject = JSON | Array<JSONObject> | IDto;
 
 export type JSON = {
-  [x: string]: JSON | Primitif;
+  [x: string]: JSONValue;
 };
 
 export type Target = {

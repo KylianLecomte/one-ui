@@ -1,6 +1,6 @@
 import { LocalStorageUtils } from './LocalStorage.utils';
-import { AuthUser } from '../auth/domain/dtos/auth.dto';
-import { JwtTokens } from '../auth/domain/dtos/auth-token.dto';
+import { AuthUser } from '../../modules/auth/domain/dtos/auth.dto';
+import { JwtTokens } from '../../modules/auth/domain/dtos/auth-token.dto';
 
 export enum TypeToken {
   ACCESS_TOKEN = 'accessToken',

@@ -2,11 +2,11 @@ import { inject, Injectable } from '@angular/core';
 import { AuthUser, SignIn, SignUp } from '../domain/dtos/auth.dto';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { UserStorageUtils } from '../../storage/UserStorage.utils';
+import { UserStorageUtils } from '../../../shared/storage/UserStorage.utils';
 import { Router } from '@angular/router';
 import { JwtTokens } from '../domain/dtos/auth-token.dto';
 import { API_URI_CONF, LOCAL_API_PATH } from '../../../../configuration/api-uri.conf';
-import { RouterService } from '../../../shared/api/routing/route.service';
+import { RouterService } from '../../../shared/routing/route.service';
 
 @Injectable({
   providedIn: 'root',

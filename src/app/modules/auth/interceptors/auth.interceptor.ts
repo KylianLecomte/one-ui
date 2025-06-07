@@ -8,11 +8,11 @@ import {
 import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
-import { TypeToken, UserStorageUtils } from '../../storage/UserStorage.utils';
+import { TypeToken, UserStorageUtils } from '../../../shared/storage/UserStorage.utils';
 import { JwtTokens } from '../domain/dtos/auth-token.dto';
-import { RouterService } from '../../../shared/api/routing/route.service';
+import { RouterService } from '../../../shared/routing/route.service';
 import { API_URI_CONF } from '../../../../configuration/api-uri.conf';
-import { HttpHeadersUtils } from '../../../shared/api/utils/http-headers.utils';
+import { HttpHeadersUtils } from '../../../shared/utils/http-headers.utils';
 import { AuthUser } from '../domain/dtos/auth.dto';
 import { AuthUtils } from '../utils/auth.utils';
 

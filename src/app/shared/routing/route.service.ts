@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { APP_URL_CONF } from '../../../../configuration/app-url.conf';
+import { APP_URL_CONF } from '../../../configuration/app-url.conf';
 
 @Injectable({
   providedIn: 'root',

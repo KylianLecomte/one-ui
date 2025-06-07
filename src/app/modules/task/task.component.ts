@@ -1,16 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TaskService } from '../../services/task.service';
-import { ITask } from '../../domain/dtos/task.dto';
-import { TaskState } from '../../domain/dtos/task-state.enum';
+import { TaskService } from './services/task.service';
+import { ITask } from './domain/dtos/task.dto';
+import { TaskState } from './domain/dtos/task-state.enum';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LayoutComponent } from '../../../../shared/components/layout/layout.component';
-import { TaskRowComponent } from '../task-row/task-row.component';
-import { TaskDetailsComponent } from '../task-details/task-details.component';
-import { TaskStateService } from '../../services/task.state.service';
+import { LayoutComponent } from '../../shared/layout/layout.component';
+import { TaskRowComponent } from './components/task-row/task-row.component';
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { TaskStateService } from './services/task.state.service';
 
 @Component({
-  selector: 'one-task-home',
+  selector: 'one-task',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -19,10 +19,10 @@ import { TaskStateService } from '../../services/task.state.service';
     TaskRowComponent,
     TaskDetailsComponent,
   ],
-  templateUrl: './task-home.component.html',
-  styleUrl: './task-home.component.scss',
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.scss',
 })
-export class TaskHomeComponent implements OnInit {
+export class TaskComponent implements OnInit {
   taskService: TaskService = inject(TaskService);
   formBuilder: FormBuilder = inject(FormBuilder);
   taskStateService: TaskStateService = inject(TaskStateService);
