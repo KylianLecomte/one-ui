@@ -1,17 +1,11 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { SignIn } from '../../domain/dtos/auth.dto';
 import { RequiredComponent } from '../../../form/components/required/required.component';
 
 @Component({
   selector: 'one-sign-in',
-  standalone: true,
   imports: [ReactiveFormsModule, RequiredComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',

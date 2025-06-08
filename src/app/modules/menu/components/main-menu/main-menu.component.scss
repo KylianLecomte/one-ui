@@ -1,15 +1,15 @@
-@import "../../../../../styles/variables";
+@use "../../../../../styles/variables" as vars;
 
 :host {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-  border-right: $border-layout;
+  border-right: vars.$border-layout;
 }
 
 fa-icon {
-  color: $color-main;
+  color: vars.$color-main;
 }
 
 .container-profil {
@@ -19,8 +19,8 @@ fa-icon {
   & .icon-profil {
     padding: 10px;
     border-radius: 1000px;
-    border: $border;
-    margin: $margin-icon;
+    border: vars.$border;
+    margin: vars.$margin-icon;
 
     & fa-icon {
       display: block;
@@ -37,11 +37,11 @@ fa-icon {
 }
 
 nav {
-  width: $width-menu;
+  width: vars.$width-menu;
 }
 
 li {
-  border-radius: $border-radius;
+  border-radius: vars.$border-radius;
   padding: 5px 0 5px 10px;
   margin: 0 0 10px 0;
 
@@ -52,5 +52,5 @@ li {
 
 li:hover,
 li:has(a.active) {
-  background-color: $color-hover;
+  background-color: vars.$color-hover;
 }

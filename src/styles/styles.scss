@@ -1,4 +1,4 @@
-@import "./variables";
+@use "./variables" as vars;
 
 /*** RESET ***/
 html,
@@ -9,8 +9,8 @@ body {
   height: 100% !important;
   font-family: "Montserrat", "sans-serif", "Inter", sans-serif;
   box-sizing: border-box;
-  font-size: $font-size-normal;
-  color: $font-color-main;
+  font-size: vars.$font-size-normal;
+  color: vars.$font-color-main;
 }
 
 app-root {
@@ -24,16 +24,16 @@ input {
 }
 
 button {
-  height: $height-button;
+  height: vars.$height-button;
   padding: 8px;
   cursor: pointer;
-  border: $border;
-  border-radius: $border-radius;
-  color: $font-color-main;
+  border: vars.$border;
+  border-radius: vars.$border-radius;
+  color: vars.$font-color-main;
   background-color: transparent;
 
   &:hover {
-    background-color: $color-hover;
+    background-color: vars.$color-hover;
   }
 
   &.btn-icon {
@@ -43,7 +43,7 @@ button {
     height: 34px;
 
     &:hover {
-      background-color: $color-white;
+      background-color: vars.$color-white;
     }
 
     & fa-icon {
@@ -76,13 +76,13 @@ ul {
 
 input[type="text"],
 input[type="password"] {
-  padding: $padding-input-text;
-  height: $height-input-text;
+  padding: vars.$padding-input-text;
+  height: vars.$height-input-text;
   border-radius: 4px;
-  border: 1px solid $border-color-gray;
+  border: 1px solid vars.$border-color-gray;
 
   &:focus {
-    border: 1px solid $color-hover;
+    border: 1px solid vars.$color-hover;
   }
 }
 
@@ -103,19 +103,19 @@ button.primary {
   border-radius: 6px;
   color: white;
   border: none;
-  background-color: $color-main;
+  background-color: vars.$color-main;
 
   &:active,
   &:hover {
-    background-color: $color-main-hover;
+    background-color: vars.$color-main-hover;
   }
 }
 
 .error-message {
-  color: $color-message-error;
-  font-size: $font-size-error-message;
+  color: vars.$color-message-error;
+  font-size: vars.$font-size-error-message;
 }
 
 fa-icon {
-  margin: $margin-icon;
+  margin: vars.$margin-icon;
 }

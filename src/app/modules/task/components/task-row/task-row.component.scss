@@ -1,30 +1,30 @@
-@import "../../../../../styles/variables";
+@use "../../../../../styles/variables" as vars;
 
 :host {
   grid-column: 1 / 999;
-  border-right: $border;
-  border-left: $border;
+  border-right: vars.$border;
+  border-left: vars.$border;
   padding: 5px 20px;
 
   &:hover {
-    background-color: $color-hover;
+    background-color: vars.$color-hover;
 
     & * {
-      background-color: $color-hover;
+      background-color: vars.$color-hover;
     }
   }
 
   &:last-child {
-    border-bottom: $border;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
+    border-bottom: vars.$border;
+    border-bottom-left-radius: vars.$border-radius;
+    border-bottom-right-radius: vars.$border-radius;
   }
 
   &.selected {
-    background-color: $color-main-light;
+    background-color: vars.$color-main-light;
 
     & * {
-      background-color: $color-main-light;
+      background-color: vars.$color-main-light;
     }
   }
 
@@ -39,20 +39,20 @@
   & .task-todo,
   & .task-done,
   & .task-canceled {
-    width: $size-task-state;
-    height: $size-task-state;
+    width: vars.$size-task-state;
+    height: vars.$size-task-state;
   }
 
   & .task-todo {
-    color: $color-task-todo;
+    color: vars.$color-task-todo;
   }
 
   & .task-done {
-    color: $color-task-done;
+    color: vars.$color-task-done;
   }
 
   & .task-canceled {
-    color: $color-task-canceled;
+    color: vars.$color-task-canceled;
   }
 }
 

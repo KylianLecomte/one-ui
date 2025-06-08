@@ -1,5 +1,5 @@
 import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { ITask } from '../domain/dtos/task.dto';
+import { TaskDto } from '../domain/dtos/task.dto';
 import { ID } from '../../../shared/api/domain/dtos/api.dtos';
 import { getTasksFilteredOnId } from '../domain/utils/task.utils';
 
@@ -7,27 +7,27 @@ import { getTasksFilteredOnId } from '../domain/utils/task.utils';
   providedIn: 'root',
 })
 export abstract class TaskStateService {
-  private readonly _tasks: WritableSignal<ITask[]> = signal([]);
-  private readonly _selectedTask: WritableSignal<ITask | undefined> = signal(undefined);
+  private readonly _tasks: WritableSignal<TaskDto[]> = signal([]);
+  private readonly _selectedTask: WritableSignal<TaskDto | undefined> = signal(undefined);
 
-  get tasks(): Signal<ITask[]> {
+  get tasks(): Signal<TaskDto[]> {
     return this._tasks.asReadonly();
   }
 
-  get selectedTask(): Signal<ITask | undefined> {
+  get selectedTask(): Signal<TaskDto | undefined> {
     return this._selectedTask.asReadonly();
   }
 
-  get selectedTaskValue(): ITask | undefined {
+  get selectedTaskValue(): TaskDto | undefined {
     return this._selectedTask();
   }
 
-  setSelectedTask(task: ITask): void {
-    this._selectedTask.set(task);
+  setSelectedTask(task: TaskDto): void {
+    this._selectedTask.set({ ...task });
   }
 
-  setTasks(tasks: ITask[]): void {
-    this._tasks.set(tasks);
+  setTasks(tasks: TaskDto[]): void {
+    this._tasks.set([...tasks]);
   }
 
   selectedTaskNameChanged(name: string): void {
@@ -44,13 +44,5 @@ export abstract class TaskStateService {
     if (this._selectedTask() && this._selectedTask()?.id === id) {
       this._selectedTask.set(undefined);
     }
-  }
-
-  setObject(object: ITask): void {
-    this._selectedTask.set(object);
-  }
-
-  setObjects(objects: ITask[]): void {
-    this._tasks.set(objects);
   }
 }

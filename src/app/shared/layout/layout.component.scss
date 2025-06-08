@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@use "../../../styles/variables" as vars;
 
 :host {
   height: 100%;
@@ -7,13 +7,13 @@
 }
 
 .left-part {
-  width: $width-layout-middle;
-  border-right: $border-layout;
+  width: vars.$width-layout-middle;
+  border-right: vars.$border-layout;
   padding: 20px;
 }
 
 .right-part {
-  width: $width-layout-right;
+  width: vars.$width-layout-right;
   padding: 20px;
 
   &.collapsed {

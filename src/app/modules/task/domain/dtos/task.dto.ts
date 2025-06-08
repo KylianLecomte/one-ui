@@ -1,7 +1,7 @@
 import { TaskState } from './task-state.enum';
-import { IDto } from '../../../../shared/api/domain/dtos/api.dtos';
+import { Dto } from '../../../../shared/api/domain/dtos/api.dtos';
 
-export interface ITask extends IDto {
+export interface TaskDto extends Dto {
   name: string;
   state: TaskState;
   stateDate?: Date;

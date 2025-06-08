@@ -1,10 +1,5 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { SignUp } from '../../domain/dtos/auth.dto';
 import { RequiredComponent } from '../../../form/components/required/required.component';
@@ -12,7 +7,6 @@ import { equalValuesValidator } from '../../../../shared/validators/equalValuesV
 
 @Component({
   selector: 'one-sign-up',
-  standalone: true,
   imports: [ReactiveFormsModule, RequiredComponent],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',

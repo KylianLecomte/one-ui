@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@use "../../../styles/variables" as vars;
 
 :host {
   width: 100%;
@@ -8,11 +8,11 @@
   display: grid;
 
   & .header {
-    background-color: $color-light;
+    background-color: vars.$color-light;
     grid-column: 1 / 999;
-    border: $border;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
+    border: vars.$border;
+    border-top-left-radius: vars.$border-radius;
+    border-top-right-radius: vars.$border-radius;
     padding: 10px 20px;
   }
 

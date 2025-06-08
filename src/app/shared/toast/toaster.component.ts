@@ -8,7 +8,6 @@ import { Toast } from './domain/dtos/toast.dto';
 
 @Component({
   selector: 'one-toaster',
-  standalone: true,
   imports: [FontAwesomeModule, NgClass],
   templateUrl: './toaster.component.html',
   styleUrl: './toaster.component.scss',

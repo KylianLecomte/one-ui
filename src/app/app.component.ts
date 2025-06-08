@@ -7,7 +7,6 @@ import { AuthService } from './modules/auth/services/auth.service';
 
 @Component({
   selector: 'one-root',
-  standalone: true,
   imports: [CommonModule, RouterOutlet, ToasterComponent, MainMenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

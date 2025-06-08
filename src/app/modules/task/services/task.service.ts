@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ITask } from '../domain/dtos/task.dto';
+import { TaskDto } from '../domain/dtos/task.dto';
 import { API_URI_CONF, LOCAL_API_PATH } from '../../../../configuration/api-uri.conf';
 import { ApiService } from '../../../shared/api/services/api.service';
 import { getTasksFilteredOnId, taskSortingOnState } from '../domain/utils/task.utils';
@@ -19,23 +19,23 @@ export class TaskService extends TaskStateService {
     this.apiService.baseApiUrl = LOCAL_API_PATH;
   }
 
-  create(taskCreate: ITask): void {
-    this.apiService.post<ITask>(API_URI_CONF.task.create(), taskCreate, (task: ITask): void =>
-      this.setTasks([task, ...this.tasks()]),
-    );
+  create(taskCreate: TaskDto): void {
+    this.apiService.post<TaskDto>(API_URI_CONF.task.create(), taskCreate, (task: TaskDto): void => {
+      this.setTasks([task, ...this.tasks()]);
+    });
   }
 
   getAll(): void {
-    this.apiService.get<ITask[]>(API_URI_CONF.task.base, (tasks: ITask[]): void =>
+    this.apiService.get<TaskDto[]>(API_URI_CONF.task.base, (tasks: TaskDto[]): void =>
       this.setTasks(tasks),
     );
   }
 
-  update(id: ID, taskUpdate: ITask): void {
+  update(id: ID, taskUpdate: TaskDto): void {
     this.httpClient
-      .put<ITask>(`${LOCAL_API_PATH}${API_URI_CONF.task.updateById(id)}`, taskUpdate)
+      .put<TaskDto>(`${LOCAL_API_PATH}${API_URI_CONF.task.updateById(id)}`, taskUpdate)
       .subscribe({
-        next: (task: ITask): void => {
+        next: (task: TaskDto): void => {
           // TODO: pas fan de devoir retrier ici
           this.setTasks([task, ...getTasksFilteredOnId(this.tasks(), id)].sort(taskSortingOnState));
         },

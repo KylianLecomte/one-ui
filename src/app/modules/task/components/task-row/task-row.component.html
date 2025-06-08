@@ -1,5 +1,5 @@
 <div (click)="onCheck()" class="task-state">
-  @switch (task.state) {
+  @switch (task().state) {
     @case (TaskState.Todo) {
       <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
     }
