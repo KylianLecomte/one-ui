@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { TaskDto } from '../domain/dtos/task.dto';
 import { API_URI_CONF, LOCAL_API_PATH } from '../../../../configuration/api-uri.conf';
 import { ApiService } from '../../../shared/api/services/api.service';
-import { getTasksFilteredOnId, taskSortingOnState } from '../domain/utils/task.utils';
 import { ID } from '../../../shared/api/domain/dtos/api.dtos';
 import { TaskStateService } from './task.state.service';
+import { unselectTasks } from '../domain/utils/task.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -21,14 +21,16 @@ export class TaskService extends TaskStateService {
 
   create(taskCreate: TaskDto): void {
     this.apiService.post<TaskDto>(API_URI_CONF.task.create(), taskCreate, (task: TaskDto): void => {
-      this.setTasks([task, ...this.tasks()]);
+      task.isSelected = false;
+      this.addAndSortTask(task);
     });
   }
 
   getAll(): void {
-    this.apiService.get<TaskDto[]>(API_URI_CONF.task.base, (tasks: TaskDto[]): void =>
-      this.setTasks(tasks),
-    );
+    this.apiService.get<TaskDto[]>(API_URI_CONF.task.base, (tasks: TaskDto[]): void => {
+      unselectTasks(tasks);
+      this.setAndSortTasks(tasks);
+    });
   }
 
   update(id: ID, taskUpdate: TaskDto): void {
@@ -36,8 +38,8 @@ export class TaskService extends TaskStateService {
       .put<TaskDto>(`${LOCAL_API_PATH}${API_URI_CONF.task.updateById(id)}`, taskUpdate)
       .subscribe({
         next: (task: TaskDto): void => {
-          // TODO: pas fan de devoir retrier ici
-          this.setTasks([task, ...getTasksFilteredOnId(this.tasks(), id)].sort(taskSortingOnState));
+          task.isSelected = taskUpdate.isSelected;
+          this.updateTasks(task);
         },
       });
   }

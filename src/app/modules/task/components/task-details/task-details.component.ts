@@ -1,6 +1,5 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TaskService } from '../../services/task.service';
 import { TaskDto } from '../../domain/dtos/task.dto';
 
 @Component({
@@ -10,14 +9,15 @@ import { TaskDto } from '../../domain/dtos/task.dto';
   styleUrl: './task-details.component.scss',
 })
 export class TaskDetailsComponent {
-  taskService: TaskService = inject(TaskService);
-
   taskNameCtrl!: string;
   taskDescriptionCtrl?: string;
 
+  task: InputSignal<TaskDto> = input.required<TaskDto>();
+  update: OutputEmitterRef<TaskDto> = output<TaskDto>();
+
   constructor() {
     effect((): void => {
-      const selectedTask: TaskDto | undefined = this.taskService.selectedTask();
+      const selectedTask: TaskDto = this.task();
       if (selectedTask) {
         this.taskNameCtrl = selectedTask.name;
         this.taskDescriptionCtrl = selectedTask.description;
@@ -25,18 +25,14 @@ export class TaskDetailsComponent {
     });
   }
 
-  onTaskNameChange(value: string): void {
-    this.taskService.selectedTaskNameChanged(value);
+  onTaskNameChange(name: string): void {
+    this.task().name = name;
+    this.update.emit(this.task());
   }
 
   onBlur(): void {
-    const selectedTask: TaskDto | undefined = this.taskService.selectedTask();
-    if (selectedTask) {
-      this.taskService.update(selectedTask.id, {
-        ...selectedTask,
-        name: this.taskNameCtrl,
-        description: this.taskDescriptionCtrl,
-      });
-    }
+    this.task().name = this.taskNameCtrl;
+    this.task().description = this.taskDescriptionCtrl;
+    this.update.emit(this.task());
   }
 }

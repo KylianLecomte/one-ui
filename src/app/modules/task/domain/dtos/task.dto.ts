@@ -6,4 +6,5 @@ export interface TaskDto extends Dto {
   state: TaskState;
   stateDate?: Date;
   description?: string;
+  isSelected: boolean;
 }

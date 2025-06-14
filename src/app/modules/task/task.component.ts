@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 import { TaskRowComponent } from './components/task-row/task-row.component';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { ID } from '../../shared/api/domain/dtos/api.dtos';
 
 @Component({
   selector: 'one-task',
@@ -26,12 +27,12 @@ export class TaskComponent implements OnInit {
 
   taskControl: FormControl = this.formBuilder.control('', [Validators.required]);
 
-  get selectedTask(): TaskDto | undefined {
-    return this.taskService.selectedTask();
-  }
-
   get tasks(): TaskDto[] {
     return this.taskService.tasks();
+  }
+
+  get selectedTask(): TaskDto | undefined {
+    return this.taskService.selectedTask();
   }
 
   ngOnInit(): void {
@@ -48,10 +49,33 @@ export class TaskComponent implements OnInit {
       state: TaskState.Todo,
       stateDate: new Date(),
       description: '',
+      isSelected: false,
     };
 
     this.taskService.create(task);
     this.resetForm();
+  }
+
+  onUpdateTaskName(name: string, task: TaskDto): void {
+    task.name = name;
+    this.onUpdateTask(task);
+  }
+
+  onCheckTask(state: TaskState, task: TaskDto): void {
+    task.state = state;
+    this.onUpdateTask(task);
+  }
+
+  onUpdateTask(updatedTask: TaskDto): void {
+    this.taskService.update(updatedTask.id, updatedTask);
+  }
+
+  onDeleteTask(taskId: ID): void {
+    this.taskService.delete(taskId);
+  }
+
+  onSelectTask(selected: boolean, task: TaskDto): void {
+    this.taskService.selectedChange(task, selected);
   }
 
   private resetForm(): void {
