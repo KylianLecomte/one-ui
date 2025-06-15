@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 import { inject } from '@angular/core';
 import { APP_URL_CONF } from '../../../../../configuration/app-url.conf';
 
-export const noAuthGuardGuard: CanActivateFn = (
+export const noAuthGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
 ): boolean => {

@@ -8,6 +8,8 @@ import { LayoutComponent } from '../../shared/layout/layout.component';
 import { TaskRowComponent } from './components/task-row/task-row.component';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { ID } from '../../shared/api/domain/dtos/api.dtos';
+import { ContextMenuService } from '../../shared/menu/context-menu/services/context-menu.service';
+import { ContextMenuData } from '../../shared/menu/context-menu/models/context-menu-data.model';
 
 @Component({
   selector: 'one-task',
@@ -24,6 +26,7 @@ import { ID } from '../../shared/api/domain/dtos/api.dtos';
 export class TaskComponent implements OnInit {
   taskService: TaskService = inject(TaskService);
   formBuilder: FormBuilder = inject(FormBuilder);
+  contextMenuService: ContextMenuService = inject(ContextMenuService);
 
   taskControl: FormControl = this.formBuilder.control('', [Validators.required]);
 
@@ -76,6 +79,14 @@ export class TaskComponent implements OnInit {
 
   onSelectTask(selected: boolean, task: TaskDto): void {
     this.taskService.selectedChange(task, selected);
+  }
+
+  onOpenContextMenuTaskRow(cmData: ContextMenuData): void {
+    this.contextMenuService.onOpen(cmData);
+  }
+
+  onCloseContextMenuTaskRow(): void {
+    this.contextMenuService.onClose();
   }
 
   private resetForm(): void {

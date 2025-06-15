@@ -17,6 +17,10 @@ import { TaskDto } from '../../domain/dtos/task.dto';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
+import {
+  ContextMenuData,
+  ContextMenuItem,
+} from '../../../../shared/menu/context-menu/models/context-menu-data.model';
 
 @Component({
   selector: 'one-task-row',
@@ -31,16 +35,18 @@ export class TaskRowComponent implements OnInit {
   readonly faCircle: IconDefinition = faCircle;
   readonly faTimesCircle: IconDefinition = faTimesCircle;
   readonly TaskState: typeof TaskState = TaskState;
-
   task: InputSignal<TaskDto> = input.required<TaskDto>();
   taskNameCtrl!: string;
-
   selected: OutputEmitterRef<boolean> = output<boolean>();
   updateName: OutputEmitterRef<string> = output<string>();
   check: OutputEmitterRef<TaskState> = output<TaskState>();
   delete: OutputEmitterRef<ID> = output<ID>();
-
+  openContextMenu: OutputEmitterRef<ContextMenuData> = output<ContextMenuData>();
+  closeContextMenu: OutputEmitterRef<void> = output<void>();
   @HostBinding('class') hostClass: string = 'row';
+  private readonly _contextmenu: ContextMenuItem[] = [
+    { libelle: 'Supprimer', action: this.onDelete },
+  ];
 
   constructor() {
     effect((): void => {
@@ -68,6 +74,7 @@ export class TaskRowComponent implements OnInit {
 
   @HostListener('window:keydown.delete', ['$event'])
   onDelete(event: any): void {
+    console.log('onDelete');
     const id: ID = this.task().id;
     if (id) {
       this.delete.emit(id);
@@ -81,5 +88,20 @@ export class TaskRowComponent implements OnInit {
 
   onBlur(): void {
     this.onNameChange(this.taskNameCtrl);
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onContextMenu(event: MouseEvent): void {
+    event.preventDefault();
+    this.onSelected();
+    this.openContextMenu.emit({
+      items: this._contextmenu,
+      mousePosition: { x: event.clientX, y: event.clientY },
+    });
+  }
+
+  @HostListener('document:click')
+  closeMenu() {
+    this.closeContextMenu.emit();
   }
 }

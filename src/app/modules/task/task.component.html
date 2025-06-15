@@ -21,6 +21,8 @@
           (updateName)="onUpdateTaskName($event, task)"
           (check)="onCheckTask($event, task)"
           (delete)="onDeleteTask($event)"
+          (openContextMenu)="onOpenContextMenuTaskRow($event)"
+          (closeContextMenu)="onCloseContextMenuTaskRow()"
         ></one-task-row>
       }
     </div>

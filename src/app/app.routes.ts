@@ -3,18 +3,18 @@ import { SignUpComponent } from './modules/auth/components/sign-up/sign-up.compo
 import { SignInComponent } from './modules/auth/components/sign-in/sign-in.component';
 import { authGuard } from './modules/auth/guards/auth/auth.guard';
 import { APP_URL_CONF } from '../configuration/app-url.conf';
-import { noAuthGuardGuard } from './modules/auth/guards/no-auth/no-auth.guard.guard';
+import { noAuthGuard } from './modules/auth/guards/no-auth/no-auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: APP_URL_CONF.task.base, pathMatch: 'full' },
   {
     path: APP_URL_CONF.signUp,
-    canActivate: [noAuthGuardGuard],
+    canActivate: [noAuthGuard],
     component: SignUpComponent,
   },
   {
     path: APP_URL_CONF.signIn,
-    canActivate: [noAuthGuardGuard],
+    canActivate: [noAuthGuard],
     component: SignInComponent,
   },
   {
