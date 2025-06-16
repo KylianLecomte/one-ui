@@ -35,17 +35,21 @@ export class TaskRowComponent implements OnInit {
   readonly faCircle: IconDefinition = faCircle;
   readonly faTimesCircle: IconDefinition = faTimesCircle;
   readonly TaskState: typeof TaskState = TaskState;
-  task: InputSignal<TaskDto> = input.required<TaskDto>();
+
   taskNameCtrl!: string;
+
+  task: InputSignal<TaskDto> = input.required<TaskDto>();
+
   selected: OutputEmitterRef<boolean> = output<boolean>();
   updateName: OutputEmitterRef<string> = output<string>();
   check: OutputEmitterRef<TaskState> = output<TaskState>();
   delete: OutputEmitterRef<ID> = output<ID>();
   openContextMenu: OutputEmitterRef<ContextMenuData> = output<ContextMenuData>();
   closeContextMenu: OutputEmitterRef<void> = output<void>();
+
   @HostBinding('class') hostClass: string = 'row';
   private readonly _contextmenu: ContextMenuItem[] = [
-    { libelle: 'Supprimer', action: this.onDelete },
+    { libelle: 'Supprimer', action: () => this.onDelete() },
   ];
 
   constructor() {
@@ -73,13 +77,13 @@ export class TaskRowComponent implements OnInit {
   }
 
   @HostListener('window:keydown.delete', ['$event'])
-  onDelete(event: any): void {
+  onDelete(event?: any): void {
     console.log('onDelete');
     const id: ID = this.task().id;
     if (id) {
       this.delete.emit(id);
     }
-    event.stopPropagation();
+    event?.stopPropagation();
   }
 
   onNameChange(name: string): void {
