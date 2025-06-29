@@ -31,10 +31,6 @@ export class ContextMenuComponent {
   }
 
   get items(): ContextMenuItem[] {
-    return this.contextMenuService.items;
-  }
-
-  onAction(edit: string) {
-    console.log(edit);
+    return this.contextMenuService.data()?.items ?? [];
   }
 }

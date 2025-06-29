@@ -48,6 +48,7 @@ export class TaskRowComponent implements OnInit {
   closeContextMenu: OutputEmitterRef<void> = output<void>();
 
   @HostBinding('class') hostClass: string = 'row';
+
   private readonly _contextmenu: ContextMenuItem[] = [
     { libelle: 'Supprimer', action: () => this.onDelete() },
   ];

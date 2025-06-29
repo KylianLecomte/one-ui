@@ -1,0 +1,25 @@
+<table id="one-table">
+  <thead>
+    <tr>
+      @for (column of ColumnDefWithId(); track column.id) {
+        <th>{{ column.header }}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of datas(); track data.data) {
+      <tr (click)="onClickRow(data)">
+        @for (column of ColumnDefWithId(); track column.id) {
+          @if (column.cellTemplate) {
+            <ng-container
+              [ngTemplateOutlet]="column.cellTemplate"
+              [ngTemplateOutletContext]="{ $implicit: data.data, form: data.form }"
+            ></ng-container>
+          } @else {
+            {{ data | getCellValue: column.dataKey }}
+          }
+        }
+      </tr>
+    }
+  </tbody>
+</table>

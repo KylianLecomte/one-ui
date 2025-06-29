@@ -1,0 +1,24 @@
+@use "../../../styles/variables" as vars;
+
+#one-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  &:hover {
+    background-color: vars.$color-hover;
+
+    & * {
+      background-color: vars.$color-hover;
+    }
+  }
+
+  &.selected {
+    background-color: vars.$color-main-light;
+
+    & * {
+      background-color: vars.$color-main-light;
+    }
+  }
+}
