@@ -121,7 +121,6 @@ export class TaskComponent implements OnInit {
   }
 
   // onCheck(): void {
-  //   console.log('onCheck');
   //
   //   const state: TaskState = this.task().state === TaskState.Todo ? TaskState.Done : TaskState.Todo;
   //   this.check.emit(state);
