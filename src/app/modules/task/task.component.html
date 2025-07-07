@@ -1,6 +1,6 @@
 <one-layout [openedRightSide]="!!selectedTask">
   <div class="container" left-part>
-    <div class="mb-2">
+    <div class="mb-3">
       <input
         (keyup.enter)="onClickAddTask()"
         [formControl]="taskControl"
@@ -9,12 +9,17 @@
       />
       <button (click)="onClickAddTask()">Ajouter</button>
     </div>
-    <one-table
-      (clickRow)="onSelectTask($event)"
-      [columns]="columns()"
-      [datas]="datas()"
-      [headerless]="true"
-    ></one-table>
+
+    <one-task-table
+      (check)="onCheck($event)"
+      (delete)="onDelete($event)"
+      (selected)="onSelectTask($event)"
+      (updateName)="onNameChange($event)"
+      (openContextMenu)="onOpenContextMenuTaskRow($event)"
+      (closeContextMenu)="onCloseContextMenuTaskRow()"
+      [tasks]="tasks"
+    />
+
   </div>
   <ng-container class="expended-content" right-part>
     @if (selectedTask) {
@@ -22,33 +27,3 @@
     }
   </ng-container>
 </one-layout>
-
-<ng-template #stateCellTemplate let-task>
-  <td (click)="onCheck(task)" class="task-state">
-    @switch (task.state) {
-      @case (TaskState.Todo) {
-        <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
-      }
-      @case (TaskState.Done) {
-        <fa-icon class="task-done" [icon]="faCircleCheck"></fa-icon>
-      }
-      @case (TaskState.Canceled) {
-        <fa-icon class="task-canceled" [icon]="faTimesCircle"></fa-icon>
-      }
-    }
-  </td>
-</ng-template>
-
-<ng-template #nameCellTemplate let-form="form" let-task>
-  <td class="task-name">
-    <input (blur)="onBlur(task)" [formControl]="form" class="input-invisible" />
-  </td>
-</ng-template>
-
-<ng-template #trashCellTemplate let-task>
-  <td class="task-delete">
-    <button (click)="onDelete(task, $event)" class="btn-icon">
-      <fa-icon [icon]="faTrashCan"></fa-icon>
-    </button>
-  </td>
-</ng-template>

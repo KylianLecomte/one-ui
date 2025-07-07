@@ -9,21 +9,8 @@ import { TaskDto } from '../../domain/dtos/task.dto';
   styleUrl: './task-details.component.scss',
 })
 export class TaskDetailsComponent {
-  taskNameCtrl!: string;
-  taskDescriptionCtrl?: string;
-
   task: InputSignal<TaskDto> = input.required<TaskDto>();
   update: OutputEmitterRef<TaskDto> = output<TaskDto>();
-
-  constructor() {
-    effect((): void => {
-      const selectedTask: TaskDto = this.task();
-      if (selectedTask) {
-        this.taskNameCtrl = selectedTask.name;
-        this.taskDescriptionCtrl = selectedTask.description;
-      }
-    });
-  }
 
   onTaskNameChange(name: string): void {
     this.task().name = name;
@@ -31,8 +18,7 @@ export class TaskDetailsComponent {
   }
 
   onBlur(): void {
-    this.task().name = this.taskNameCtrl;
-    this.task().description = this.taskDescriptionCtrl;
+    console.log(this.task());
     this.update.emit(this.task());
   }
 }

@@ -1,0 +1,32 @@
+<div id="one-table" class="grid">
+  <div class="header">
+    <span>Due today</span>
+  </div>
+  @for (task of tasks(); track task.id) {
+    <div [class]="isSelectedClass(task)" (click)="onClickRow(task)">
+      <div (click)="onCheck(task)" class="task-state">
+        @switch (task.state) {
+          @case (TaskState.Todo) {
+            <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
+          }
+          @case (TaskState.Done) {
+            <fa-icon class="task-done" [icon]="faCircleCheck"></fa-icon>
+          }
+          @case (TaskState.Canceled) {
+            <fa-icon class="task-canceled" [icon]="faTimesCircle"></fa-icon>
+          }
+        }
+      </div>
+      <div class="task-name">
+        <input
+          (blur)="onBlur(task)"
+          [(ngModel)]="task.name"
+          class="input-invisible"
+        />
+      </div>
+      <button (click)="onDelete(task, $event)" class="btn-icon">
+        <fa-icon [icon]="faTrashCan"></fa-icon>
+      </button>
+    </div>
+  }
+</div>

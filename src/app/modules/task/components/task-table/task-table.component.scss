@@ -1,10 +1,18 @@
 @use "../../../../../styles/variables" as vars;
 
-:host {
-  grid-column: 1 / 999;
+.header {
+  margin: 0 0 10px 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 20px auto 30px;
+  border-top: vars.$border;
   border-right: vars.$border;
   border-left: vars.$border;
   padding: 5px 20px;
+  grid-gap: 20px;
+  align-items: center;
 
   &:hover {
     background-color: vars.$color-hover;
@@ -26,14 +34,6 @@
     & * {
       background-color: vars.$color-main-light;
     }
-  }
-
-  &.row {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 20px auto 30px;
-    grid-gap: 20px;
-    align-items: center;
   }
 
   & .task-todo,

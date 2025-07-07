@@ -23,24 +23,22 @@ export abstract class TaskStateService {
     return this._selectedTask;
   }
 
-  selectedChange(targetTask: TaskDto, selected: boolean): void {
+  selectedChange(targetTask: TaskDto, selectedChanged: boolean): void {
     const taskFounded: TaskDto | undefined = this._tasks().find(
       (t: TaskDto): boolean => t.id === targetTask.id,
     );
-
     if (taskFounded) {
       const res: TaskDto[] = this._tasks().map((t: TaskDto): TaskDto => {
         if (t.id === taskFounded.id) {
-          return { ...t, isSelected: selected };
+          return { ...t, isSelected: selectedChanged };
         }
 
-        if (selected) {
+        if (selectedChanged) {
           return { ...t, isSelected: false };
         }
 
         return t;
       });
-
       this.setTasks(res);
     }
   }

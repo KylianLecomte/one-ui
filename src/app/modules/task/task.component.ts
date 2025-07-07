@@ -18,6 +18,8 @@ import { ColumnDef, DataDef, TableComponent } from '../../shared/table/table.com
 import { faCircle, faCircleCheck, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { debounceTime } from 'rxjs';
+import { TaskTableComponent } from "./components/task-table/task-table.component";
+import { ID } from '../../shared/api/domain/dtos/api.dtos';
 
 @Component({
   selector: 'one-task',
@@ -26,9 +28,9 @@ import { debounceTime } from 'rxjs';
     FontAwesomeModule,
     LayoutComponent,
     TaskDetailsComponent,
-    TableComponent,
     FormsModule,
-  ],
+    TaskTableComponent
+],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
@@ -38,39 +40,10 @@ export class TaskComponent implements OnInit {
   protected readonly faCircleCheck = faCircleCheck;
   protected readonly TaskState = TaskState;
   protected readonly faTrashCan = faTrashCan;
-  protected readonly stateCellTemplate = viewChild<TemplateRef<unknown>>('stateCellTemplate');
-  protected readonly nameCellTemplate = viewChild<TemplateRef<unknown>>('nameCellTemplate');
-  protected readonly trashCellTemplate = viewChild<TemplateRef<unknown>>('trashCellTemplate');
   readonly taskService: TaskService = inject(TaskService);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
   readonly contextMenuService: ContextMenuService = inject(ContextMenuService);
   taskControl: FormControl = this.formBuilder.control('', [Validators.required]);
-
-  columns: Signal<ColumnDef[]> = computed(() => {
-    const stateCellTemplate = this.stateCellTemplate();
-    const nameCellTemplate = this.nameCellTemplate();
-    const trashCellTemplate = this.trashCellTemplate();
-
-    return [
-      { dataKey: 'state', cellTemplate: stateCellTemplate },
-      { dataKey: 'name', cellTemplate: nameCellTemplate },
-      { dataKey: 'trash', cellTemplate: trashCellTemplate },
-    ];
-  });
-
-  datas: Signal<DataDef<TaskDto>[]> = computed(() => {
-    return this.tasks.map((t) => {
-      const formCtrl = this.formBuilder.control(t.name);
-      formCtrl.valueChanges.pipe(debounceTime(500)).subscribe((value) => {
-        value && this.onNameChange(value, t);
-      });
-
-      return {
-        data: t,
-        form: formCtrl,
-      };
-    });
-  });
 
   get tasks(): TaskDto[] {
     return this.taskService.tasks();
@@ -101,34 +74,11 @@ export class TaskComponent implements OnInit {
     this.resetForm();
   }
 
-  // onUpdateTaskName(name: string, task: TaskDto): void {
-  //   task.name = name;
-  //   this.onUpdateTask(task);
-  // }
-
-  onBlur(task: TaskDto): void {
-    console.log('onBlur');
-    // this.onNameChange(this.taskNameCtrl);
-    // task.name = ...;
+  onNameChange(task: TaskDto): void {
     this.onUpdateTask(task);
   }
-
-  onNameChange(name: string, task: TaskDto): void {
-    console.log('onNameChange', name);
-
-    task.name = name;
-    this.onUpdateTask(task);
-  }
-
-  // onCheck(): void {
-  //   console.log('onCheck');
-  //
-  //   const state: TaskState = this.task().state === TaskState.Todo ? TaskState.Done : TaskState.Todo;
-  //   this.check.emit(state);
-  // }
 
   onCheck(task: TaskDto): void {
-    task.state = task.state === TaskState.Todo ? TaskState.Done : TaskState.Todo;
     this.onUpdateTask(task);
   }
 
@@ -136,26 +86,14 @@ export class TaskComponent implements OnInit {
     this.taskService.update(updatedTask.id, updatedTask);
   }
 
-  // onDeleteTask(taskId: ID): void {
-  //   this.taskService.delete(taskId);
-  // }
-
-  // @HostListener('window:keydown.delete', ['$event'])
-  onDelete(task: TaskDto, event?: any): void {
-    console.log('onDelete');
-    // const id: ID = this.task().id;
-    // if (id) {
-    //   this.delete.emit(id);
-    // }
-    // event?.stopPropagation();
-
-    this.taskService.delete(task.id);
+  onDelete(id: ID): void {
+    this.taskService.delete(id);
   }
 
   onSelectTask(task: TaskDto): void {
-    const selected: boolean = this.selectedTask?.id === task.id;
+    const selectedChanged: boolean = this.selectedTask?.id !== task.id;
 
-    this.taskService.selectedChange(task, selected);
+    this.taskService.selectedChange(task, selectedChanged);
   }
 
   onOpenContextMenuTaskRow(cmData: ContextMenuData): void {
@@ -164,10 +102,6 @@ export class TaskComponent implements OnInit {
 
   onCloseContextMenuTaskRow(): void {
     this.contextMenuService.onClose();
-  }
-
-  click(obj: any): void {
-    console.log(obj);
   }
 
   private resetForm(): void {

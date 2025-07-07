@@ -8,3 +8,5 @@ export interface TaskDto extends Dto {
   description?: string;
   isSelected: boolean;
 }
+
+

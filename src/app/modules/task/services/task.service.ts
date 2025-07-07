@@ -33,12 +33,14 @@ export class TaskService extends TaskStateService {
     });
   }
 
-  update(id: ID, taskUpdate: TaskDto): void {
+  update(id: ID, taskUpdated: TaskDto): void {
+    console.log(id, taskUpdated);
     this.httpClient
-      .put<TaskDto>(`${LOCAL_API_PATH}${API_URI_CONF.task.updateById(id)}`, taskUpdate)
+      .put<TaskDto>(`${LOCAL_API_PATH}${API_URI_CONF.task.updateById(id)}`, taskUpdated)
       .subscribe({
         next: (task: TaskDto): void => {
-          task.isSelected = taskUpdate.isSelected;
+          console.log("new task", task);
+          task.isSelected = taskUpdated.isSelected;
           this.updateTasks(task);
         },
       });
