@@ -62,6 +62,29 @@ export class ApiService {
     });
   }
 
+  put<T>(
+    url: string,
+    data: T,
+    nextCallback: (data: T) => void,
+    errorCallback?: (error: JSONObject) => void,
+  ): void {
+    this.httpClient.put<T>(this._baseApiUrl + url, data).subscribe({
+      next: (res: T): void => {
+        if (this._showInfoLog) {
+          this.info(url, res as JSONObject);
+        }
+        nextCallback(res);
+      },
+      error: (error: JSONObject): void => {
+        //TODO Toast en cas d'erreur
+        this.error(url, error);
+        if (errorCallback) {
+          errorCallback(error);
+        }
+      },
+    });
+  }
+
   //TODO Mettre dans un logger
   info(url: string, data: JSONObject): void {
     console.log(url, data);

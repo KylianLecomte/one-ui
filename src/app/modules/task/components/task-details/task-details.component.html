@@ -1,12 +1,4 @@
-<input
-  (blur)="onBlur()"
-  (ngModelChange)="onTaskNameChange($event)"
-  [(ngModel)]="task().name"
-  class="input-invisible"
-/>
-<input
-  (blur)="onBlur()"
-  [(ngModel)]="task().description"
-  class="input-invisible mt-2"
-  placeholder="Description"
-/>
+<form [formGroup]="taskForm">
+  <input formControlName="name" class="input-invisible" />
+  <input formControlName="description" class="input-invisible mt-2" placeholder="Description" />
+</form>

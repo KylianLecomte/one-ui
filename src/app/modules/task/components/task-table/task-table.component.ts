@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCircleCheck, faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { TaskState } from '../../domain/dtos/task-state.enum';
+import { TaskStatus } from '../../domain/dtos/task-status.enum';
 import { TaskDto } from '../../domain/dtos/task.dto';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
@@ -22,10 +22,11 @@ import {
   ContextMenuItem,
 } from '../../../../shared/menu/context-menu/models/context-menu-data.model';
 import { TaskFormDto } from '../../domain/dtos/task-form.dto';
+import { TagComponent } from '../../../../shared/components/tag/tag.component';
 
 @Component({
   selector: 'one-task-table',
-  imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule, TagComponent],
   templateUrl: './task-table.component.html',
   styleUrl: './task-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,7 +36,7 @@ export class TaskTableComponent {
   readonly faCircleCheck: IconDefinition = faCircleCheck;
   readonly faCircle: IconDefinition = faCircle;
   readonly faTimesCircle: IconDefinition = faTimesCircle;
-  readonly TaskState: typeof TaskState = TaskState;
+  readonly TaskState: typeof TaskStatus = TaskStatus;
 
   tasks = input.required<TaskDto[]>();
 
@@ -60,7 +61,7 @@ export class TaskTableComponent {
   }
 
   onCheck(task: TaskDto): void {
-    task.state = task.state === TaskState.Todo ? TaskState.Done : TaskState.Todo;
+    task.status = task.status === TaskStatus.Todo ? TaskStatus.Done : TaskStatus.Todo;
     this.check.emit(task);
   }
 
@@ -75,7 +76,7 @@ export class TaskTableComponent {
   }
 
   onBlur(task: TaskDto): void {
-    console.log("TASK.TABLE:onblur", task);
+    console.log('TASK.TABLE:onblur', task);
     this.updateName.emit(task);
   }
 

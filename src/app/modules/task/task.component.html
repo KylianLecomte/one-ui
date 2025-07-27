@@ -1,29 +1,18 @@
-<one-layout [openedRightSide]="!!selectedTask">
+<one-layout [openedRightSide]="$isSelectedTask()">
   <div class="container" left-part>
-    <div class="mb-3">
-      <input
-        (keyup.enter)="onClickAddTask()"
-        [formControl]="taskControl"
-        class="mr-2"
-        type="text"
-      />
-      <button (click)="onClickAddTask()">Ajouter</button>
-    </div>
+    <form class="mb-3" [formGroup]="newTaskForm" (ngSubmit)="onSubmitAddNewTask()">
+      <input (keyup.enter)="onSubmitAddNewTask()" formControlName="name" class="mr-2" type="text" />
+      <button type="submit">Ajouter</button>
+    </form>
 
-    <one-task-table
-      (check)="onCheck($event)"
-      (delete)="onDelete($event)"
-      (selected)="onSelectTask($event)"
-      (updateName)="onNameChange($event)"
-      (openContextMenu)="onOpenContextMenuTaskRow($event)"
-      (closeContextMenu)="onCloseContextMenuTaskRow()"
-      [tasks]="tasks"
-    />
+    <one-task-table (check)="onCheck($event)" (delete)="onDelete($event)" (selected)="onSelectTask($event)"
+      (updateName)="onNameChange($event)" (openContextMenu)="onOpenContextMenuTaskRow($event)"
+      (closeContextMenu)="onCloseContextMenuTaskRow()" [tasks]="$tasks()" />
 
   </div>
   <ng-container class="expended-content" right-part>
-    @if (selectedTask) {
-      <one-task-details [task]="selectedTask" (update)="onUpdateTask($event)"></one-task-details>
+    @if ($isSelectedTask()) {
+    <one-task-details></one-task-details>
     }
   </ng-container>
 </one-layout>

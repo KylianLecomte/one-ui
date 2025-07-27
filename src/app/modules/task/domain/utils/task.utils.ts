@@ -1,16 +1,16 @@
 import { TaskDto } from '../dtos/task.dto';
-import { TaskState } from '../dtos/task-state.enum';
+import { TaskStatus } from '../dtos/task-status.enum';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 
 export function toSortedTasks(tasks: TaskDto[]): TaskDto[] {
-  return tasks.sort(taskSortingOnState);
+  return tasks.sort(taskSortingOnStatus);
 }
 
-export function taskSortingOnState(task1: TaskDto, task2: TaskDto): number {
+export function taskSortingOnStatus(task1: TaskDto, task2: TaskDto): number {
   const name1: string = task1.name.toLowerCase();
   const name2: string = task2.name.toLowerCase();
 
-  if (task1.state === task2.state) {
+  if (task1.status === task2.status) {
     if (name1 === name2) {
       return 0;
     }
@@ -19,8 +19,8 @@ export function taskSortingOnState(task1: TaskDto, task2: TaskDto): number {
   }
 
   if (
-    task1.state === TaskState.Todo ||
-    (name1 === TaskState.Done && name2 === TaskState.Canceled)
+    task1.status === TaskStatus.Todo ||
+    (name1 === TaskStatus.Done && name2 === TaskStatus.Canceled)
   ) {
     return -1;
   }
@@ -34,4 +34,14 @@ export function getTasksFilteredOnId(tasks: TaskDto[], id: ID): TaskDto[] {
 
 export function unselectTasks(tasks: TaskDto[]): TaskDto[] {
   return tasks.map((task: TaskDto): TaskDto => ({ ...task, isSelected: false }));
+}
+
+export function getNewTask(taskName: string): TaskDto {
+  return {
+    name: taskName,
+    status: TaskStatus.Todo,
+    statusDate: new Date(),
+    description: '',
+    isSelected: false,
+  };
 }
