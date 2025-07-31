@@ -19,57 +19,44 @@ export class TaskService extends TaskStateService {
     this.apiService.baseApiUrl = LOCAL_API_PATH;
   }
 
-  create(
-    taskCreate: TaskDto,
-    nextCallback: (data: TaskDto) => void,
-    errorCallback?: (error: JSONObject) => void,
-  ): void {
-    this.apiService.post<TaskDto>(
-      API_URI_CONF.task.create(),
-      taskCreate,
-      nextCallback,
-      errorCallback,
+  create(taskCreate: TaskDto, callbackSuccess?: () => void): void {
+    this.apiService.post<TaskDto>(API_URI_CONF.task.create(), taskCreate, (task: TaskDto) => {
+      if (callbackSuccess) {
+        callbackSuccess();
+      }
+      this.addStateTask(task);
+    });
+  }
+
+  getAll(): void {
+    this.isTasksLoading.set(true);
+
+    return this.apiService.get<TaskDto[]>(
+      API_URI_CONF.task.base,
+      (tasks: TaskDto[]) => {
+        this.updateTasks(tasks);
+        this.isTasksLoaded.set(true);
+        this.isTasksLoading.set(false);
+        this.selectedTaskId.set(undefined);
+      },
+      () => {
+        this.isTasksLoaded.set(false);
+        this.isTasksLoading.set(false);
+      },
     );
   }
 
-  // getAll(): void {
-  //   this.apiService.get<TaskDto[]>(API_URI_CONF.task.base, (tasks: TaskDto[]): void => {
-  //     unselectTasks(tasks);
-  //     this.setAndSortTasks(tasks);
-  //   });
-  // }
-
-  getAll(
-    nextCallback: (data: TaskDto[]) => void,
-    errorCallback?: (error: JSONObject) => void,
-  ): void {
-    return this.apiService.get<TaskDto[]>(API_URI_CONF.task.base, nextCallback, errorCallback);
-  }
-
-  // update(id: ID, taskUpdated: TaskDto): void {
-  //   console.log(id, taskUpdated);
-  //   this.httpClient
-  //     .put<TaskDto>(`${LOCAL_API_PATH}${API_URI_CONF.task.updateById(id)}`, taskUpdated)
-  //     .subscribe({
-  //       next: (task: TaskDto): void => {
-  //         console.log('new task', task);
-  //         task.isSelected = taskUpdated.isSelected;
-  //         this.updateTasks(task);
-  //       },
-  //     });
-  // }
-
   update(
-    id: ID,
     taskUpdated: TaskDto,
-    nextCallback: (data: TaskDto) => void,
+    nextCallback?: (data: TaskDto) => void,
     errorCallback?: (error: JSONObject) => void,
   ): void {
-    console.log(id, taskUpdated);
     this.apiService.put<TaskDto>(
-      API_URI_CONF.task.updateById(id),
+      API_URI_CONF.task.updateById(taskUpdated.id),
       taskUpdated,
-      nextCallback,
+      (taskUpdated: TaskDto) => {
+        this.updateStateTask(taskUpdated);
+      },
       errorCallback,
     );
   }
@@ -77,7 +64,7 @@ export class TaskService extends TaskStateService {
   delete(id: ID): void {
     this.httpClient.delete<void>(`${LOCAL_API_PATH}${API_URI_CONF.task.deleteById(id)}`).subscribe({
       next: (): void => {
-        this.deleteTask(id);
+        this.deleteStateTask(id);
       },
     });
   }

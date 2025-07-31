@@ -1,28 +1,30 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   effect,
-  HostBinding,
   HostListener,
+  inject,
   input,
-  OnInit,
   output,
   OutputEmitterRef,
+  Signal,
 } from '@angular/core';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCircleCheck, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { TaskStatus } from '../../domain/dtos/task-status.enum';
 import { TaskDto } from '../../domain/dtos/task.dto';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 import {
   ContextMenuData,
   ContextMenuItem,
 } from '../../../../shared/menu/context-menu/models/context-menu-data.model';
-import { TaskFormDto } from '../../domain/dtos/task-form.dto';
 import { TagComponent } from '../../../../shared/components/tag/tag.component';
+import { TaskFacade } from '../../services/task.facade';
+import { InlineTaskForm } from '../../domain/dtos/task-form.dto';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'one-task-table',
@@ -36,48 +38,83 @@ export class TaskTableComponent {
   readonly faCircleCheck: IconDefinition = faCircleCheck;
   readonly faCircle: IconDefinition = faCircle;
   readonly faTimesCircle: IconDefinition = faTimesCircle;
-  readonly TaskState: typeof TaskStatus = TaskStatus;
+  readonly TaskStatus: typeof TaskStatus = TaskStatus;
 
-  tasks = input.required<TaskDto[]>();
+  readonly taskFacade: TaskFacade = inject(TaskFacade);
+  readonly formBuilder: FormBuilder = inject(FormBuilder);
 
-  check: OutputEmitterRef<TaskDto> = output<TaskDto>();
-  delete: OutputEmitterRef<ID> = output<ID>();
-  selected: OutputEmitterRef<TaskDto> = output<TaskDto>();
-  updateName: OutputEmitterRef<TaskDto> = output<TaskDto>();
   openContextMenu: OutputEmitterRef<ContextMenuData> = output<ContextMenuData>();
   closeContextMenu: OutputEmitterRef<void> = output<void>();
+
+  tasks: Signal<TaskDto[]> = this.taskFacade.tasks;
+  selectedTask: Signal<TaskDto | undefined> = this.taskFacade.selectedTask;
+  selectedTaskId: Signal<ID | undefined> = this.taskFacade.selectedTaskId;
+
+  inlineTaskForm: FormGroup = this.formBuilder.group({
+    name: this.formBuilder.control('', []),
+  });
 
   private readonly _contextmenu: ContextMenuItem[] = [
     { libelle: 'Supprimer', action: (task: TaskDto) => this.onDelete(task) },
   ];
 
-  isSelectedClass(task: TaskDto) {
-    return task?.isSelected ? 'row selected' : 'row';
+  constructor() {
+    this.loadFormInlineTaskEffect();
+    this.subscribeToFormChanges();
+  }
+
+  private loadFormInlineTaskEffect(): void {
+    effect(() => {
+      const task: TaskDto | undefined = this.selectedTask();
+      if (task) {
+        this.inlineTaskForm.setValue({
+          name: task.name,
+        });
+      }
+    });
+  }
+
+  private subscribeToFormChanges(): void {
+    this.inlineTaskForm.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged((prev, curr) => prev.name === curr.name),
+        takeUntilDestroyed(),
+      )
+      .subscribe((inlineTaskForm: InlineTaskForm) => {
+        const task = this.selectedTask();
+        if (task) {
+          task.name = inlineTaskForm.name ?? task.name;
+          this.taskFacade.update(task);
+        }
+      });
+  }
+
+  getSelectedClass(task: TaskDto) {
+    return this.isSelectedTask(task) ? 'row selected' : 'row';
+  }
+
+  isSelectedTask(task: TaskDto): boolean {
+    return task.id === this.selectedTaskId();
   }
 
   onClickRow(task: TaskDto): void {
-    task.isSelected = !task.isSelected;
-    this.selected.emit(task);
+    this.taskFacade.select(task.id);
   }
 
   onCheck(task: TaskDto): void {
     task.status = task.status === TaskStatus.Todo ? TaskStatus.Done : TaskStatus.Todo;
-    this.check.emit(task);
+    console.log('onCheck: before update');
+    this.taskFacade.update(task);
   }
 
   @HostListener('window:keydown.delete', ['$event'])
   onDelete(task: TaskDto, event?: any): void {
-    console.log('onDelete');
     const id: ID = task.id;
     if (id) {
-      this.delete.emit(id);
+      this.taskFacade.delete(id);
     }
     event?.stopPropagation();
-  }
-
-  onBlur(task: TaskDto): void {
-    console.log('TASK.TABLE:onblur', task);
-    this.updateName.emit(task);
   }
 
   @HostListener('contextmenu', ['$event'])

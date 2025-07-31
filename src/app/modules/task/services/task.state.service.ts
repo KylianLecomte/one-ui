@@ -7,66 +7,51 @@ import { getTasksFilteredOnId, toSortedTasks } from '../domain/utils/task.utils'
   providedIn: 'root',
 })
 export abstract class TaskStateService {
-  private readonly _tasks: WritableSignal<TaskDto[]> = signal([]);
+  tasks: WritableSignal<TaskDto[]> = signal([]);
 
-  private readonly _selectedTask: Signal<TaskDto | undefined> = computed(
-    (): TaskDto | undefined => {
-      return this._tasks().find((t: TaskDto): boolean => t.isSelected);
-    },
+  selectedTaskId: WritableSignal<ID | undefined> = signal(undefined);
+  selectedTask: Signal<TaskDto | undefined> = computed(() =>
+    this.getTaskById(this.selectedTaskId()),
   );
 
-  get tasks(): Signal<TaskDto[]> {
-    return this._tasks.asReadonly();
-  }
+  isTasksLoaded: WritableSignal<boolean> = signal(false);
+  isTasksLoading: WritableSignal<boolean> = signal(false);
 
-  get selectedTask(): Signal<TaskDto | undefined> {
-    return this._selectedTask;
-  }
-
-  selectedChange(targetTask: TaskDto, selectedChanged: boolean): void {
-    const taskFounded: TaskDto | undefined = this._tasks().find(
-      (t: TaskDto): boolean => t.id === targetTask.id,
-    );
+  updateStateSelected(id: ID): void {
+    const taskFounded: TaskDto | undefined = this.getTaskById(id);
     if (taskFounded) {
-      const res: TaskDto[] = this._tasks().map((t: TaskDto): TaskDto => {
-        if (t.id === taskFounded.id) {
-          return { ...t, isSelected: selectedChanged };
-        }
-
-        if (selectedChanged) {
-          return { ...t, isSelected: false };
-        }
-
-        return t;
-      });
-      this.setTasks(res);
+      this.selectedTaskId.set(taskFounded.id);
     }
   }
 
-  updateTasks(updatedTask: TaskDto): void {
-    const tasksWithUpdatedTask: TaskDto[] = [
-      updatedTask,
-      ...getTasksFilteredOnId(this.tasks(), updatedTask.id),
-    ];
+  protected updateStateTask(updatedTask: TaskDto): void {
+    const newTasks: TaskDto[] = getTasksFilteredOnId(this.tasks(), updatedTask.id);
+    newTasks.push(updatedTask);
 
-    this.setAndSortTasks(tasksWithUpdatedTask);
+    this.updateTasks(newTasks);
   }
 
-  deleteTask(id: ID): void {
-    this.setTasks(getTasksFilteredOnId(this._tasks(), id));
+  protected deleteStateTask(id: ID): void {
+    const newTasks: TaskDto[] = getTasksFilteredOnId(this.tasks(), id);
+
+    this.updateTasks(newTasks);
   }
 
-  addAndSortTask(task: TaskDto): void {
-    this._tasks().push(task);
-    this.setAndSortTasks(this._tasks());
+  protected addStateTask(task: TaskDto): void {
+    this.tasks().push(task);
+
+    this.updateTasks(this.tasks());
   }
 
-  setAndSortTasks(tasks: TaskDto[]): void {
-    const lst: TaskDto[] = toSortedTasks(tasks);
-    this.setTasks(lst);
+  protected updateTasks(tasks: TaskDto[]): void {
+    this.tasks.update((_) => [...toSortedTasks(tasks)]);
   }
 
-  setTasks(tasks: TaskDto[]): void {
-    this._tasks.set([...tasks]);
+  private getTaskById(id?: ID): TaskDto | undefined {
+    if (!id) {
+      return undefined;
+    }
+
+    return this.tasks().find((t) => t.id === id);
   }
 }

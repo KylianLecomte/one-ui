@@ -1,19 +1,10 @@
-import {
-  Component,
-  effect,
-  inject,
-  input,
-  InputSignal,
-  output,
-  OutputEmitterRef,
-  Signal,
-} from '@angular/core';
+import { Component, effect, inject, Signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskDto } from '../../domain/dtos/task.dto';
-import { TaskFacade } from '../../store/task.facade';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
+import { TaskFacade } from '../../services/task.facade';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TaskDetailsForm } from '../../domain/dtos/task-form.dto';
+import { TaskForm } from '../../domain/dtos/task-form.dto';
 
 @Component({
   selector: 'one-task-details',
@@ -25,9 +16,7 @@ export class TaskDetailsComponent {
   readonly taskFacade: TaskFacade = inject(TaskFacade);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
 
-  $selectedTask: Signal<TaskDto | undefined> = this.taskFacade.$selectedTask;
-  // task: InputSignal<TaskDto> = input.required<TaskDto>();
-  // update: OutputEmitterRef<TaskDto> = output<TaskDto>();
+  selectedTask: Signal<TaskDto | undefined> = this.taskFacade.selectedTask;
 
   taskForm: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control('', []),
@@ -41,7 +30,7 @@ export class TaskDetailsComponent {
 
   private loadFormTaskEffect(): void {
     effect(() => {
-      const task: TaskDto | undefined = this.taskFacade.$selectedTask();
+      const task: TaskDto | undefined = this.selectedTask();
       if (task) {
         this.taskForm.setValue({
           name: task.name,
@@ -53,21 +42,20 @@ export class TaskDetailsComponent {
 
   private subscribeToFormChanges(): void {
     this.taskForm.valueChanges
-      .pipe(debounceTime(500), distinctUntilChanged(), takeUntilDestroyed())
-      .subscribe((value: TaskDetailsForm) => {
-        this.taskFacade.updateTaskDetails(value);
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(
+          (prev, curr) => prev.name === curr.name && prev.description === curr.description,
+        ),
+        takeUntilDestroyed(),
+      )
+      .subscribe((taskForm: TaskForm) => {
+        const task = this.selectedTask();
+        if (task) {
+          task.name = taskForm.name ?? task.name;
+          task.description = taskForm.description ?? task.description;
+          this.taskFacade.update(task);
+        }
       });
   }
-
-  // onTaskNameChange(name: string): void {
-  // this.task().name = name;
-  // this.update.emit(this.task());
-  //   this.taskFacade.updateTask();
-  // }
-
-  // onBlur(): void {
-  // console.log(this.task());
-  // this.update.emit(this.task());
-  //   this.taskFacade.updateTask();
-  // }
 }

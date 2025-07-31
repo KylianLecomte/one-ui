@@ -3,25 +3,30 @@
     <span>Due today</span>
   </div>
   @for (task of tasks(); track task.id) {
-  <div [class]="isSelectedClass(task)" (click)="onClickRow(task)">
+  <div [class]="getSelectedClass(task)" (click)="onClickRow(task)">
     <div (click)="onCheck(task)" class="task-state">
       @switch (task.status) {
-      @case (TaskState.Todo) {
+      @case (TaskStatus.Todo) {
       <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
       }
-      @case (TaskState.Done) {
+      @case (TaskStatus.Done) {
       <fa-icon class="task-done" [icon]="faCircleCheck"></fa-icon>
       }
-      @case (TaskState.Canceled) {
+      @case (TaskStatus.Canceled) {
       <fa-icon class="task-canceled" [icon]="faTimesCircle"></fa-icon>
       }
       }
     </div>
-    <div class="task-name">
-      <input (blur)="onBlur(task)" [(ngModel)]="task.name" class="input-invisible" />
-    </div>
 
-    <one-tag [libelle]="'test'" [color]="'blue'"></one-tag>
+    @if (isSelectedTask(task)) {
+    <form [formGroup]="inlineTaskForm" class="task-name">
+      <input formControlName="name" class="input-invisible" />
+    </form>
+    } @else {
+    <span>{{ task.name }}</span>
+    }
+
+    <!-- <one-tag [libelle]="'test'" [color]="'blue'"></one-tag> -->
 
     <button (click)="onDelete(task, $event)" class="btn-icon">
       <fa-icon [icon]="faTrashCan"></fa-icon>

@@ -85,6 +85,28 @@ export class ApiService {
     });
   }
 
+  delete<T>(
+    url: string,
+    nextCallback: () => void,
+    errorCallback?: (error: JSONObject) => void,
+  ): void {
+    this.httpClient.delete<T>(this._baseApiUrl + url).subscribe({
+      next: (): void => {
+        if (this._showInfoLog) {
+          this.info(url, {});
+        }
+        nextCallback();
+      },
+      error: (error: JSONObject): void => {
+        //TODO Toast en cas d'erreur
+        this.error(url, error);
+        if (errorCallback) {
+          errorCallback(error);
+        }
+      },
+    });
+  }
+
   //TODO Mettre dans un logger
   info(url: string, data: JSONObject): void {
     console.log(url, data);

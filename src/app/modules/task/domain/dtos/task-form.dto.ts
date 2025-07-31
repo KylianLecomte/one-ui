@@ -5,15 +5,15 @@ export interface TaskFormDto extends TaskDto {
   nameCtrl: FormControl;
 }
 
-export interface TaskDetailsForm {
+export interface TaskForm {
   name?: string;
-  descrption?: string;
+  description?: string;
 }
 
-export interface TaskInlineForm {
-  name: string;
+export interface InlineTaskForm {
+  name?: string;
 }
 
-export interface NewTaskForm {
+export interface AddTaskForm {
   name: string;
 }

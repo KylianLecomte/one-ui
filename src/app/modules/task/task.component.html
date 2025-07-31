@@ -1,18 +1,16 @@
-<one-layout [openedRightSide]="$isSelectedTask()">
+<one-layout [openedRightSide]="isSelectedTask()">
   <div class="container" left-part>
     <form class="mb-3" [formGroup]="newTaskForm" (ngSubmit)="onSubmitAddNewTask()">
       <input (keyup.enter)="onSubmitAddNewTask()" formControlName="name" class="mr-2" type="text" />
       <button type="submit">Ajouter</button>
     </form>
 
-    <one-task-table (check)="onCheck($event)" (delete)="onDelete($event)" (selected)="onSelectTask($event)"
-      (updateName)="onNameChange($event)" (openContextMenu)="onOpenContextMenuTaskRow($event)"
-      (closeContextMenu)="onCloseContextMenuTaskRow()" [tasks]="$tasks()" />
+    <one-task-table />
 
   </div>
   <ng-container class="expended-content" right-part>
-    @if ($isSelectedTask()) {
-    <one-task-details></one-task-details>
+    @if (isSelectedTask()) {
+    <one-task-details />
     }
   </ng-container>
 </one-layout>

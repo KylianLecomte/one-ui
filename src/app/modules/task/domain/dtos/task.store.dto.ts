@@ -1,14 +1,14 @@
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
-import { TaskDetailsForm, TaskInlineForm, NewTaskForm as newTaskForm } from './task-form.dto';
+import { TaskForm, InlineTaskForm, AddTaskForm } from './task-form.dto';
 import { TaskDto } from './task.dto';
 
 export interface TaskState {
   isAdding: boolean;
   isLoading: boolean;
   isUpdating: boolean;
-  newTaskForm?: newTaskForm;
-  taskDetailsForm?: TaskDetailsForm;
-  taskInlineForm?: TaskInlineForm;
+  addTaskForm?: AddTaskForm;
+  taskForm?: TaskForm;
+  inlineTaskForm?: InlineTaskForm;
   tasks: TaskDto[];
   selectedTask?: TaskDto;
 }
