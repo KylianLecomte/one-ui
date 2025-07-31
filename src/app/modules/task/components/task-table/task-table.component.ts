@@ -28,7 +28,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'one-task-table',
-  imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule, TagComponent],
+  imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule],
   templateUrl: './task-table.component.html',
   styleUrl: './task-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
