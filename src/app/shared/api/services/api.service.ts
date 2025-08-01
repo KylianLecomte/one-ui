@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JSONObject } from '../domain/dtos/api.dtos';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +40,20 @@ export class ApiService {
     });
   }
 
+  get2<T>(url: string): Observable<T> {
+    return this.httpClient.get<T>(this._baseApiUrl + url).pipe(
+      tap((res: T) => {
+        if (this._showInfoLog) {
+          this.info(url, res as JSONObject);
+        }
+      }),
+      catchError((error) => {
+        this.error(url, error);
+        return throwError(() => error);
+      }),
+    );
+  }
+
   post<T>(
     url: string,
     data: T,
@@ -60,6 +75,20 @@ export class ApiService {
         }
       },
     });
+  }
+
+  post2<T>(url: string, data: T): Observable<T> {
+    return this.httpClient.post<T>(this._baseApiUrl + url, data).pipe(
+      tap((res: T) => {
+        if (this._showInfoLog) {
+          this.info(url, res as JSONObject);
+        }
+      }),
+      catchError((error) => {
+        this.error(url, error);
+        return throwError(() => error);
+      }),
+    );
   }
 
   put<T>(
@@ -85,6 +114,20 @@ export class ApiService {
     });
   }
 
+  put2<T>(url: string, data: T): Observable<T> {
+    return this.httpClient.put<T>(this._baseApiUrl + url, data).pipe(
+      tap((res: T) => {
+        if (this._showInfoLog) {
+          this.info(url, res as JSONObject);
+        }
+      }),
+      catchError((error) => {
+        this.error(url, error);
+        return throwError(() => error);
+      }),
+    );
+  }
+
   delete<T>(
     url: string,
     nextCallback: () => void,
@@ -105,6 +148,20 @@ export class ApiService {
         }
       },
     });
+  }
+
+  delete2<T>(url: string): Observable<T> {
+    return this.httpClient.delete<T>(this._baseApiUrl + url).pipe(
+      tap(() => {
+        if (this._showInfoLog) {
+          this.info(url, {});
+        }
+      }),
+      catchError((error) => {
+        this.error(url, error);
+        return throwError(() => error);
+      }),
+    );
   }
 
   //TODO Mettre dans un logger

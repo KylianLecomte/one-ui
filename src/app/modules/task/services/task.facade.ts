@@ -14,7 +14,6 @@ export class TaskFacade {
   constructor() {
     if (this.showState) {
       console.log('isSelectedTask : ', this.isSelectedTask());
-      console.log('isNotSelectedTask : ', this.isNotSelectedTask());
       console.log('tasks : ', this.tasks());
       console.log('selectedTask : ', this.selectedTask());
       console.log('selectedTaskId : ', this.selectedTaskId());
@@ -22,7 +21,6 @@ export class TaskFacade {
   }
 
   isSelectedTask: Signal<boolean> = computed(() => !!this.taskService.selectedTaskId);
-  isNotSelectedTask: Signal<boolean> = computed(() => !this.taskService.selectedTaskId);
 
   tasks: Signal<TaskDto[]> = this.taskService.tasks;
   selectedTask: Signal<TaskDto | undefined> = this.taskService.selectedTask;
