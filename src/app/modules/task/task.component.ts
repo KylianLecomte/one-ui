@@ -8,8 +8,6 @@ import {
 } from '@angular/forms';
 import { TaskDto } from './domain/dtos/task.dto';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LayoutComponent } from '../../shared/layout/layout.component';
-import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { ContextMenuService } from '../../shared/menu/context-menu/services/context-menu.service';
 import { TaskTableComponent } from './components/task-table/task-table.component';
 import { TaskFacade } from './services/task.facade';
@@ -18,14 +16,7 @@ import { getNewTask } from './domain/utils/task.utils';
 
 @Component({
   selector: 'one-task',
-  imports: [
-    ReactiveFormsModule,
-    FontAwesomeModule,
-    LayoutComponent,
-    TaskDetailsComponent,
-    FormsModule,
-    TaskTableComponent,
-  ],
+  imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule, TaskTableComponent],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })

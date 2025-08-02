@@ -33,8 +33,8 @@ $font-size-error-message: 0.8rem;
 
 // Layout
 $width-menu: 150px;
-$width-layout-middle: 50%;
-$width-layout-right: calc(100% - $width-menu - $width-layout-middle);
+$width-main-layout: 50%;
+$width-right-layout: calc(100% - $width-menu - $width-main-layout);
 
 // Size
 // Input

@@ -62,7 +62,7 @@ export class TaskTableComponent {
   }
 
   getSelectedClass(task: TaskDto) {
-    return this.isSelectedTask(task) ? 'row selected' : 'row';
+    return this.isSelectedTask(task) ? 'task selected' : 'task';
   }
 
   isSelectedTask(task: TaskDto): boolean {

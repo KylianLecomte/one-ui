@@ -1,15 +1,8 @@
-<one-layout>
-  <div class="container" left-part>
-    <form (ngSubmit)="onSubmitAddNewTask()" [formGroup]="newTaskForm" class="mb-3">
-      <input class="mr-2" formControlName="name" type="text" />
-      <button type="submit">Ajouter</button>
-    </form>
+<div class="container">
+  <form (ngSubmit)="onSubmitAddNewTask()" [formGroup]="newTaskForm" class="mb-3">
+    <input class="mr-2" formControlName="name" type="text" />
+    <button type="submit">Ajouter</button>
+  </form>
 
-    <one-task-table />
-  </div>
-  <ng-container class="expended-content" right-part>
-    @if (isSelectedTask()) {
-      <one-task-details />
-    }
-  </ng-container>
-</one-layout>
+  <one-task-table />
+</div>

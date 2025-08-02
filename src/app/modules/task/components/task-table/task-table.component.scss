@@ -4,16 +4,7 @@
   margin: 0 0 10px 0;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 20px auto 30px;
-  border-top: vars.$border;
-  border-right: vars.$border;
-  border-left: vars.$border;
-  padding: 5px 20px;
-  grid-gap: 20px;
-  align-items: center;
-
+.task {
   &:hover {
     background-color: vars.$color-hover;
 
@@ -22,36 +13,65 @@
     }
   }
 
-  &:last-child {
-    border-bottom: vars.$border;
-    border-bottom-left-radius: vars.$border-radius;
-    border-bottom-right-radius: vars.$border-radius;
-  }
-
   &.selected {
     background-color: vars.$color-main-light;
 
     & * {
       background-color: vars.$color-main-light;
     }
+
+    .main-informations {
+      padding-bottom: 0;
+    }
+
+    .details {
+      padding-top: 0;
+    }
   }
 
-  & .task-todo,
-  & .task-done,
-  & .task-canceled {
-    width: vars.$size-task-state;
-    height: vars.$size-task-state;
+  &:not(.selected) {
+    .details {
+      display: none;
+    }
   }
 
-  & .task-todo {
-    color: vars.$color-task-todo;
+  .main-informations,
+  .details {
+    padding: 10px 20px 10px 20px;
+    border-right: vars.$border;
+    border-left: vars.$border;
+
+    &:last-child {
+      border-bottom: vars.$border;
+      border-bottom-left-radius: vars.$border-radius;
+      border-bottom-right-radius: vars.$border-radius;
+    }
   }
 
-  & .task-done {
-    color: vars.$color-task-done;
-  }
+  .main-informations {
+    display: grid;
+    grid-template-columns: 20px auto 30px;
+    border-top: vars.$border;
+    grid-gap: 20px;
+    align-items: center;
 
-  & .task-canceled {
-    color: vars.$color-task-canceled;
+    & .task-todo,
+    & .task-done,
+    & .task-canceled {
+      width: vars.$size-task-state;
+      height: vars.$size-task-state;
+    }
+
+    & .task-todo {
+      color: vars.$color-task-todo;
+    }
+
+    & .task-done {
+      color: vars.$color-task-done;
+    }
+
+    & .task-canceled {
+      color: vars.$color-task-canceled;
+    }
   }
 }
