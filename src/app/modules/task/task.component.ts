@@ -1,39 +1,19 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  OnInit,
-  Signal,
-  TemplateRef,
-  viewChild,
-} from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TaskService } from './services/task.service';
 import { TaskDto } from './domain/dtos/task.dto';
-import { TaskStatus } from './domain/dtos/task-status.enum';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { ContextMenuService } from '../../shared/menu/context-menu/services/context-menu.service';
-import { ContextMenuData } from '../../shared/menu/context-menu/models/context-menu-data.model';
-import { ColumnDef, DataDef, TableComponent } from '../../shared/table/table.component';
-import { faCircle, faCircleCheck, faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { TaskTableComponent } from './components/task-table/task-table.component';
-import { ID } from '../../shared/api/domain/dtos/api.dtos';
 import { TaskFacade } from './services/task.facade';
 import { ToastService } from '../../shared/toast/services/toast.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AddTaskForm, TaskForm, InlineTaskForm } from './domain/dtos/task-form.dto';
 import { getNewTask } from './domain/utils/task.utils';
 
 @Component({
@@ -62,7 +42,7 @@ export class TaskComponent {
   isSelectedTask: Signal<boolean> = this.taskFacade.isSelectedTask;
 
   constructor() {
-    this.taskFacade.getAll();
+    this.taskFacade.getAll().subscribe();
   }
 
   onSubmitAddNewTask(): void {
@@ -79,7 +59,9 @@ export class TaskComponent {
 
     const task: TaskDto = getNewTask(taskName);
 
-    this.taskFacade.create(task, () => this.resetForm());
+    this.taskFacade.create(task).subscribe(() => {
+      this.resetForm();
+    });
   }
 
   private resetForm(): void {

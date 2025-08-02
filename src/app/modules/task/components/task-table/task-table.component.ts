@@ -4,7 +4,6 @@ import {
   effect,
   HostListener,
   inject,
-  input,
   output,
   OutputEmitterRef,
   Signal,
@@ -20,7 +19,6 @@ import {
   ContextMenuData,
   ContextMenuItem,
 } from '../../../../shared/menu/context-menu/models/context-menu-data.model';
-import { TagComponent } from '../../../../shared/components/tag/tag.component';
 import { TaskFacade } from '../../services/task.facade';
 import { InlineTaskForm } from '../../domain/dtos/task-form.dto';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -63,6 +61,47 @@ export class TaskTableComponent {
     this.subscribeToFormChanges();
   }
 
+  getSelectedClass(task: TaskDto) {
+    return this.isSelectedTask(task) ? 'row selected' : 'row';
+  }
+
+  isSelectedTask(task: TaskDto): boolean {
+    return task.id === this.selectedTaskId();
+  }
+
+  onClickRow(task: TaskDto): void {
+    this.taskFacade.select(task.id);
+  }
+
+  onCheck(task: TaskDto): void {
+    task.status = task.status === TaskStatus.Todo ? TaskStatus.Done : TaskStatus.Todo;
+    this.taskFacade.update(task).subscribe();
+  }
+
+  @HostListener('window:keydown.delete', ['$event'])
+  onDelete(task: TaskDto, event?: any): void {
+    const id: ID = task.id;
+    if (id) {
+      this.taskFacade.delete(id).subscribe();
+    }
+    event?.stopPropagation();
+  }
+
+  @HostListener('contextmenu', ['$event'])
+  onContextMenu(event: MouseEvent, task: TaskDto): void {
+    event.preventDefault();
+    this.onClickRow(task);
+    this.openContextMenu.emit({
+      items: this._contextmenu,
+      mousePosition: { x: event.clientX, y: event.clientY },
+    });
+  }
+
+  @HostListener('document:click')
+  closeMenu() {
+    this.closeContextMenu.emit();
+  }
+
   private loadFormInlineTaskEffect(): void {
     effect(() => {
       const task: TaskDto | undefined = this.selectedTask();
@@ -85,50 +124,8 @@ export class TaskTableComponent {
         const task = this.selectedTask();
         if (task) {
           task.name = inlineTaskForm.name ?? task.name;
-          this.taskFacade.update(task);
+          this.taskFacade.update(task).subscribe();
         }
       });
-  }
-
-  getSelectedClass(task: TaskDto) {
-    return this.isSelectedTask(task) ? 'row selected' : 'row';
-  }
-
-  isSelectedTask(task: TaskDto): boolean {
-    return task.id === this.selectedTaskId();
-  }
-
-  onClickRow(task: TaskDto): void {
-    this.taskFacade.select(task.id);
-  }
-
-  onCheck(task: TaskDto): void {
-    task.status = task.status === TaskStatus.Todo ? TaskStatus.Done : TaskStatus.Todo;
-    console.log('onCheck: before update');
-    this.taskFacade.update(task);
-  }
-
-  @HostListener('window:keydown.delete', ['$event'])
-  onDelete(task: TaskDto, event?: any): void {
-    const id: ID = task.id;
-    if (id) {
-      this.taskFacade.delete(id);
-    }
-    event?.stopPropagation();
-  }
-
-  @HostListener('contextmenu', ['$event'])
-  onContextMenu(event: MouseEvent, task: TaskDto): void {
-    event.preventDefault();
-    this.onClickRow(task);
-    this.openContextMenu.emit({
-      items: this._contextmenu,
-      mousePosition: { x: event.clientX, y: event.clientY },
-    });
-  }
-
-  @HostListener('document:click')
-  closeMenu() {
-    this.closeContextMenu.emit();
   }
 }
