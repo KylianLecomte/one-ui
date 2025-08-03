@@ -12,7 +12,7 @@ export function taskSortingOnStatus(task1: TaskDto, task2: TaskDto): number {
 
   if (task1.status === task2.status) {
     if (name1 === name2) {
-      return 0;
+      return task1.id && task2.id && task1.id > task2.id ? 1 : -1;
     }
 
     return name1 > name2 ? 1 : -1;
@@ -32,16 +32,11 @@ export function getTasksFilteredOnId(tasks: TaskDto[], id: ID): TaskDto[] {
   return tasks.filter((t: TaskDto): boolean => t.id !== id);
 }
 
-export function unselectTasks(tasks: TaskDto[]): TaskDto[] {
-  return tasks.map((task: TaskDto): TaskDto => ({ ...task, isSelected: false }));
-}
-
 export function getNewTask(taskName: string): TaskDto {
   return {
     name: taskName,
     status: TaskStatus.Todo,
     statusDate: new Date(),
     description: '',
-    isSelected: false,
   };
 }

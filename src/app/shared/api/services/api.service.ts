@@ -1,14 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JSONObject } from '../domain/dtos/api.dtos';
-import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private readonly httpClient: HttpClient = inject(HttpClient);
-  private readonly _showInfoLog: boolean = true; // TODO variabiliser par environnement
+  private _showInfoLog: boolean = true; // TODO variabiliser par environnement
 
   constructor() {}
 
@@ -18,60 +17,94 @@ export class ApiService {
     this._baseApiUrl = url;
   }
 
-  get<T>(url: string): Observable<T> {
-    return this.httpClient.get<T>(this._baseApiUrl + url).pipe(
-      tap((res: T) => {
+  get<T>(
+    url: string,
+    nextCallback: (data: T) => void,
+    errorCallback?: (error: JSONObject) => void,
+  ): void {
+    this.httpClient.get<T>(this._baseApiUrl + url).subscribe({
+      next: (res: T): void => {
         if (this._showInfoLog) {
           this.info(url, res as JSONObject);
         }
-      }),
-      catchError((error) => {
+        nextCallback(res);
+      },
+      error: (error: JSONObject): void => {
+        //TODO Toast en cas d'erreur
         this.error(url, error);
-        return throwError(() => error);
-      }),
-    );
+        if (errorCallback) {
+          errorCallback(error);
+        }
+      },
+    });
   }
 
-  post<T>(url: string, data: T): Observable<T> {
-    return this.httpClient.post<T>(this._baseApiUrl + url, data).pipe(
-      tap((res: T) => {
+  post<T>(
+    url: string,
+    data: T,
+    nextCallback: (data: T) => void,
+    errorCallback?: (error: JSONObject) => void,
+  ): void {
+    this.httpClient.post<T>(this._baseApiUrl + url, data).subscribe({
+      next: (res: T): void => {
         if (this._showInfoLog) {
           this.info(url, res as JSONObject);
         }
-      }),
-      catchError((error) => {
+        nextCallback(res);
+      },
+      error: (error: JSONObject): void => {
+        //TODO Toast en cas d'erreur
         this.error(url, error);
-        return throwError(() => error);
-      }),
-    );
+        if (errorCallback) {
+          errorCallback(error);
+        }
+      },
+    });
   }
 
-  put<T>(url: string, data: T): Observable<T> {
-    return this.httpClient.put<T>(this._baseApiUrl + url, data).pipe(
-      tap((res: T) => {
+  put<T>(
+    url: string,
+    data: T,
+    nextCallback: (data: T) => void,
+    errorCallback?: (error: JSONObject) => void,
+  ): void {
+    this.httpClient.put<T>(this._baseApiUrl + url, data).subscribe({
+      next: (res: T): void => {
         if (this._showInfoLog) {
           this.info(url, res as JSONObject);
         }
-      }),
-      catchError((error) => {
+        nextCallback(res);
+      },
+      error: (error: JSONObject): void => {
+        //TODO Toast en cas d'erreur
         this.error(url, error);
-        return throwError(() => error);
-      }),
-    );
+        if (errorCallback) {
+          errorCallback(error);
+        }
+      },
+    });
   }
 
-  delete<T>(url: string): Observable<T> {
-    return this.httpClient.delete<T>(this._baseApiUrl + url).pipe(
-      tap(() => {
+  delete<T>(
+    url: string,
+    nextCallback: () => void,
+    errorCallback?: (error: JSONObject) => void,
+  ): void {
+    this.httpClient.delete<T>(this._baseApiUrl + url).subscribe({
+      next: (): void => {
         if (this._showInfoLog) {
           this.info(url, {});
         }
-      }),
-      catchError((error) => {
+        nextCallback();
+      },
+      error: (error: JSONObject): void => {
+        //TODO Toast en cas d'erreur
         this.error(url, error);
-        return throwError(() => error);
-      }),
-    );
+        if (errorCallback) {
+          errorCallback(error);
+        }
+      },
+    });
   }
 
   //TODO Mettre dans un logger

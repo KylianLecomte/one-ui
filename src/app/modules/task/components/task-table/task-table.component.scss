@@ -5,17 +5,25 @@
 }
 
 .task {
-  &:hover {
-    background-color: vars.$color-hover;
+  border-right: vars.$border;
+  border-left: vars.$border;
+  padding: 10px 20px 10px 20px;
 
+  &:last-child {
+    border-bottom: vars.$border;
+    border-bottom-left-radius: vars.$border-radius;
+    border-bottom-right-radius: vars.$border-radius;
+  }
+
+  &:hover {
     & * {
       background-color: vars.$color-hover;
     }
+    background-color: vars.$color-hover;
   }
 
   &.selected {
     background-color: vars.$color-main-light;
-
     & * {
       background-color: vars.$color-main-light;
     }
@@ -35,23 +43,10 @@
     }
   }
 
-  .main-informations,
-  .details {
-    padding: 10px 20px 10px 20px;
-    border-right: vars.$border;
-    border-left: vars.$border;
-
-    &:last-child {
-      border-bottom: vars.$border;
-      border-bottom-left-radius: vars.$border-radius;
-      border-bottom-right-radius: vars.$border-radius;
-    }
-  }
-
+  border-top: vars.$border;
   .main-informations {
     display: grid;
     grid-template-columns: 20px auto 30px;
-    border-top: vars.$border;
     grid-gap: 20px;
     align-items: center;
 

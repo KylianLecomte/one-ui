@@ -10,10 +10,6 @@ export interface TaskForm {
   description?: string;
 }
 
-export interface InlineTaskForm {
-  name?: string;
-}
-
 export interface AddTaskForm {
   name: string;
 }

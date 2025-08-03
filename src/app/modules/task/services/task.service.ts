@@ -4,58 +4,68 @@ import { API_URI_CONF, LOCAL_API_PATH } from '../../../../configuration/api-uri.
 import { ApiService } from '../../../shared/api/services/api.service';
 import { ID } from '../../../shared/api/domain/dtos/api.dtos';
 import { TaskStateService } from './task.state.service';
-import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService extends TaskStateService {
+  // tasksResource: HttpResourceRef<TaskDto[]>;
   private readonly apiService: ApiService = inject(ApiService);
 
   constructor() {
     super();
     this.apiService.baseApiUrl = LOCAL_API_PATH;
+
+    // this.defineTasksResource();
   }
 
-  create(taskCreate: TaskDto): Observable<TaskDto> {
-    return this.apiService.post<TaskDto>(API_URI_CONF.task.create(), taskCreate).pipe(
-      tap((task: TaskDto) => {
-        this.addStateTask(task);
-      }),
-    );
+  // defineTasksResource() {
+  //   this.tasksResource = httpResource<TaskDto[]>(
+  //     () => ({
+  //       url: API_URI_CONF.task.base,
+  //       method: 'GET',
+  //     }),
+  //     { defaultValue: [] },
+  //   );
+  // }
+
+  create(taskCreate: TaskDto, successFn?: (task: TaskDto) => void): void {
+    this.apiService.post<TaskDto>(API_URI_CONF.task.create(), taskCreate, (task: TaskDto) => {
+      this.addStateTask(task);
+
+      if (successFn) successFn(task);
+    });
   }
 
-  getAll(): Observable<TaskDto[]> {
+  getAll(): void {
     this.isTasksLoading.set(true);
 
-    return this.apiService.get<TaskDto[]>(API_URI_CONF.task.base).pipe(
-      tap((tasks: TaskDto[]) => {
+    this.apiService.get<TaskDto[]>(
+      API_URI_CONF.task.base,
+      (tasks: TaskDto[]): void => {
         this.updateTasks(tasks);
         this.isTasksLoaded.set(true);
         this.isTasksLoading.set(false);
         this.selectedTaskId.set(undefined);
-      }),
-      catchError((error) => {
+      },
+      (): void => {
         this.isTasksLoaded.set(false);
         this.isTasksLoading.set(false);
-        return throwError(() => error);
-      }),
+      },
     );
   }
 
-  update(taskUpdated: TaskDto): Observable<TaskDto> {
-    return this.apiService
-      .put<TaskDto>(API_URI_CONF.task.updateById(taskUpdated.id), taskUpdated)
-      .pipe(
-        tap((taskUpdated: TaskDto) => {
-          this.updateStateTask(taskUpdated);
-        }),
-      );
+  update(taskUpdated: TaskDto): void {
+    return this.apiService.put<TaskDto>(
+      API_URI_CONF.task.updateById(taskUpdated.id),
+      taskUpdated,
+      (taskUpdated: TaskDto) => this.updateStateTask(taskUpdated),
+    );
   }
 
-  delete(id: ID): Observable<void> {
-    return this.apiService
-      .delete<void>(`${API_URI_CONF.task.deleteById(id)}`)
-      .pipe(tap(() => this.deleteStateTask(id)));
+  delete(id: ID): void {
+    return this.apiService.delete<void>(`${API_URI_CONF.task.deleteById(id)}`, () =>
+      this.deleteStateTask(id),
+    );
   }
 }

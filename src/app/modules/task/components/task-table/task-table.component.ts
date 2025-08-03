@@ -4,8 +4,6 @@ import {
   effect,
   HostListener,
   inject,
-  output,
-  OutputEmitterRef,
   Signal,
 } from '@angular/core';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
@@ -15,14 +13,12 @@ import { TaskDto } from '../../domain/dtos/task.dto';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
-import {
-  ContextMenuData,
-  ContextMenuItem,
-} from '../../../../shared/menu/context-menu/models/context-menu-data.model';
-import { TaskFacade } from '../../services/task.facade';
-import { InlineTaskForm } from '../../domain/dtos/task-form.dto';
+import { ContextMenuItem } from '../../../../shared/menu/context-menu/models/context-menu-data.model';
+import { TaskForm } from '../../domain/dtos/task-form.dto';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ContextMenuService } from '../../../../shared/menu/context-menu/services/context-menu.service';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'one-task-table',
@@ -38,18 +34,17 @@ export class TaskTableComponent {
   readonly faTimesCircle: IconDefinition = faTimesCircle;
   readonly TaskStatus: typeof TaskStatus = TaskStatus;
 
-  readonly taskFacade: TaskFacade = inject(TaskFacade);
+  readonly taskService: TaskService = inject(TaskService);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
+  readonly contextMenuService: ContextMenuService = inject(ContextMenuService);
 
-  openContextMenu: OutputEmitterRef<ContextMenuData> = output<ContextMenuData>();
-  closeContextMenu: OutputEmitterRef<void> = output<void>();
+  tasks: Signal<TaskDto[]> = this.taskService.tasks;
+  selectedTask: Signal<TaskDto | undefined> = this.taskService.selectedTask;
+  selectedTaskId: Signal<ID | undefined> = this.taskService.selectedTaskId;
 
-  tasks: Signal<TaskDto[]> = this.taskFacade.tasks;
-  selectedTask: Signal<TaskDto | undefined> = this.taskFacade.selectedTask;
-  selectedTaskId: Signal<ID | undefined> = this.taskFacade.selectedTaskId;
-
-  inlineTaskForm: FormGroup = this.formBuilder.group({
+  taskForm: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control('', []),
+    description: this.formBuilder.control('', []),
   });
 
   private readonly _contextmenu: ContextMenuItem[] = [
@@ -57,7 +52,7 @@ export class TaskTableComponent {
   ];
 
   constructor() {
-    this.loadFormInlineTaskEffect();
+    this.loadFormTaskEffect();
     this.subscribeToFormChanges();
   }
 
@@ -70,28 +65,27 @@ export class TaskTableComponent {
   }
 
   onClickRow(task: TaskDto): void {
-    this.taskFacade.select(task.id);
+    this.taskService.updateStateSelected(task.id);
   }
 
   onCheck(task: TaskDto): void {
     task.status = task.status === TaskStatus.Todo ? TaskStatus.Done : TaskStatus.Todo;
-    this.taskFacade.update(task).subscribe();
+    this.taskService.update(task);
   }
 
   @HostListener('window:keydown.delete', ['$event'])
   onDelete(task: TaskDto, event?: any): void {
     const id: ID = task.id;
     if (id) {
-      this.taskFacade.delete(id).subscribe();
+      this.taskService.delete(id);
     }
     event?.stopPropagation();
   }
 
   @HostListener('contextmenu', ['$event'])
-  onContextMenu(event: MouseEvent, task: TaskDto): void {
+  onContextMenu(event: MouseEvent): void {
     event.preventDefault();
-    this.onClickRow(task);
-    this.openContextMenu.emit({
+    this.contextMenuService.onOpen({
       items: this._contextmenu,
       mousePosition: { x: event.clientX, y: event.clientY },
     });
@@ -99,32 +93,36 @@ export class TaskTableComponent {
 
   @HostListener('document:click')
   closeMenu() {
-    this.closeContextMenu.emit();
+    this.contextMenuService.onClose();
   }
 
-  private loadFormInlineTaskEffect(): void {
+  private loadFormTaskEffect(): void {
     effect(() => {
       const task: TaskDto | undefined = this.selectedTask();
       if (task) {
-        this.inlineTaskForm.setValue({
+        this.taskForm.setValue({
           name: task.name,
+          description: task.description,
         });
       }
     });
   }
 
   private subscribeToFormChanges(): void {
-    this.inlineTaskForm.valueChanges
+    this.taskForm.valueChanges
       .pipe(
         debounceTime(300),
-        distinctUntilChanged((prev, curr) => prev.name === curr.name),
+        distinctUntilChanged(
+          (prev, curr) => prev.name === curr.name && prev.description === curr.description,
+        ),
         takeUntilDestroyed(),
       )
-      .subscribe((inlineTaskForm: InlineTaskForm) => {
-        const task = this.selectedTask();
+      .subscribe((taskForm: TaskForm) => {
+        const task: TaskDto | undefined = this.selectedTask();
         if (task) {
-          task.name = inlineTaskForm.name ?? task.name;
-          this.taskFacade.update(task).subscribe();
+          task.name = taskForm.name ?? task.name;
+          task.description = taskForm.description ?? task.description;
+          this.taskService.update(task);
         }
       });
   }

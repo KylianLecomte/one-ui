@@ -1,4 +1,4 @@
-import { Component, inject, Signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,11 +8,10 @@ import {
 } from '@angular/forms';
 import { TaskDto } from './domain/dtos/task.dto';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ContextMenuService } from '../../shared/menu/context-menu/services/context-menu.service';
 import { TaskTableComponent } from './components/task-table/task-table.component';
-import { TaskFacade } from './services/task.facade';
 import { ToastService } from '../../shared/toast/services/toast.service';
 import { getNewTask } from './domain/utils/task.utils';
+import { TaskService } from './services/task.service';
 
 @Component({
   selector: 'one-task',
@@ -23,17 +22,14 @@ import { getNewTask } from './domain/utils/task.utils';
 export class TaskComponent {
   readonly toastService: ToastService = inject(ToastService);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
-  readonly contextMenuService: ContextMenuService = inject(ContextMenuService);
-  readonly taskFacade: TaskFacade = inject(TaskFacade);
+  readonly taskService: TaskService = inject(TaskService);
 
   newTaskForm: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control('', [Validators.required]),
   });
 
-  isSelectedTask: Signal<boolean> = this.taskFacade.isSelectedTask;
-
   constructor() {
-    this.taskFacade.getAll().subscribe();
+    this.taskService.getAll();
   }
 
   onSubmitAddNewTask(): void {
@@ -50,9 +46,7 @@ export class TaskComponent {
 
     const task: TaskDto = getNewTask(taskName);
 
-    this.taskFacade.create(task).subscribe(() => {
-      this.resetForm();
-    });
+    this.taskService.create(task, () => this.resetForm());
   }
 
   private resetForm(): void {
