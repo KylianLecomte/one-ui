@@ -9,11 +9,10 @@ import { catchError, Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
 import { TypeToken, UserStorageUtils } from '../../../shared/storage/UserStorage.utils';
-import { JwtTokens } from '../domain/dtos/auth-token.dto';
 import { RouterService } from '../../../shared/routing/route.service';
 import { API_URI_CONF } from '../../../../configuration/api-uri.conf';
 import { HttpHeadersUtils } from '../../../shared/utils/http-headers.utils';
-import { AuthUser } from '../domain/dtos/auth.dto';
+import { AccessToken, AuthUser } from '../domain/dtos/auth.dto';
 import { AuthUtils } from '../utils/auth.utils';
 
 export const authInterceptor: HttpInterceptorFn = (
@@ -84,7 +83,7 @@ const handle401Error: <T>(
   }
 
   return authService.refreshAccessToken(refreshToken).pipe(
-    switchMap((response: JwtTokens): Observable<HttpEvent<unknown>> => {
+    switchMap((responseAccessToken: AccessToken): Observable<HttpEvent<unknown>> => {
       const currentAuthUser: AuthUser | undefined = UserStorageUtils.get();
 
       if (!currentAuthUser) {
@@ -97,9 +96,9 @@ const handle401Error: <T>(
         );
       }
 
-      UserStorageUtils.updateTokens(response);
+      UserStorageUtils.updateAccessToken(responseAccessToken);
 
-      return next(getRequestWithBearerToken(req, response.accessToken));
+      return next(getRequestWithBearerToken(req, responseAccessToken.accessToken));
     }),
   );
 };

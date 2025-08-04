@@ -56,12 +56,12 @@ export class TaskTableComponent {
     this.subscribeToFormChanges();
   }
 
-  getSelectedClass(task: TaskDto) {
-    return this.isSelectedTask(task) ? 'task selected' : 'task';
-  }
-
   isSelectedTask(task: TaskDto): boolean {
     return task.id === this.selectedTaskId();
+  }
+
+  getSelectedClass(task: TaskDto) {
+    return this.isSelectedTask(task) ? 'task selected' : 'task';
   }
 
   onClickRow(task: TaskDto): void {

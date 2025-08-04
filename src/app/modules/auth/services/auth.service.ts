@@ -1,10 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { AuthUser, SignIn, SignUp } from '../domain/dtos/auth.dto';
+import { AccessToken, AuthUser, SignIn, SignUp } from '../domain/dtos/auth.dto';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { UserStorageUtils } from '../../../shared/storage/UserStorage.utils';
 import { Router } from '@angular/router';
-import { JwtTokens } from '../domain/dtos/auth-token.dto';
 import { API_URI_CONF, LOCAL_API_PATH } from '../../../../configuration/api-uri.conf';
 import { RouterService } from '../../../shared/routing/route.service';
 
@@ -53,7 +52,7 @@ export class AuthService {
       });
   }
 
-  refreshAccessToken(refreshToken: string): Observable<JwtTokens> {
+  refreshAccessToken(refreshToken: string): Observable<AccessToken> {
     const body = new HttpParams()
       .set('grant_type', 'refresh_token')
       .set('refresh_token', refreshToken);
@@ -62,9 +61,11 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
-    return this.httpClient.post<JwtTokens>(`${LOCAL_API_PATH}${API_URI_CONF.auth.token()}`, body, {
-      headers,
-    });
+    return this.httpClient.post<AccessToken>(
+      `${LOCAL_API_PATH}${API_URI_CONF.auth.token()}`,
+      body,
+      { headers },
+    );
   }
 
   logout(): void {

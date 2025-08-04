@@ -33,7 +33,9 @@ export class TaskService extends TaskStateService {
     this.apiService.post<TaskDto>(API_URI_CONF.task.create(), taskCreate, (task: TaskDto) => {
       this.addStateTask(task);
 
-      if (successFn) successFn(task);
+      if (successFn) {
+        successFn(task);
+      }
     });
   }
 
