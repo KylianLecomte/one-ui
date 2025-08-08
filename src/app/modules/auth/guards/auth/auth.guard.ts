@@ -16,7 +16,7 @@ export const authGuard: CanActivateFn = (
   const router: Router = inject(Router);
 
   if (!authService.isAuthenticated) {
-    router.navigateByUrl(APP_URL_CONF.signIn);
+    router.navigateByUrl(APP_URL_CONF.signIn).then();
     console.error('ta pas le droit');
     return false;
   } else {

@@ -16,7 +16,7 @@ export const noAuthGuard: CanActivateFn = (
   const router: Router = inject(Router);
 
   if (authService.isAuthenticated) {
-    router.navigateByUrl(APP_URL_CONF.task.base);
+    router.navigateByUrl(APP_URL_CONF.task.base).then();
     console.error('déjà connecté');
     return false;
   } else {

@@ -3,7 +3,6 @@ import { AccessToken, AuthUser, SignIn, SignUp } from '../domain/dtos/auth.dto';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { UserStorageUtils } from '../../../shared/storage/UserStorage.utils';
-import { Router } from '@angular/router';
 import { API_URI_CONF, LOCAL_API_PATH } from '../../../../configuration/api-uri.conf';
 import { RouterService } from '../../../shared/routing/route.service';
 
@@ -13,7 +12,6 @@ import { RouterService } from '../../../shared/routing/route.service';
 export class AuthService {
   private readonly httpClient: HttpClient = inject(HttpClient);
   private readonly routerService: RouterService = inject(RouterService);
-  private readonly router: Router = inject(Router);
 
   get jwtUser(): AuthUser | undefined {
     return UserStorageUtils.get() ?? undefined;
