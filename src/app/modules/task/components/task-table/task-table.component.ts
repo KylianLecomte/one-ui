@@ -54,6 +54,7 @@ export class TaskTableComponent {
   constructor() {
     this.loadFormTaskEffect();
     this.subscribeToFormChanges();
+    this.taskService.getAll();
   }
 
   isSelectedTask(task: TaskDto): boolean {

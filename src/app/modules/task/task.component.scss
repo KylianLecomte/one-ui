@@ -2,76 +2,15 @@
 
 :host {
   width: 100%;
-  padding: 40px;
+  padding: vars.$padding-container;
 }
 
-.expended-content {
-  padding: 8px;
-  width: 100%;
-}
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: vars.$padding-container;
 
-#ctn-add-task {
-  margin-bottom: 20px;
-}
-
-.task-todo,
-.task-done,
-.task-canceled {
-  width: vars.$size-task-state;
-  height: vars.$size-task-state;
-}
-
-.task-todo {
-  color: vars.$color-task-todo;
-}
-
-.task-done {
-  color: vars.$color-task-done;
-}
-
-.task-canceled {
-  color: vars.$color-task-canceled;
-}
-
-td {
-  border-top: vars.$border;
-  border-bottom: vars.$border;
-  text-align: center;
-  padding: 5px 0;
-
-  border-bottom-left-radius: vars.$border-radius;
-  border-bottom-right-radius: vars.$border-radius;
-  &:first-child {
-    padding: 5px 10px;
-    border-left: vars.$border;
+  & > * {
+    padding: vars.$padding-container;
   }
-
-  &:last-child {
-    padding: 5px 10px;
-    border-right: vars.$border;
-  }
-
-  &:hover {
-    background-color: vars.$color-hover;
-    & * {
-      background-color: vars.$color-hover;
-    }
-  }
-}
-
-td.task-state {
-  width: 20px;
-
-  & > fa-icon {
-    margin: auto;
-  }
-}
-
-td.task-name {
-  width: auto;
-  padding-right: 10px;
-}
-
-td.task-delete {
-  width: 30px;
 }

@@ -7,7 +7,7 @@ body {
   margin: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  font-family: "Montserrat", "sans-serif", "Inter", sans-serif;
+  font-family: vars.$font-familly;
   box-sizing: border-box;
   font-size: vars.$font-size-normal;
   color: vars.$font-color-main;
@@ -19,7 +19,9 @@ app-root {
   flex-direction: column;
 }
 
-input {
+input,
+textarea {
+  font-family: vars.$font-familly;
   outline: none;
 }
 
@@ -74,8 +76,8 @@ ul {
   display: flex;
 }
 
-input[type="text"],
-input[type="password"] {
+input.classic,
+textarea.classic {
   padding: vars.$padding-input-text;
   height: vars.$height-input-text;
   border-radius: 4px;

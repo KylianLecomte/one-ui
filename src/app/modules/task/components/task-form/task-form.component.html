@@ -1,0 +1,16 @@
+<form (ngSubmit)="onSubmitAddNewTask()" [formGroup]="taskForm" class="mb-3">
+  <input
+    class="classic"
+    formControlName="name"
+    id="input-task-name"
+    placeholder="Nom"
+    type="text"
+  />
+  <textarea
+    class="classic"
+    formControlName="description"
+    id="input-task-description"
+    placeholder="Description"
+  ></textarea>
+  <button type="submit">Ajouter</button>
+</form>

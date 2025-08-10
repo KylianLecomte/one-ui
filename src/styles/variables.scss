@@ -23,11 +23,12 @@ $color-task-done: #49a942;
 $color-task-canceled: #a94442;
 
 // Spacing
-$padding-main-container: 10px;
+$padding-container: 20px;
 $margin-right-icon: 6px;
 $margin-icon: 0 $margin-right-icon 0 0;
 
 // Font
+$font-familly: "Montserrat", "sans-serif", "Inter", sans-serif;
 $font-size-normal: 1rem;
 $font-size-error-message: 0.8rem;
 

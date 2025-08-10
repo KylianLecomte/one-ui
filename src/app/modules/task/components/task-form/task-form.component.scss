@@ -1,0 +1,14 @@
+:host {
+  width: 35%;
+  min-width: 400px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  & button[type="submit"] {
+    width: 100px;
+  }
+}

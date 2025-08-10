@@ -32,11 +32,11 @@ export function getTasksFilteredOnId(tasks: TaskDto[], id: ID): TaskDto[] {
   return tasks.filter((t: TaskDto): boolean => t.id !== id);
 }
 
-export function getNewTask(taskName: string): TaskDto {
+export function getNewTask(taskName: string, description?: string): TaskDto {
   return {
     name: taskName,
     status: TaskStatus.Todo,
     statusDate: new Date(),
-    description: '',
+    description: description ?? '',
   };
 }
