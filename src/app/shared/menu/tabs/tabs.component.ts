@@ -1,4 +1,11 @@
-import { Component, contentChildren, effect, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  contentChildren,
+  effect,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { TabComponent } from '../tab/tab.component';
 import { NgTemplateOutlet } from '@angular/common';
 
@@ -7,6 +14,7 @@ import { NgTemplateOutlet } from '@angular/common';
   imports: [NgTemplateOutlet],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsComponent {
   tabs = contentChildren(TabComponent);
