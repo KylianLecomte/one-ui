@@ -12,5 +12,12 @@
     id="input-task-description"
     placeholder="Description"
   ></textarea>
+  <one-tabs>
+    <one-tab [label]="Frequency.WEEKLY"><ng-template>WEEKLY</ng-template></one-tab>
+    <one-tab [label]="Frequency.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
+    <one-tab [label]="Frequency.YEARLY"><ng-template>YEARLY</ng-template></one-tab>
+    <one-tab [label]="Frequency.FIX"><ng-template>FIX</ng-template></one-tab>
+    <one-tab [label]="Frequency.CUSTOM"><ng-template>CUSTOM</ng-template></one-tab>
+  </one-tabs>
   <button type="submit">Ajouter</button>
 </form>

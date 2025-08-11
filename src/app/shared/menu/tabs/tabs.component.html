@@ -1,0 +1,17 @@
+<ul>
+  @for (tab of tabs(); track $index) {
+    <li>
+      <button
+        (click)="setSelectedTab(tab)"
+        [class.isSelected]="tab === selectedTab()"
+        type="button"
+      >
+        {{ tab.label() }}
+      </button>
+    </li>
+  }
+</ul>
+
+@if (selectedTab()) {
+  <ng-container *ngTemplateOutlet="selectedTab()!.content" />
+}

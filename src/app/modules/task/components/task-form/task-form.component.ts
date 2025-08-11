@@ -4,18 +4,21 @@ import { TaskService } from '../../services/task.service';
 import { ToastService } from '../../../../shared/toast/services/toast.service';
 import { TaskDto } from '../../domain/dtos/task.dto';
 import { getNewTask } from '../../domain/utils/task.utils';
+import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
+import { TabComponent } from '../../../../shared/menu/tab/tab.component';
+import { Frequency } from '../../../../shared/dtos/frequency.dto';
 
 @Component({
   selector: 'one-task-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TabsComponent, TabComponent],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })
 export class TaskFormComponent {
+  protected readonly Frequency = Frequency;
   readonly toastService: ToastService = inject(ToastService);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
   readonly taskService: TaskService = inject(TaskService);
-
   taskForm: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control('', [Validators.required]),
     description: this.formBuilder.control('', []),
