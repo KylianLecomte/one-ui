@@ -23,6 +23,7 @@ input,
 textarea {
   font-family: vars.$font-familly;
   outline: none;
+  accent-color: vars.$color-main;
 }
 
 button {

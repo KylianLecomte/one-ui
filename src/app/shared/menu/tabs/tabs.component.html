@@ -13,5 +13,9 @@
 </ul>
 
 @if (selectedTab()) {
-  <ng-container *ngTemplateOutlet="selectedTab()!.content" />
+  <div class="ctn-selected-tab">
+    <ng-container *ngTemplateOutlet="selectedTab()!.content" />
+  </div>
 }
+
+<ng-content select="[ctnEndStartFrequency]"></ng-content>

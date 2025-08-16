@@ -21,6 +21,17 @@
     </one-tab>
     <one-tab [label]="Frequency.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
     <one-tab [label]="Frequency.FIX"><ng-template>FIX</ng-template></one-tab>
+
+    <div ctnEndStartFrequency>
+      <div class="ctn-start-frequency flex-row">
+        <one-select [options]="START_FREQUENCY" id="frequencyStart" label="Début"></one-select>
+      </div>
+
+      <div class="ctn-end-frequency flex-row">
+        <one-select [options]="END_FREQUENCY" id="frequencyEnd" label="Fin"></one-select>
+      </div>
+    </div>
   </one-tabs>
+
   <button type="submit">Ajouter</button>
 </form>

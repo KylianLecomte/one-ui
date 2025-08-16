@@ -1,25 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CheckboxComponent } from '../../../../shared/components/checkbox/checkbox.component';
 import { RadioComponent } from '../../../../shared/components/radio/radio.component';
-import {
-  InputNumberComponent
-} from '../../../../shared/components/input-number/input-number.component';
+import { InputNumberComponent } from '../../../../shared/components/input-number/input-number.component';
+import { CheckboxTagComponent } from '../../../../shared/components/checkbox-tag/checkbox-tag.component';
 
 @Component({
   selector: 'one-task-frequency-weekly',
-  imports: [CheckboxComponent, RadioComponent, InputNumberComponent],
+  imports: [RadioComponent, InputNumberComponent, CheckboxTagComponent],
   templateUrl: './task-frequency-weekly.component.html',
   styleUrl: './task-frequency-weekly.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskFrequencyWeeklyComponent {
   readonly WEEK_DAY = [
-    ['monday', 'Lundi'],
-    ['tuesday', 'Mardi'],
-    ['wednesday', 'Mercredi'],
-    ['thursday', 'Jeudi'],
-    ['friday', 'Vendredi'],
-    ['saturday', 'Samedi'],
-    ['sunday', 'Dimanche'],
+    ['monday', 'L'],
+    ['tuesday', 'M'],
+    ['wednesday', 'M'],
+    ['thursday', 'J'],
+    ['friday', 'V'],
+    ['saturday', 'S'],
+    ['sunday', 'D'],
   ];
 }

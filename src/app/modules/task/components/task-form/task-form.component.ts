@@ -8,15 +8,24 @@ import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/menu/tab/tab.component';
 import { Frequency } from '../../../../shared/dtos/frequency.type';
 import { TaskFrequencyWeeklyComponent } from '../task-frequency-weekly/task-frequency-weekly.component';
+import { SelectComponent } from '../../../../shared/components/select/select.component';
 
 @Component({
   selector: 'one-task-form',
-  imports: [ReactiveFormsModule, TabsComponent, TabComponent, TaskFrequencyWeeklyComponent],
+  imports: [
+    ReactiveFormsModule,
+    TabsComponent,
+    TabComponent,
+    TaskFrequencyWeeklyComponent,
+    SelectComponent,
+  ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })
 export class TaskFormComponent {
   protected readonly Frequency = Frequency;
+  readonly START_FREQUENCY: string[] = ['Maintenant', 'Date'];
+  readonly END_FREQUENCY: string[] = ['Maintenant', 'Date', "Nombre d'occurence"];
   readonly toastService: ToastService = inject(ToastService);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
   readonly taskService: TaskService = inject(TaskService);

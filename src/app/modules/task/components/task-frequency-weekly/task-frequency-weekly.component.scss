@@ -1,14 +1,13 @@
-#one-task-frequency-weekly {
-  gap: 60px;
-  padding: 10px;
-}
-
 .ctn-per-jour one-radio,
 .ctn-regular one-radio {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.ctn-per-jour one-checkbox,
+.ctn-per-jour one-checkbox-tag,
 .ctn-regular p {
-  margin: 4px 0 0 20px;
+  margin: 0 0 0 20px;
+}
+
+.ctn-per-jour {
+  margin: 0 0 20px 0;
 }

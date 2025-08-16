@@ -1,0 +1,19 @@
+@use '../../../../styles/variables' as vars;
+
+label {
+  margin: 0 10px 0 0;
+}
+
+select {
+  cursor: pointer;
+  border: vars.$border;
+  border-radius: vars.$border-radius;
+  padding: vars.$input-padding;
+
+  &:focus {
+    outline: none;
+    border-color: vars.$color-main;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}

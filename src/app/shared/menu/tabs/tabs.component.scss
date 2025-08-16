@@ -1,4 +1,4 @@
-@use "../../../../styles/variables" as vars;
+@use '../../../../styles/variables' as vars;
 
 ul {
   display: flex;
@@ -21,4 +21,8 @@ ul {
       }
     }
   }
+}
+
+.ctn-selected-tab {
+  padding: 10px;
 }

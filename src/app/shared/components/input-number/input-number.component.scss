@@ -1,3 +1,6 @@
+@use '../../../../styles/variables' as vars;
+
 input {
   width: 2rem;
+  padding: vars.$input-padding;
 }

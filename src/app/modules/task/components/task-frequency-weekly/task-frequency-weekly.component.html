@@ -1,10 +1,12 @@
-<div class="flex-row" id="one-task-frequency-weekly">
+<div class="flex-col" id="one-task-frequency-weekly">
   <div class="ctn-per-jour flex-col">
     <one-radio [group]="'weeklyType'" [id]="'perDayInput'" [label]="'Par jour'"></one-radio>
 
-    @for (day of WEEK_DAY; track $index) {
-      <one-checkbox [id]="day[0]" [label]="day[1]"></one-checkbox>
-    }
+    <div class="ctn-days flex-row">
+      @for (day of WEEK_DAY; track $index) {
+        <one-checkbox-tag [id]="day[0]" [label]="day[1]"></one-checkbox-tag>
+      }
+    </div>
   </div>
 
   <div class="ctn-regular flex-col">

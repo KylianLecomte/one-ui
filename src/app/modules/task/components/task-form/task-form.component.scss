@@ -1,5 +1,10 @@
+@use '../../../../../styles/variables' as vars;
+
 :host {
+  max-width: 30%;
   min-width: 400px;
+  padding: vars.$layour-padding vars.$layour-padding 0 vars.$layour-padding;
+  border-left: vars.$border-layout;
 }
 
 form {
@@ -9,5 +14,17 @@ form {
 
   & button[type='submit'] {
     width: 100px;
+  }
+
+  & textarea {
+    resize: vertical;
+  }
+
+  div[ctnEndStartFrequency] {
+    padding: 10px;
+  }
+
+  .ctn-start-frequency {
+    margin: 0 0 20px 0;
   }
 }

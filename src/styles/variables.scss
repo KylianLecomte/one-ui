@@ -4,8 +4,8 @@ $color-message-warning: #a97c42;
 $color-message-success: #49a942;
 
 // blue
-$color-main: #347be9;
-$color-main-hover: #78a0df;
+$color-main: #1c73ff;
+$color-main-hover: #88afec;
 $color-main-light: #dae4ff;
 
 // TODO: Uniformiser les gris
@@ -30,13 +30,14 @@ $margin-icon: 0 $margin-right-icon 0 0;
 
 // Font
 $font-familly: 'Montserrat', 'sans-serif', 'Inter', sans-serif;
-$font-size-normal: 1.1rem;
+$font-size-normal: 1rem;
 $font-size-error-message: 0.8rem;
 
 // Layout
 $width-menu: 150px;
 $width-main-layout: 50%;
 $width-right-layout: calc(100% - $width-menu - $width-main-layout);
+$layour-padding: 40px;
 
 // Size
 // Input
@@ -52,3 +53,6 @@ $button-padding: 6px;
 $border-radius: 2px;
 $border: 1px solid $border-color-gray;
 $border-layout: 2px solid $border-color-gray;
+
+// Input
+$input-padding: 2px;
