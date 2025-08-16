@@ -1,4 +1,4 @@
-@use "./variables" as vars;
+@use './variables' as vars;
 
 /*** RESET ***/
 html,
@@ -26,8 +26,8 @@ textarea {
 }
 
 button {
-  height: vars.$height-button;
-  padding: 8px;
+  height: vars.$button-height;
+  padding: vars.$button-padding;
   cursor: pointer;
   border: vars.$border;
   border-radius: vars.$border-radius;
@@ -67,20 +67,26 @@ p {
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 /*** COMMON ***/
 .card {
   padding: 16px;
-  border-radius: 4px;
+  border-radius: vars.$border-radius;
   display: flex;
+}
+
+input.classic[type='text'],
+input.classic[type='password'],
+textarea.classic[type='text'] {
+  height: vars.$height-input-text;
+  padding: vars.$padding-input-text;
 }
 
 input.classic,
 textarea.classic {
-  padding: vars.$padding-input-text;
-  height: vars.$height-input-text;
-  border-radius: 4px;
+  border-radius: vars.$border-radius;
   border: 1px solid vars.$border-color-gray;
 
   &:focus {
@@ -103,7 +109,7 @@ textarea.classic {
 
 button.primary {
   padding: 8px;
-  border-radius: 6px;
+  border-radius: vars.$border-radius;
   color: white;
   border: none;
   background-color: vars.$color-main;

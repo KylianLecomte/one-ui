@@ -1,3 +1,4 @@
+@use '../../../styles/variables' as vars;
 //.toast {
 //  border: 1px solid #337ae8;
 //  border-radius: 4px;
@@ -15,7 +16,6 @@
 //  width: 30px;
 //  color: #337ae8;
 //}
-
 .toastr-container {
   position: fixed;
   top: 20px;
@@ -31,12 +31,12 @@
   padding: 10px;
   display: flex;
   width: 320px;
-  border-radius: 4px;
+  border-radius: vars.$border-radius;
   border: 1px solid;
   margin-bottom: 16px;
   overflow: hidden;
   position: relative;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .toast-icon {

@@ -1,0 +1,29 @@
+<div class="flex-row" id="one-task-frequency-weekly">
+  <div class="ctn-per-jour flex-col">
+    <one-radio [group]="'weeklyType'" [id]="'perDayInput'" [label]="'Par jour'"></one-radio>
+
+    @for (day of WEEK_DAY; track $index) {
+      <one-checkbox [id]="day[0]" [label]="day[1]"></one-checkbox>
+    }
+  </div>
+
+  <div class="ctn-regular flex-col">
+    <one-radio [group]="'weeklyType'" [id]="'regularInput'" [label]="'Régulier'"></one-radio>
+
+    <p>
+      <one-input-number
+        [id]="'jours'"
+        [labelIsHidden]="true"
+        [label]="'Nombre de jours'"
+        [max]="7"
+      ></one-input-number>
+      <span> jour(s) sur </span>
+      <one-input-number
+        [id]="'periode'"
+        [labelIsHidden]="true"
+        [label]="'Période totale (en jours)'"
+        [max]="7"
+      ></one-input-number>
+    </p>
+  </div>
+</div>

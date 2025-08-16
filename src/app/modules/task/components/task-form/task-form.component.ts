@@ -6,11 +6,12 @@ import { TaskDto } from '../../domain/dtos/task.dto';
 import { getNewTask } from '../../domain/utils/task.utils';
 import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/menu/tab/tab.component';
-import { Frequency } from '../../../../shared/dtos/frequency.dto';
+import { Frequency } from '../../../../shared/dtos/frequency.type';
+import { TaskFrequencyWeeklyComponent } from '../task-frequency-weekly/task-frequency-weekly.component';
 
 @Component({
   selector: 'one-task-form',
-  imports: [ReactiveFormsModule, TabsComponent, TabComponent],
+  imports: [ReactiveFormsModule, TabsComponent, TabComponent, TaskFrequencyWeeklyComponent],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
 })

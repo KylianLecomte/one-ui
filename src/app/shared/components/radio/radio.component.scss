@@ -1,0 +1,21 @@
+span,
+input,
+label {
+  cursor: pointer;
+}
+
+input:not(:checked) {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #dadfec;
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  margin: 3px 6px 0 0;
+}
+
+input:checked {
+  width: 14px;
+  height: 14px;
+  margin: 3px 6px 0 0;
+}

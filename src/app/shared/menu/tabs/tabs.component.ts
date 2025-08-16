@@ -23,7 +23,6 @@ export class TabsComponent {
 
   constructor() {
     effect(() => {
-      console.log('Tabs Component loaded', this.tabs());
       this.selectedTab.set(this.tabs()[0] ? this.tabs()[0] : undefined);
     });
   }
