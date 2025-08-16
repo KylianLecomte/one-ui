@@ -11,7 +11,7 @@ export abstract class TaskStateService {
 
   selectedTaskId: WritableSignal<ID | undefined> = signal(undefined);
   selectedTask: Signal<TaskDto | undefined> = computed(() =>
-    this.getTaskById(this.selectedTaskId()),
+    this.getTaskById(this.selectedTaskId())
   );
 
   isTasksLoaded: WritableSignal<boolean> = signal(false);
@@ -44,7 +44,7 @@ export abstract class TaskStateService {
   }
 
   protected updateTasks(tasks: TaskDto[]): void {
-    this.tasks.update((_) => [...toSortedTasks(tasks)]);
+    this.tasks.update(() => [...toSortedTasks(tasks)]);
   }
 
   private getTaskById(id?: ID): TaskDto | undefined {

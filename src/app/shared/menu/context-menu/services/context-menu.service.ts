@@ -10,8 +10,6 @@ export class ContextMenuService {
   readonly opened: WritableSignal<boolean> = signal(false);
   readonly data: WritableSignal<ContextMenuData | undefined> = signal(undefined);
 
-  constructor() {}
-
   onOpen(cmData: ContextMenuData): void {
     this.data.set(cmData);
     this.mousePosition.set(cmData.mousePosition);

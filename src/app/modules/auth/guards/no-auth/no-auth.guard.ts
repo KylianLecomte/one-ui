@@ -1,17 +1,9 @@
-import {
-  ActivatedRouteSnapshot,
-  CanActivateFn,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { inject } from '@angular/core';
 import { APP_URL_CONF } from '../../../../../configuration/app-url.conf';
 
-export const noAuthGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-): boolean => {
+export const noAuthGuard: CanActivateFn = (): boolean => {
   const authService: AuthService = inject(AuthService);
   const router: Router = inject(Router);
 

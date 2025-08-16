@@ -7,9 +7,7 @@ import { JSONObject } from '../domain/dtos/api.dtos';
 })
 export class ApiService {
   private readonly httpClient: HttpClient = inject(HttpClient);
-  private _showInfoLog: boolean = true; // TODO variabiliser par environnement
-
-  constructor() {}
+  private readonly _showInfoLog: boolean = true; // TODO variabiliser par environnement
 
   private _baseApiUrl: string = '';
 
@@ -20,7 +18,7 @@ export class ApiService {
   get<T>(
     url: string,
     nextCallback: (data: T) => void,
-    errorCallback?: (error: JSONObject) => void,
+    errorCallback?: (error: JSONObject) => void
   ): void {
     this.httpClient.get<T>(this._baseApiUrl + url).subscribe({
       next: (res: T): void => {
@@ -43,7 +41,7 @@ export class ApiService {
     url: string,
     data: T,
     nextCallback: (data: T) => void,
-    errorCallback?: (error: JSONObject) => void,
+    errorCallback?: (error: JSONObject) => void
   ): void {
     this.httpClient.post<T>(this._baseApiUrl + url, data).subscribe({
       next: (res: T): void => {
@@ -66,7 +64,7 @@ export class ApiService {
     url: string,
     data: T,
     nextCallback: (data: T) => void,
-    errorCallback?: (error: JSONObject) => void,
+    errorCallback?: (error: JSONObject) => void
   ): void {
     this.httpClient.put<T>(this._baseApiUrl + url, data).subscribe({
       next: (res: T): void => {
@@ -88,7 +86,7 @@ export class ApiService {
   delete<T>(
     url: string,
     nextCallback: () => void,
-    errorCallback?: (error: JSONObject) => void,
+    errorCallback?: (error: JSONObject) => void
   ): void {
     this.httpClient.delete<T>(this._baseApiUrl + url).subscribe({
       next: (): void => {

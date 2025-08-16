@@ -1,0 +1,55 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        // Intégration ESLint + Prettier
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "crlf"
+          }
+        ],
+
+        // Ordre des membres dans les classes Angular
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": [
+              "static-field",
+              "instance-field",
+              "constructor",
+              "ngOnInit",
+              "public-instance-method",
+              "protected-instance-method",
+              "private-instance-method"
+            ]
+          }
+        ],
+
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+
+        // Règles Angular
+        "@angular-eslint/sort-ngmodule-metadata-arrays": "error",
+        "@angular-eslint/sort-lifecycle-methods": "error"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}
