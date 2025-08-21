@@ -1,18 +1,16 @@
 import { Component, computed, input } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { LabelPosition } from '../../dtos/label-position.type';
+import { LabelPosition } from '../../../dtos/label-position.type';
 
 @Component({
-  selector: 'one-checkbox',
-  imports: [NgClass],
-  templateUrl: './checkbox.component.html',
-  styleUrl: './checkbox.component.scss',
+  selector: 'one-checkbox-tag',
+  imports: [],
+  templateUrl: './checkbox-tag.component.html',
+  styleUrl: './checkbox-tag.component.scss',
 })
-export class CheckboxComponent {
+export class CheckboxTagComponent {
   label = input.required<string>();
   id = input.required<string>();
   labelPosition = input<LabelPosition>('left');
-  asTag = input<boolean>(true);
 
   cssLabelPosition = computed(() => {
     switch (this.labelPosition()) {

@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmitAddNewTask()" [formGroup]="taskForm" class="mb-3">
+<form (ngSubmit)="onSubmitAddNewTask()" [formGroup]="taskFg" class="mb-3">
   <input
     class="classic"
     formControlName="name"
@@ -13,10 +13,10 @@
     placeholder="Description"
     type="text"
   ></textarea>
-  <one-tabs>
+  <one-tabs formGroupName="frequencyRuleFg">
     <one-tab [label]="Frequency.WEEKLY">
       <ng-template>
-        <one-task-frequency-weekly></one-task-frequency-weekly>
+        <!--        <one-task-frequency-weekly [weeklyForm]="weeklyFg"></one-task-frequency-weekly>-->
       </ng-template>
     </one-tab>
     <one-tab [label]="Frequency.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
@@ -24,11 +24,29 @@
 
     <div ctnEndStartFrequency>
       <div class="ctn-start-frequency flex-row">
-        <one-select [options]="START_FREQUENCY" id="frequencyStart" label="Début"></one-select>
+        <one-select
+          [formControlName]="'start'"
+          [formGroupName]="'frequencyRuleFg'"
+          [options]="START_FREQUENCY"
+          id="frequencyStart"
+          label="Début"
+        ></one-select>
+
+        <!--        <label [for]="'frequencyStart'">Début</label>-->
+        <!--        <select [formControlName]="'start'" [id]="'frequencyStart'">-->
+        <!--          @for (option of START_FREQUENCY; track $index) {-->
+        <!--            <option>{{ option }}</option>-->
+        <!--          }-->
+        <!--        </select>-->
       </div>
 
       <div class="ctn-end-frequency flex-row">
-        <one-select [options]="END_FREQUENCY" id="frequencyEnd" label="Fin"></one-select>
+        <!--        <one-select-->
+        <!--          [formControlName]="'end'"-->
+        <!--          [options]="END_FREQUENCY"-->
+        <!--          id="frequencyEnd"-->
+        <!--          label="Fin"-->
+        <!--        ></one-select>-->
       </div>
     </div>
   </one-tabs>

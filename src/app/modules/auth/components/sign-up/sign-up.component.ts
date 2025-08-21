@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { SignUp } from '../../domain/dtos/auth.dto';
 import { RequiredComponent } from '../../../form/components/required/required.component';
-import { equalValuesValidator } from '../../../../shared/validators/equalValuesValidator';
+import { equalValuesValidator } from '../../../../shared/form/validators/equalValuesValidator';
 
 @Component({
   selector: 'one-sign-up',
@@ -23,7 +23,7 @@ export class SignUpComponent {
     },
     {
       validator: equalValuesValidator('password', 'confirmationPassword'),
-    },
+    }
   );
 
   onClickSubmit(): void {

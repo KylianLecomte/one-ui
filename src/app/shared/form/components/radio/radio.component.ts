@@ -1,18 +1,20 @@
 import { Component, computed, input } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { LabelPosition } from '../../dtos/label-position.type';
+import { LabelPosition } from '../../../dtos/label-position.type';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BaseInputFormControl } from '../base/base-input-form-control';
 
 @Component({
   selector: 'one-radio',
-  imports: [NgClass],
+  imports: [NgClass, ReactiveFormsModule],
   templateUrl: './radio.component.html',
   styleUrl: './radio.component.scss',
 })
-export class RadioComponent {
-  label = input.required<string>();
+export class RadioComponent extends BaseInputFormControl<string> {
   group = input.required<string>();
-  id = input.required<string>();
   labelPosition = input<LabelPosition>('left');
+
+  formValue = input.required<string>();
 
   cssLabelPosition = computed(() => {
     switch (this.labelPosition()) {
@@ -26,4 +28,9 @@ export class RadioComponent {
         return 'flex-row-reverse';
     }
   });
+
+  handleChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.updateValue(input.value);
+  }
 }
