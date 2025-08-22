@@ -1,5 +1,5 @@
 <label [for]="id()">{{ label() }}</label>
-<select [formControlName]="formControlName()" [id]="id()">
+<select [id]="id()">
   @for (option of options(); track $index) {
     <option>{{ option }}</option>
   }

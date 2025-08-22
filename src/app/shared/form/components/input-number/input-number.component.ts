@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { BaseInputFormControl } from '../base/base-input-form-control';
 import { ReactiveFormsModule } from '@angular/forms';
+import { genericProvider } from '../base/generic-provider.provider';
 
 type InputNumberType = number | null;
 
@@ -10,6 +11,7 @@ type InputNumberType = number | null;
   imports: [NgClass, ReactiveFormsModule],
   templateUrl: './input-number.component.html',
   styleUrl: './input-number.component.scss',
+  providers: [genericProvider(InputNumberComponent)],
 })
 export class InputNumberComponent extends BaseInputFormControl<InputNumberType> {
   labelIsHidden = input<boolean>(false);

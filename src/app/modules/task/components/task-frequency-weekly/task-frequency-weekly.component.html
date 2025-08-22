@@ -1,44 +1,49 @@
 <div [formGroup]="weeklyForm()" class="flex-col" id="one-task-frequency-weekly">
   <div class="ctn-per-jour flex-col">
     <one-radio
-      [formControlName]="'frequencyType'"
       [formValue]="FrequencyType.WEEKLY_BY_DAY"
       [group]="'weeklyType'"
       [id]="'perDayInput'"
       [label]="'Par jour'"
+      formControlName="frequencyType"
     ></one-radio>
 
     <div class="ctn-days flex-row">
       @for (day of WEEK_DAY; track $index) {
-        <one-checkbox-tag [id]="day[0]" [label]="day[1]"></one-checkbox-tag>
+        <one-checkbox-tag
+          formControlName="selectedDays"
+          [currentValue]="day[0]"
+          [id]="day[0]"
+          [label]="day[1]"
+        ></one-checkbox-tag>
       }
     </div>
   </div>
 
   <div class="ctn-regular flex-col">
     <one-radio
-      [formControlName]="'frequencyType'"
       [formValue]="FrequencyType.WEEKLY_REGULAR"
       [group]="'weeklyType'"
       [id]="'perRepetitionInput'"
       [label]="'Régulier'"
+      formControlName="frequencyType"
     ></one-radio>
 
     <p>
       <one-input-number
-        [formControlName]="'repeatEvery'"
         [id]="'jours'"
         [labelIsHidden]="true"
         [label]="'Nombre de jours'"
         [max]="7"
+        formControlName="repeatEvery"
       ></one-input-number>
       <span> jour(s) sur </span>
       <one-input-number
-        [formControlName]="'periodLength'"
         [id]="'periode'"
         [labelIsHidden]="true"
         [label]="'Période totale (en jours)'"
         [max]="7"
+        formControlName="periodLength"
       ></one-input-number>
     </p>
   </div>

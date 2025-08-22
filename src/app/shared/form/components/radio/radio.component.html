@@ -1,10 +1,4 @@
 <span [ngClass]="cssLabelPosition()">
-  <input
-    [formGroupName]="formControlName()"
-    [id]="id()"
-    [name]="group()"
-    class="classic"
-    type="radio"
-  />
+  <input [id]="id()" [name]="group()" class="classic" type="radio" />
   <label [for]="id()">{{ label() }}</label>
 </span>

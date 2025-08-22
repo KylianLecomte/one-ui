@@ -1,4 +1,10 @@
 <div>
-  <input [id]="id()" class="classic" type="checkbox" />
+  <input
+    (change)="handleChange($event)"
+    [checked]="isChecked()"
+    [id]="id()"
+    class="classic"
+    type="checkbox"
+  />
   <label [for]="id()">{{ label() }}</label>
 </div>

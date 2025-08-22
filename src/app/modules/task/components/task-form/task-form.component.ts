@@ -12,10 +12,17 @@ import {
   WeekDay,
 } from '../../../../shared/frequence/dtos/frequency.type';
 import { SelectComponent } from '../../../../shared/form/components/select/select.component';
+import { TaskFrequencyWeeklyComponent } from '../task-frequency-weekly/task-frequency-weekly.component';
 
 @Component({
   selector: 'one-task-form',
-  imports: [ReactiveFormsModule, TabsComponent, TabComponent, SelectComponent],
+  imports: [
+    ReactiveFormsModule,
+    TabsComponent,
+    TabComponent,
+    SelectComponent,
+    TaskFrequencyWeeklyComponent,
+  ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,7 +74,7 @@ export class TaskFormComponent {
   }
 
   get weeklyFg(): FormGroup {
-    return this.frequencyRuleFg.get('weeklyForm') as FormGroup;
+    return this.frequencyRuleFg.get('weeklyFg') as FormGroup;
   }
 
   onSubmitAddNewTask(): void {

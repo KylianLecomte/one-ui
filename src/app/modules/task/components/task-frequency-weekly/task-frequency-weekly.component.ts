@@ -15,13 +15,13 @@ import { FrequencyType } from '../../../../shared/frequence/dtos/frequency.type'
 export class TaskFrequencyWeeklyComponent {
   protected readonly FrequencyType = FrequencyType;
   weeklyForm = input.required<FormGroup>();
-  readonly WEEK_DAY = [
-    ['monday', 'L'],
-    ['tuesday', 'M'],
-    ['wednesday', 'M'],
-    ['thursday', 'J'],
-    ['friday', 'V'],
-    ['saturday', 'S'],
-    ['sunday', 'D'],
+  readonly WEEK_DAY: string[][] = [
+    ['MONDAY', 'L'],
+    ['TUESDAY', 'M'],
+    ['WEDNESDAY', 'M'],
+    ['THURSDAY', 'J'],
+    ['FRIDAY', 'V'],
+    ['SATURDAY', 'S'],
+    ['SUNDAY', 'D'],
   ];
 }
