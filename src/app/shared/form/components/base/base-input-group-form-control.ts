@@ -1,11 +1,19 @@
-import { Directive, input } from '@angular/core';
+import { Directive } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
-@Directive({})
-export abstract class BaseInputFormControl<T = any> implements ControlValueAccessor {
-  id = input.required<string>();
-  label = input<string>();
+export interface Option {
+  id: string;
+  label: string;
+  value: string;
+}
 
+export interface State extends Option {
+  isChecked: boolean;
+  isDisabled: boolean;
+}
+
+@Directive({})
+export abstract class BaseInputGroupFormControl<T = any> implements ControlValueAccessor {
   value!: T;
   disabled = false;
 
@@ -35,5 +43,5 @@ export abstract class BaseInputFormControl<T = any> implements ControlValueAcces
     this.onTouched();
   }
 
-  protected abstract handleChange(event: Event): void;
+  protected abstract handleChange(event: Event, state: State): void;
 }

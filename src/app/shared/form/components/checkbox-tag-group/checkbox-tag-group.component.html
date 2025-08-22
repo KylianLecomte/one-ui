@@ -1,0 +1,15 @@
+<div class="flex-row">
+  @for (state of states(); track $index) {
+    <div class="checkbox-tag">
+      <input
+        type="checkbox"
+        class="classic"
+        [id]="state.id"
+        [checked]="state.isChecked"
+        [disabled]="state.isDisabled"
+        (change)="handleChange($event, state)"
+      />
+      <label [for]="state.id">{{ state.label }}</label>
+    </div>
+  }
+</div>

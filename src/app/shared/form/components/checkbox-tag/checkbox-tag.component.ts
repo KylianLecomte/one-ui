@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { LabelPosition } from '../../../dtos/label-position.type';
 import { BaseInputFormControl } from '../base/base-input-form-control';
 import { genericProvider } from '../base/generic-provider.provider';
 
@@ -11,16 +10,15 @@ import { genericProvider } from '../base/generic-provider.provider';
   providers: [genericProvider(CheckboxTagComponent)],
 })
 export class CheckboxTagComponent extends BaseInputFormControl<string[]> {
-  labelPosition = input<LabelPosition>('left');
   currentValue = input.required<string>();
 
   isChecked(): boolean {
-    return Array.isArray(this.currentValue) && this.currentValue.includes(this.currentValue());
+    return Array.isArray(this.value) && this.value.includes(this.currentValue());
   }
 
   handleChange(event: Event) {
     const input = event.target as HTMLInputElement;
-    let newValue = Array.isArray(this.currentValue) ? [...this.currentValue] : [];
+    let newValue = Array.isArray(this.value) ? [...this.value] : [];
 
     if (input.checked && !newValue.includes(this.currentValue())) {
       newValue.push(this.currentValue());

@@ -8,16 +8,21 @@
       formControlName="frequencyType"
     ></one-radio>
 
-    <div class="ctn-days flex-row">
-      @for (day of WEEK_DAY; track $index) {
-        <one-checkbox-tag
-          formControlName="selectedDays"
-          [currentValue]="day[0]"
-          [id]="day[0]"
-          [label]="day[1]"
-        ></one-checkbox-tag>
-      }
-    </div>
+    <one-checkbox-tag-group
+      [options]="WEEK_DAY"
+      formControlName="selectedDays"
+    ></one-checkbox-tag-group>
+
+    <!--    <div class="ctn-days flex-row">-->
+    <!--      @for (day of WEEK_DAY; track $index) {-->
+    <!--        <one-checkbox-tag-->
+    <!--          formControlName="selectedDays"-->
+    <!--          [currentValue]="day[0]"-->
+    <!--          [id]="day[0]"-->
+    <!--          [label]="day[1]"-->
+    <!--        ></one-checkbox-tag>-->
+    <!--      }-->
+    <!--    </div>-->
   </div>
 
   <div class="ctn-regular flex-col">

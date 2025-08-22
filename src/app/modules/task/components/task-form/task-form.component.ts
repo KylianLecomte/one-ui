@@ -2,8 +2,6 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { ToastService } from '../../../../shared/toast/services/toast.service';
-import { TaskDto } from '../../domain/dtos/task.dto';
-import { getNewTask } from '../../domain/utils/task.utils';
 import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/menu/tab/tab.component';
 import {
@@ -67,6 +65,10 @@ export class TaskFormComponent {
         this.weeklyFg?.get('selectedDays')?.disable();
       }
     });
+
+    this.weeklyFg?.get('selectedDays')?.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
   }
 
   get frequencyRuleFg(): FormGroup {
@@ -78,20 +80,32 @@ export class TaskFormComponent {
   }
 
   onSubmitAddNewTask(): void {
-    if (!this.taskFg.valid) {
-      this.toastService.error("Ajout d'une nouvelle tâche", 'Formulaire invalide');
-      return;
-    }
+    console.log(this.taskFg.get('name')?.value);
+    console.log(this.taskFg.get('description')?.value);
+    console.log(this.weeklyFg?.get('frequencyType')?.value);
+    console.log(this.weeklyFg?.get('selectedDays')?.value);
+    console.log(this.weeklyFg?.get('repeatEvery')?.value);
+    console.log(this.weeklyFg?.get('periodLength')?.value);
+    console.log(this.frequencyRuleFg?.get('start')?.value);
+    console.log(this.frequencyRuleFg?.get('startDate')?.value);
+    console.log(this.frequencyRuleFg?.get('end')?.value);
+    console.log(this.frequencyRuleFg?.get('endDate')?.value);
+    console.log(this.frequencyRuleFg?.get('endNbOccurence')?.value);
 
-    const taskName: string | undefined = this.taskFg.get('name')?.value;
-    if (!taskName) {
-      this.toastService.error("Ajout d'une nouvelle tâche", 'Nom invalide');
-      return;
-    }
-
-    const task: TaskDto = getNewTask(taskName, this.taskFg.get('description')?.value);
-
-    this.taskService.create(task, () => this.resetForm());
+    // if (!this.taskFg.valid) {
+    //   this.toastService.error("Ajout d'une nouvelle tâche", 'Formulaire invalide');
+    //   return;
+    // }
+    //
+    // const taskName: string | undefined = this.taskFg.get('name')?.value;
+    // if (!taskName) {
+    //   this.toastService.error("Ajout d'une nouvelle tâche", 'Nom invalide');
+    //   return;
+    // }
+    //
+    // const task: TaskDto = getNewTask(taskName, this.taskFg.get('description')?.value);
+    //
+    // this.taskService.create(task, () => this.resetForm());
   }
 
   private resetForm(): void {
