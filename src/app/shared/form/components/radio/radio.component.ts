@@ -1,8 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { LabelPosition } from '../../../dtos/label-position.type';
-import { ReactiveFormsModule } from '@angular/forms';
-import { BaseInputFormControl } from '../base/base-input-form-control';
+import { RadioControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
 import { genericProvider } from '../base/generic-provider.provider';
 
 @Component({
@@ -12,7 +11,11 @@ import { genericProvider } from '../base/generic-provider.provider';
   styleUrl: './radio.component.scss',
   providers: [genericProvider(RadioComponent)],
 })
-export class RadioComponent extends BaseInputFormControl<string> {
+export class RadioComponent extends RadioControlValueAccessor {
+  disabled: boolean = false;
+
+  id = input.required<string>();
+  label = input<string>();
   group = input.required<string>();
   labelPosition = input<LabelPosition>('left');
 
@@ -31,8 +34,19 @@ export class RadioComponent extends BaseInputFormControl<string> {
     }
   });
 
+  override setDisabledState(isDisabled: boolean) {
+    super.setDisabledState(isDisabled);
+    this.disabled = isDisabled;
+  }
+
   handleChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.updateValue(input.value);
+  }
+
+  protected updateValue(value: string): void {
+    this.value = value;
+    this.onChange();
+    this.onTouched();
   }
 }

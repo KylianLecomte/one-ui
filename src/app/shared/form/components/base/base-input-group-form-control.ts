@@ -1,4 +1,4 @@
-import { Directive } from '@angular/core';
+import { computed, Directive, input, signal, Signal } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
 export interface Option {
@@ -14,8 +14,19 @@ export interface State extends Option {
 
 @Directive({})
 export abstract class BaseInputGroupFormControl<T = any> implements ControlValueAccessor {
+  options = input.required<Option[]>();
   value!: T;
-  disabled = false;
+  disabled = signal(false);
+
+  states: Signal<State[]> = computed(() =>
+    this.options().map(
+      (option: Option): State => ({
+        ...option,
+        isChecked: false,
+        isDisabled: this.disabled(),
+      })
+    )
+  );
 
   writeValue(value: any): void {
     this.value = value;
@@ -30,7 +41,7 @@ export abstract class BaseInputGroupFormControl<T = any> implements ControlValue
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.set(isDisabled);
   }
 
   protected onChange: (value: T) => void = () => {};

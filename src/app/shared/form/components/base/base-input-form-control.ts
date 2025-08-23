@@ -22,7 +22,9 @@ export abstract class BaseInputFormControl<T = any> implements ControlValueAcces
   }
 
   setDisabledState(isDisabled: boolean): void {
+    console.log(this.label(), 'setDisabledState', this.disabled, isDisabled);
     this.disabled = isDisabled;
+    console.log(this.label(), 'setDisabledState', this.disabled);
   }
 
   protected onChange: (value: T) => void = () => {};

@@ -15,7 +15,9 @@ import { Option } from '../../../../shared/form/components/base/base-input-group
 })
 export class TaskFrequencyWeeklyComponent {
   protected readonly FrequencyType = FrequencyType;
+
   weeklyForm = input.required<FormGroup>();
+
   readonly WEEK_DAY: Option[] = [
     { id: 'MONDAY', value: 'MONDAY', label: 'L' },
     { id: 'TUESDAY', value: 'TUESDAY', label: 'M' },

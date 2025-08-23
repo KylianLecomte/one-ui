@@ -1,5 +1,6 @@
 <label [ngClass]="labelIsHidden() ? 'visually-hidden' : ''" for="jours">{{ label() }}</label>
 <input
+  [disabled]="disabled"
   [id]="id()"
   [max]="max()"
   [min]="min()"

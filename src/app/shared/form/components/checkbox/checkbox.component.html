@@ -1,4 +1,10 @@
 <span [ngClass]="cssLabelPosition()" id="one-checkbox">
   <label [for]="id()">{{ label() }}</label>
-  <input [id]="id()" class="classic" type="checkbox" />
+  <input
+    (change)="handleChange($event)"
+    [disabled]="disabled"
+    [id]="id()"
+    class="classic"
+    type="checkbox"
+  />
 </span>

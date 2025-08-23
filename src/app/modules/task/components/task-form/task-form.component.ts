@@ -58,11 +58,15 @@ export class TaskFormComponent {
 
   constructor() {
     this.weeklyFg?.get('frequencyType')?.valueChanges.subscribe((frequencyType: FrequencyType) => {
+      console.log('frequencyType change', frequencyType);
       if (frequencyType === FrequencyType.WEEKLY_BY_DAY) {
+        this.weeklyFg?.get('selectedDays')?.enable();
         this.weeklyFg?.get('repeatEvery')?.disable();
         this.weeklyFg?.get('periodLength')?.disable();
       } else if (frequencyType === FrequencyType.WEEKLY_REGULAR) {
         this.weeklyFg?.get('selectedDays')?.disable();
+        this.weeklyFg?.get('repeatEvery')?.enable();
+        this.weeklyFg?.get('periodLength')?.enable();
       }
     });
 
@@ -80,17 +84,19 @@ export class TaskFormComponent {
   }
 
   onSubmitAddNewTask(): void {
-    console.log(this.taskFg.get('name')?.value);
-    console.log(this.taskFg.get('description')?.value);
+    // console.log(this.taskFg.get('name')?.value);
+    // console.log(this.taskFg.get('description')?.value);
+    // console.log(this.weeklyFg?.get('selectedDays')?.value);
+
     console.log(this.weeklyFg?.get('frequencyType')?.value);
-    console.log(this.weeklyFg?.get('selectedDays')?.value);
     console.log(this.weeklyFg?.get('repeatEvery')?.value);
     console.log(this.weeklyFg?.get('periodLength')?.value);
-    console.log(this.frequencyRuleFg?.get('start')?.value);
-    console.log(this.frequencyRuleFg?.get('startDate')?.value);
-    console.log(this.frequencyRuleFg?.get('end')?.value);
-    console.log(this.frequencyRuleFg?.get('endDate')?.value);
-    console.log(this.frequencyRuleFg?.get('endNbOccurence')?.value);
+
+    // console.log(this.frequencyRuleFg?.get('start')?.value);
+    // console.log(this.frequencyRuleFg?.get('startDate')?.value);
+    // console.log(this.frequencyRuleFg?.get('end')?.value);
+    // console.log(this.frequencyRuleFg?.get('endDate')?.value);
+    // console.log(this.frequencyRuleFg?.get('endNbOccurence')?.value);
 
     // if (!this.taskFg.valid) {
     //   this.toastService.error("Ajout d'une nouvelle tâche", 'Formulaire invalide');

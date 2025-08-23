@@ -1,4 +1,12 @@
 <span [ngClass]="cssLabelPosition()">
-  <input [id]="id()" [name]="group()" class="classic" type="radio" />
-  <label [for]="id()">{{ label() }}</label>
+  <input
+    (change)="handleChange($event)"
+    [disabled]="disabled"
+    [id]="id()"
+    [name]="group()"
+    [value]="formValue()"
+    class="classic"
+    type="radio"
+  />
+  <label [for]="id()">{{ label() }} - {{ formValue() }}</label>
 </span>
