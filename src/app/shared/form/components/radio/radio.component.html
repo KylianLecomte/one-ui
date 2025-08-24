@@ -1,12 +1,14 @@
-<span [ngClass]="cssLabelPosition()">
+<label>
   <input
-    (change)="handleChange($event)"
+    (blur)="onTouched()"
+    (change)="select()"
+    [attr.value]="value"
+    [checked]="value === model"
     [disabled]="disabled"
-    [id]="id()"
-    [name]="group()"
-    [value]="formValue()"
-    class="classic"
+    [name]="name"
     type="radio"
   />
-  <label [for]="id()">{{ label() }} - {{ formValue() }}</label>
-</span>
+  <span>
+    {{ label() }}
+  </span>
+</label>

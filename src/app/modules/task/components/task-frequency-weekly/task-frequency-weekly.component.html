@@ -1,11 +1,10 @@
 <div [formGroup]="weeklyForm()" class="flex-col" id="one-task-frequency-weekly">
   <div class="ctn-per-jour flex-col">
     <one-radio
-      [formValue]="FrequencyType.WEEKLY_BY_DAY"
-      [group]="'weeklyType'"
-      [id]="'perDayInput'"
       [label]="'Par jour'"
+      [value]="FrequencyType.WEEKLY_BY_DAY"
       formControlName="frequencyType"
+      name="frequencyType"
     ></one-radio>
 
     <one-checkbox-tag-group
@@ -16,11 +15,10 @@
 
   <div class="ctn-regular flex-col">
     <one-radio
-      [formValue]="FrequencyType.WEEKLY_REGULAR"
-      [group]="'weeklyType'"
-      [id]="'perRepetitionInput'"
       [label]="'Régulier'"
+      [value]="FrequencyType.WEEKLY_REGULAR"
       formControlName="frequencyType"
+      name="frequencyType"
     ></one-radio>
 
     <p>

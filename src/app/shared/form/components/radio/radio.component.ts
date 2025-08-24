@@ -1,26 +1,25 @@
-import { Component, computed, input } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { LabelPosition } from '../../../dtos/label-position.type';
-import { RadioControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, input, Input } from '@angular/core';
 import { genericProvider } from '../base/generic-provider.provider';
+import { ControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
+import { LabelPosition } from '../../../dtos/label-position.type';
 
 @Component({
   selector: 'one-radio',
-  imports: [NgClass, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './radio.component.html',
   styleUrl: './radio.component.scss',
   providers: [genericProvider(RadioComponent)],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RadioComponent extends RadioControlValueAccessor {
-  disabled: boolean = false;
+export class RadioComponent implements ControlValueAccessor {
+  @Input() name!: string;
 
-  id = input.required<string>();
-  label = input<string>();
-  group = input.required<string>();
+  @Input() value!: any;
+
+  disabled = false;
+  model: any;
   labelPosition = input<LabelPosition>('left');
-
-  formValue = input.required<string>();
-
+  label = input<string>();
   cssLabelPosition = computed(() => {
     switch (this.labelPosition()) {
       case 'top':
@@ -34,19 +33,31 @@ export class RadioComponent extends RadioControlValueAccessor {
     }
   });
 
-  override setDisabledState(isDisabled: boolean) {
-    super.setDisabledState(isDisabled);
+  select() {
+    if (!this.disabled) {
+      this.model = this.value;
+      this.onChange(this.value);
+      this.onTouched();
+    }
+  }
+
+  writeValue(value: any): void {
+    this.model = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  handleChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.updateValue(input.value);
-  }
+  protected onChange: (value: any) => void = () => {};
 
-  protected updateValue(value: string): void {
-    this.value = value;
-    this.onChange();
-    this.onTouched();
-  }
+  protected onTouched: () => void = () => {};
 }
