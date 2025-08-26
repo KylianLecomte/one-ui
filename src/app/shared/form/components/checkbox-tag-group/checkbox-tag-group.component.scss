@@ -1,15 +1,18 @@
 @use '../../../../../styles/variables' as vars;
 
-:host,
-label,
-div,
-input {
-  cursor: pointer;
-}
-
 div {
   width: 22px;
   height: 22px;
+
+  &.disabled label,
+  &.disabled input {
+    cursor: default;
+  }
+
+  &.enabled label,
+  &.enabled input {
+    cursor: pointer;
+  }
 }
 
 input,
@@ -29,6 +32,10 @@ input:focus {
   &:not(:checked) {
     background-color: vars.$color-main-hover;
   }
+}
+
+input:disabled {
+  background-color: vars.$color-main-disabled;
 }
 
 label {

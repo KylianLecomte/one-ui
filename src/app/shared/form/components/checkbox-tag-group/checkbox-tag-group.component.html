@@ -1,6 +1,6 @@
 <div class="flex-row">
   @for (state of states(); track $index) {
-    <div class="checkbox-tag">
+    <div class="checkbox-tag" [ngClass]="state.isDisabled ? 'disabled' : 'enabled'">
       <input
         type="checkbox"
         class="classic"

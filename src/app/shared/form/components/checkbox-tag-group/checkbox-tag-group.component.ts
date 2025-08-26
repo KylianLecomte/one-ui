@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { genericProvider } from '../base/generic-provider.provider';
 import { BaseInputGroupFormControl, State } from '../base/base-input-group-form-control';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'one-checkbox-tag-group',
-  imports: [],
+  imports: [NgClass],
   templateUrl: './checkbox-tag-group.component.html',
   styleUrl: './checkbox-tag-group.component.scss',
   providers: [genericProvider(CheckboxTagGroupComponent)],
