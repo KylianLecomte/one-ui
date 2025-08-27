@@ -1,5 +1,5 @@
 <label [for]="id()">{{ label() }}</label>
-<select [id]="id()">
+<select (change)="handleChange($event)" [id]="id()">
   @for (option of options(); track $index) {
     <option>{{ option }}</option>
   }

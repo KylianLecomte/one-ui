@@ -30,6 +30,8 @@
           id="frequencyStart"
           label="Début"
         ></one-select>
+
+        <input class="classic" formControlName="startDate" type="date" />
       </div>
 
       <div class="ctn-end-frequency flex-row">
@@ -39,6 +41,17 @@
           id="frequencyEnd"
           label="Fin"
         ></one-select>
+
+        @if (['Maintenant', 'Date'].includes(endFrequencyValue)) {
+          <input class="classic" formControlName="endDate" type="date" />
+        } @else if (["Nombre d'occurence"].includes(endFrequencyValue)) {
+          <one-input-number
+            [id]="'nbOccurence'"
+            [labelIsHidden]="true"
+            [label]="'Nombre d\'occurence'"
+            formControlName="endNbOccurence"
+          ></one-input-number>
+        }
       </div>
     </div>
   </one-tabs>

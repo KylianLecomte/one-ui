@@ -78,6 +78,10 @@ ul {
   display: flex;
 }
 
+input.classic[type='date'] {
+  padding: 0 0 0 4px;
+}
+
 input.classic[type='text'],
 input.classic[type='password'],
 textarea.classic[type='text'] {

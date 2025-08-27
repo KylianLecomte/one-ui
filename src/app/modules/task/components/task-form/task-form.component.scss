@@ -26,5 +26,15 @@ form {
 
   .ctn-start-frequency {
     margin: 0 0 20px 0;
+
+    & one-select {
+      margin-right: 10px;
+    }
+  }
+
+  .ctn-end-frequency {
+    & one-select {
+      margin-right: 10px;
+    }
   }
 }
