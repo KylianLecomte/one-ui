@@ -9,7 +9,10 @@ import {
   FrequencyType,
   WeekDay,
 } from '../../../../shared/frequence/dtos/frequency.type';
-import { SelectComponent } from '../../../../shared/form/components/select/select.component';
+import {
+  SelectComponent,
+  SelectOption,
+} from '../../../../shared/form/components/select/select.component';
 import { TaskFrequencyWeeklyComponent } from '../task-frequency-weekly/task-frequency-weekly.component';
 import { today, tomorow } from '../../../../shared/utils/date.utils';
 import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
@@ -23,9 +26,9 @@ type END_FREQUENCY_VALUE = 'Maintenant' | 'Date' | "Nombre d'occurence";
     ReactiveFormsModule,
     TabsComponent,
     TabComponent,
-    SelectComponent,
     TaskFrequencyWeeklyComponent,
     InputNumberComponent,
+    SelectComponent,
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
@@ -33,8 +36,15 @@ type END_FREQUENCY_VALUE = 'Maintenant' | 'Date' | "Nombre d'occurence";
 })
 export class TaskFormComponent {
   protected readonly Frequency = Frequency;
-  readonly START_FREQUENCY: START_FREQUENCY_VALUE[] = ['Maintenant', 'Date'];
-  readonly END_FREQUENCY: END_FREQUENCY_VALUE[] = ['Maintenant', 'Date', "Nombre d'occurence"];
+  readonly START_FREQUENCY: SelectOption<START_FREQUENCY_VALUE>[] = [
+    { label: 'Maintenant', value: 'Maintenant' },
+    { label: 'Date', value: 'Date' },
+  ];
+  readonly END_FREQUENCY: SelectOption<END_FREQUENCY_VALUE>[] = [
+    { label: 'Maintenant', value: 'Maintenant' },
+    { label: 'Date', value: 'Date' },
+    { label: "Nombre d'occurence", value: "Nombre d'occurence" },
+  ];
   readonly toastService: ToastService = inject(ToastService);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
   readonly taskService: TaskService = inject(TaskService);
@@ -58,11 +68,11 @@ export class TaskFormComponent {
         ]),
       }),
 
-      start: this.formBuilder.control<START_FREQUENCY_VALUE>('Maintenant', [Validators.required]),
+      start: this.formBuilder.control<string>('Maintenant', [Validators.required]),
       startDate: this.formBuilder.control<string>({ value: today(), disabled: true }, [
         Validators.required,
       ]),
-      end: this.formBuilder.control<END_FREQUENCY_VALUE>('Date', [Validators.required]),
+      end: this.formBuilder.control<string>('Date', [Validators.required]),
       endDate: this.formBuilder.control<string | null>(tomorow(), [Validators.required]),
       endNbOccurence: this.formBuilder.control<number | null>(null, [Validators.required]),
     }),
@@ -84,7 +94,6 @@ export class TaskFormComponent {
 
     this.frequencyRuleFg?.get('start')?.valueChanges.subscribe((value) => {
       if (value === 'Maintenant') {
-        console.log('e');
         this.frequencyRuleFg?.get('startDate')?.setValue(today());
         this.frequencyRuleFg?.get('startDate')?.disable();
       } else {
@@ -95,7 +104,7 @@ export class TaskFormComponent {
     this.frequencyRuleFg?.get('end')?.valueChanges.subscribe((value) => {
       if (value === 'Maintenant') {
         this.frequencyRuleFg?.get('startDate')?.setValue(tomorow());
-        this.frequencyRuleFg?.get('endDate')?.enable();
+        this.frequencyRuleFg?.get('endDate')?.disable();
         this.frequencyRuleFg?.get('endNbOccurence')?.disable();
       } else if (value === 'Date') {
         this.frequencyRuleFg?.get('endDate')?.enable();
@@ -124,9 +133,7 @@ export class TaskFormComponent {
     // console.log(this.taskFg.get('description')?.value);
     // console.log(this.weeklyFg?.get('selectedDays')?.value);
 
-    console.log(this.weeklyFg?.get('frequencyType')?.value);
-    console.log(this.weeklyFg?.get('repeatEvery')?.value);
-    console.log(this.weeklyFg?.get('periodLength')?.value);
+    console.log(this.frequencyRuleFg?.get('end')?.value);
 
     // console.log(this.frequencyRuleFg?.get('start')?.value);
     // console.log(this.frequencyRuleFg?.get('startDate')?.value);

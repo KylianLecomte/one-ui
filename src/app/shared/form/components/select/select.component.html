@@ -1,6 +1,18 @@
-<label [for]="id()">{{ label() }}</label>
-<select (change)="handleChange($event)" [id]="id()">
+<select
+  (blur)="onTouched()"
+  (ngModelChange)="onSelectChange($event)"
+  [disabled]="isDisabled"
+  [ngModel]="value"
+>
+  @if (placeholder()) {
+    <option [ngValue]="null">
+      {{ placeholder() }}
+    </option>
+  }
+
   @for (option of options(); track $index) {
-    <option>{{ option }}</option>
+    <option [ngValue]="option.value" [disabled]="option.disabled">
+      {{ option.label }}
+    </option>
   }
 </select>

@@ -2,10 +2,10 @@
   <input
     (blur)="onTouched()"
     (change)="select()"
-    [attr.value]="value"
     [checked]="value === model"
     [disabled]="disabled"
     [name]="name"
+    [value]="value"
     type="radio"
   />
   <span>

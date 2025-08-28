@@ -28,19 +28,13 @@
           [options]="START_FREQUENCY"
           formControlName="start"
           id="frequencyStart"
-          label="Début"
         ></one-select>
 
         <input class="classic" formControlName="startDate" type="date" />
       </div>
 
       <div class="ctn-end-frequency flex-row">
-        <one-select
-          [options]="END_FREQUENCY"
-          formControlName="end"
-          id="frequencyEnd"
-          label="Fin"
-        ></one-select>
+        <one-select [options]="END_FREQUENCY" formControlName="end" id="frequencyEnd"></one-select>
 
         @if (['Maintenant', 'Date'].includes(endFrequencyValue)) {
           <input class="classic" formControlName="endDate" type="date" />
