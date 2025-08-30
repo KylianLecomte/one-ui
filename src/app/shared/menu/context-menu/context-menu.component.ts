@@ -7,7 +7,6 @@ import { ContextMenuItem } from './models/context-menu-data.model';
   imports: [],
   templateUrl: './context-menu.component.html',
   styleUrl: './context-menu.component.scss',
-  standalone: true,
 })
 export class ContextMenuComponent {
   contextMenuService: ContextMenuService = inject(ContextMenuService);

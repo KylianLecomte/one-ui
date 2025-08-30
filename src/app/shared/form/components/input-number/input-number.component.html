@@ -2,11 +2,14 @@
   label()
 }}</label>
 <input
+  (blur)="onTouched()"
+  (input)="handleChange($event)"
   [disabled]="disabled"
   [id]="id()"
   [max]="max()"
   [min]="min()"
   [name]="id()"
+  [value]="value ?? ''"
   class="classic"
   inputmode="numeric"
   type="number"

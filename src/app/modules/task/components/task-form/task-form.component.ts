@@ -4,7 +4,14 @@ import { TaskService } from '../../services/task.service';
 import { ToastService } from '../../../../shared/toast/services/toast.service';
 import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/menu/tab/tab.component';
-import { Frequency, FrequencyRule, FrequencyType, WeekDay } from '../../domain/dtos/frequency.type';
+import {
+  END_FREQUENCY_VALUE,
+  Frequency,
+  FrequencyRule,
+  FrequencyType,
+  START_FREQUENCY_VALUE,
+  WeekDay,
+} from '../../domain/dtos/frequency.type';
 import {
   SelectComponent,
   SelectOption,
@@ -12,9 +19,7 @@ import {
 import { TaskFrequencyWeeklyComponent } from '../task-frequency-weekly/task-frequency-weekly.component';
 import { today, tomorow } from '../../../../shared/utils/date.utils';
 import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
-
-type START_FREQUENCY_VALUE = 'Maintenant' | 'Date';
-type END_FREQUENCY_VALUE = 'Date' | "Nombre d'occurence";
+import { TaskFrequencyRuleComponent } from '../task-frequency-rule/task-frequency-rule.component';
 
 @Component({
   selector: 'one-task-form',
@@ -25,6 +30,7 @@ type END_FREQUENCY_VALUE = 'Date' | "Nombre d'occurence";
     TaskFrequencyWeeklyComponent,
     InputNumberComponent,
     SelectComponent,
+    TaskFrequencyRuleComponent,
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
@@ -43,6 +49,8 @@ export class TaskFormComponent {
   readonly toastService: ToastService = inject(ToastService);
   readonly formBuilder: FormBuilder = inject(FormBuilder);
   readonly taskService: TaskService = inject(TaskService);
+
+  frequencyRules: FrequencyRule[] = [];
 
   taskFg: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control<string>('', [Validators.required]),
@@ -122,17 +130,19 @@ export class TaskFormComponent {
 
   onAddFrequencyRule(): void {
     const newFrequencyRule: FrequencyRule = {
+      id: this.frequencyRules.length + 1,
       frequencyType: this.weeklyFg.get('frequencyType')?.value,
       weekDay: this.weeklyFg.get('selectedDays')?.value,
       repeatEvery: this.weeklyFg.get('repeatEvery')?.value,
       periodLength: this.weeklyFg.get('periodLength')?.value,
       start: this.frequencyRuleFg.get('start')?.value,
-      startDate: this.frequencyRuleFg.get('startDate')?.value,
+      startDate: new Date(this.frequencyRuleFg.get('startDate')?.value),
       end: this.frequencyRuleFg.get('end')?.value,
-      endDate: this.frequencyRuleFg.get('endDate')?.value,
+      endDate: new Date(this.frequencyRuleFg.get('endDate')?.value),
       endNbOccurence: this.frequencyRuleFg.get('endNbOccurence')?.value,
     };
 
+    this.frequencyRules.push(newFrequencyRule);
     console.log(newFrequencyRule);
   }
 

@@ -1,3 +1,8 @@
+import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
+
+export type START_FREQUENCY_VALUE = 'Maintenant' | 'Date';
+export type END_FREQUENCY_VALUE = 'Date' | "Nombre d'occurence";
+
 export const Frequency = {
   WEEKLY: 'Hebdomadaire',
   MONTHLY: 'Mensuel',
@@ -23,13 +28,14 @@ export const WeekDay = {
 export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay];
 
 export interface FrequencyRule {
+  id: ID;
   frequencyType: FrequencyType;
   weekDay: WeekDay[];
   repeatEvery: number;
   periodLength: number;
-  start: Date;
+  start: START_FREQUENCY_VALUE;
   startDate: Date;
-  end: Date;
+  end: END_FREQUENCY_VALUE;
   endDate: Date;
   endNbOccurence: number;
 }

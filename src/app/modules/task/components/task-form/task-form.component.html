@@ -13,6 +13,9 @@
     placeholder="Description"
     type="text"
   ></textarea>
+  @for (frequencyRule of frequencyRules; track frequencyRule.id) {
+    <one-task-frequency-rule [frequencyRule]="frequencyRule"></one-task-frequency-rule>
+  }
   <one-tabs formGroupName="frequencyRuleFg">
     <one-tab [label]="Frequency.WEEKLY">
       <ng-template>

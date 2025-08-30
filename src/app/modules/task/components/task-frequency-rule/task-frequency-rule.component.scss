@@ -1,0 +1,14 @@
+@use '../../../../../styles/variables' as vars;
+
+:host {
+  border-radius: vars.$border-radius;
+  background-color: vars.$color-light;
+  padding: vars.$padding-sub-container;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+div.flex-row {
+  gap: 40px;
+}
