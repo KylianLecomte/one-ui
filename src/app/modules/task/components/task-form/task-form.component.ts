@@ -4,11 +4,7 @@ import { TaskService } from '../../services/task.service';
 import { ToastService } from '../../../../shared/toast/services/toast.service';
 import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/menu/tab/tab.component';
-import {
-  Frequency,
-  FrequencyType,
-  WeekDay,
-} from '../../../../shared/frequence/dtos/frequency.type';
+import { Frequency, FrequencyRule, FrequencyType, WeekDay } from '../../domain/dtos/frequency.type';
 import {
   SelectComponent,
   SelectOption,
@@ -18,7 +14,7 @@ import { today, tomorow } from '../../../../shared/utils/date.utils';
 import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
 
 type START_FREQUENCY_VALUE = 'Maintenant' | 'Date';
-type END_FREQUENCY_VALUE = 'Maintenant' | 'Date' | "Nombre d'occurence";
+type END_FREQUENCY_VALUE = 'Date' | "Nombre d'occurence";
 
 @Component({
   selector: 'one-task-form',
@@ -41,7 +37,6 @@ export class TaskFormComponent {
     { label: 'Date', value: 'Date' },
   ];
   readonly END_FREQUENCY: SelectOption<END_FREQUENCY_VALUE>[] = [
-    { label: 'Maintenant', value: 'Maintenant' },
     { label: 'Date', value: 'Date' },
     { label: "Nombre d'occurence", value: "Nombre d'occurence" },
   ];
@@ -68,11 +63,11 @@ export class TaskFormComponent {
         ]),
       }),
 
-      start: this.formBuilder.control<string>('Maintenant', [Validators.required]),
+      start: this.formBuilder.control<START_FREQUENCY_VALUE>('Maintenant', [Validators.required]),
       startDate: this.formBuilder.control<string>({ value: today(), disabled: true }, [
         Validators.required,
       ]),
-      end: this.formBuilder.control<string>('Date', [Validators.required]),
+      end: this.formBuilder.control<END_FREQUENCY_VALUE>('Date', [Validators.required]),
       endDate: this.formBuilder.control<string | null>(tomorow(), [Validators.required]),
       endNbOccurence: this.formBuilder.control<number | null>(null, [Validators.required]),
     }),
@@ -102,11 +97,8 @@ export class TaskFormComponent {
     });
 
     this.frequencyRuleFg?.get('end')?.valueChanges.subscribe((value) => {
-      if (value === 'Maintenant') {
-        this.frequencyRuleFg?.get('startDate')?.setValue(tomorow());
-        this.frequencyRuleFg?.get('endDate')?.disable();
-        this.frequencyRuleFg?.get('endNbOccurence')?.disable();
-      } else if (value === 'Date') {
+      if (value === 'Date') {
+        this.frequencyRuleFg?.get('endDate')?.setValue(tomorow());
         this.frequencyRuleFg?.get('endDate')?.enable();
         this.frequencyRuleFg?.get('endNbOccurence')?.disable();
       } else {
@@ -128,18 +120,24 @@ export class TaskFormComponent {
     return this.frequencyRuleFg.get('weeklyFg') as FormGroup;
   }
 
+  onAddFrequencyRule(): void {
+    const newFrequencyRule: FrequencyRule = {
+      frequencyType: this.weeklyFg.get('frequencyType')?.value,
+      weekDay: this.weeklyFg.get('selectedDays')?.value,
+      repeatEvery: this.weeklyFg.get('repeatEvery')?.value,
+      periodLength: this.weeklyFg.get('periodLength')?.value,
+      start: this.frequencyRuleFg.get('start')?.value,
+      startDate: this.frequencyRuleFg.get('startDate')?.value,
+      end: this.frequencyRuleFg.get('end')?.value,
+      endDate: this.frequencyRuleFg.get('endDate')?.value,
+      endNbOccurence: this.frequencyRuleFg.get('endNbOccurence')?.value,
+    };
+
+    console.log(newFrequencyRule);
+  }
+
   onSubmitAddNewTask(): void {
-    // console.log(this.taskFg.get('name')?.value);
-    // console.log(this.taskFg.get('description')?.value);
-    // console.log(this.weeklyFg?.get('selectedDays')?.value);
-
     console.log(this.frequencyRuleFg?.get('end')?.value);
-
-    // console.log(this.frequencyRuleFg?.get('start')?.value);
-    // console.log(this.frequencyRuleFg?.get('startDate')?.value);
-    // console.log(this.frequencyRuleFg?.get('end')?.value);
-    // console.log(this.frequencyRuleFg?.get('endDate')?.value);
-    // console.log(this.frequencyRuleFg?.get('endNbOccurence')?.value);
 
     // if (!this.taskFg.valid) {
     //   this.toastService.error("Ajout d'une nouvelle tâche", 'Formulaire invalide');

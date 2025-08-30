@@ -12,13 +12,13 @@ export const FrequencyType = {
 export type FrequencyType = (typeof FrequencyType)[keyof typeof FrequencyType];
 
 export const WeekDay = {
-  MONDAY: 'MONDAY',
-  TUESDAY: 'TUESDAY',
-  WEDNESDAY: 'WEDNESDAY',
-  THURSDAY: 'THURSDAY',
-  FRIDAY: 'FRIDAY',
-  SATURDAY: 'SATURDAY',
-  SUNDAY: 'SUNDAY',
+  MONDAY: 'lundi',
+  TUESDAY: 'mardi',
+  WEDNESDAY: 'mercredi',
+  THURSDAY: 'jeudi',
+  FRIDAY: 'vendredi',
+  SATURDAY: 'samedi',
+  SUNDAY: 'dimanche',
 } as const;
 export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay];
 
@@ -28,6 +28,8 @@ export interface FrequencyRule {
   repeatEvery: number;
   periodLength: number;
   start: Date;
+  startDate: Date;
+  end: Date;
   endDate: Date;
   endNbOccurence: number;
 }
