@@ -29,7 +29,7 @@ module.exports = function (config) {
       reporters: [{ type: 'lcov' }, { type: 'text-summary' }],
     },
     reporters: ['progress', 'kjhtml'],
-    browsers: ['Chrome, CustomChromeHeadless'],
+    browsers: ['Chrome', 'CustomChromeHeadless'],
     customLaunchers: {
       CustomChromeHeadless: {
         base: 'ChromeHeadless',

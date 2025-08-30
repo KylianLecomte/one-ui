@@ -7,6 +7,6 @@ import { Component, input } from '@angular/core';
   styleUrl: './tag.component.scss',
 })
 export class TagComponent {
-  libelle = input.required<string>();
+  label = input.required<string>();
   color = input.required<string>();
 }

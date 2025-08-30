@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RadioComponent } from './radio.component';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('RadioComponent', () => {
   let component: RadioComponent;
@@ -8,9 +9,9 @@ describe('RadioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RadioComponent]
-    })
-    .compileComponents();
+      imports: [RadioComponent],
+      providers: [provideZonelessChangeDetection()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RadioComponent);
     component = fixture.componentInstance;
