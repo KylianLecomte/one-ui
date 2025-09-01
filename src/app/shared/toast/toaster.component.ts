@@ -5,10 +5,11 @@ import { Subscription } from 'rxjs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastService } from './services/toast.service';
 import { Toast } from './domain/dtos/toast.dto';
+import { ButtonComponent } from '../components/button/button.component';
 
 @Component({
   selector: 'one-toaster',
-  imports: [FontAwesomeModule, NgClass],
+  imports: [FontAwesomeModule, NgClass, ButtonComponent],
   templateUrl: './toaster.component.html',
   styleUrl: './toaster.component.scss',
   animations: [

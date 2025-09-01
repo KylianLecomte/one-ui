@@ -7,7 +7,7 @@ import { NgClass } from '@angular/common';
   selector: 'one-checkbox-tag-group',
   imports: [NgClass],
   templateUrl: './checkbox-tag-group.component.html',
-  styleUrl: './checkbox-tag-group.component.scss',
+  styleUrls: ['./checkbox-tag-group.component.scss'],
   providers: [genericProvider(CheckboxTagGroupComponent)],
 })
 export class CheckboxTagGroupComponent extends BaseInputGroupFormControl<string[]> {
@@ -15,6 +15,7 @@ export class CheckboxTagGroupComponent extends BaseInputGroupFormControl<string[
     const input = event.target as HTMLInputElement;
     let newValue: string[] = Array.isArray(this.value) ? [...this.value] : [];
 
+    state.isChecked = input.checked;
     if (input.checked && !newValue.includes(state.value)) {
       newValue.push(state.value);
     } else {
@@ -22,5 +23,9 @@ export class CheckboxTagGroupComponent extends BaseInputGroupFormControl<string[
     }
 
     this.updateValue(newValue);
+  }
+
+  getCssClass(state: State): string[] {
+    return [state.isDisabled ? 'disabled' : 'enabled', state.isChecked ? 'isChecked' : ''];
   }
 }

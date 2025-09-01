@@ -8,27 +8,19 @@
   <nav>
     <ul>
       <li>
-        <a
-          ariaCurrentWhenActive="page"
-          routerLink="/task"
-          routerLinkActive="active"
-        >
+        <a ariaCurrentWhenActive="page" routerLink="/task" routerLinkActive="active">
           <fa-icon [icon]="faCircleCheck"></fa-icon>Task home
         </a>
       </li>
       <li>
-        <a
-          ariaCurrentWhenActive="page"
-          routerLink="/cook"
-          routerLinkActive="active"
-        >
+        <a ariaCurrentWhenActive="page" routerLink="/cook" routerLinkActive="active">
           <fa-icon [icon]="faUtensils"></fa-icon>Cook home
         </a>
       </li>
     </ul>
   </nav>
 </div>
-<button (click)="onClickLogout()">
+<one-button (click)="onClickLogout()">
   <fa-icon [icon]="faArrowRightFromBracket"></fa-icon>
   Se déconnecter
-</button>
+</one-button>

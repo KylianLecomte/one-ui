@@ -4,10 +4,11 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { FaIconComponent, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCircleCheck, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faArrowRightFromBracket, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'one-main-menu',
-  imports: [RouterLink, RouterLinkActive, FaIconComponent],
+  imports: [RouterLink, RouterLinkActive, FaIconComponent, ButtonComponent],
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.scss',
 })

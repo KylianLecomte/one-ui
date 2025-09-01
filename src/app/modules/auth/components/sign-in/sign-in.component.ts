@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { SignIn } from '../../domain/dtos/auth.dto';
 import { RequiredComponent } from '../../../form/components/required/required.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'one-sign-in',
-  imports: [ReactiveFormsModule, RequiredComponent],
+  imports: [ReactiveFormsModule, RequiredComponent, ButtonComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })

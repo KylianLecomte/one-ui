@@ -10,7 +10,7 @@ body {
   font-family: vars.$font-familly;
   box-sizing: border-box;
   font-size: vars.$font-size-normal;
-  color: vars.$font-color-main;
+  color: vars.$color-txt-dark;
 }
 
 app-root {
@@ -20,39 +20,11 @@ app-root {
 }
 
 input,
-textarea {
+textarea,
+button {
   font-family: vars.$font-familly;
   outline: none;
   accent-color: vars.$color-main;
-}
-
-button {
-  height: vars.$button-height;
-  padding: vars.$button-padding;
-  cursor: pointer;
-  border: vars.$border;
-  border-radius: vars.$border-radius;
-  color: vars.$font-color-main;
-  background-color: transparent;
-
-  &:hover {
-    background-color: vars.$color-hover;
-  }
-
-  &.btn-icon {
-    border: none;
-    font-size: inherit;
-    width: 34px;
-    height: 34px;
-
-    &:hover {
-      background-color: vars.$color-white;
-    }
-
-    & fa-icon {
-      margin: 0;
-    }
-  }
 }
 
 a {
@@ -78,6 +50,10 @@ ul {
   display: flex;
 }
 
+* {
+  transition: vars.$transition-default;
+}
+
 input.classic[type='date'] {
   padding: 0 0 0 4px;
 }
@@ -89,13 +65,18 @@ textarea.classic[type='text'] {
   padding: vars.$padding-input-text;
 }
 
-input.classic,
+input.classic:not([type='checkbox']),
 textarea.classic {
   border-radius: vars.$border-radius;
-  border: 1px solid vars.$border-color-gray;
+  border: vars.$border-gray;
 
-  &:focus {
-    border: 1px solid vars.$color-hover;
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    border: 1px solid vars.$color-main;
+  }
+
+  &:focus:not(:disabled) {
+    box-shadow: 0 0 1px 1px vars.$color-main-hover;
   }
 }
 
@@ -110,19 +91,6 @@ textarea.classic {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0;
-}
-
-button.primary {
-  padding: 8px;
-  border-radius: vars.$border-radius;
-  color: white;
-  border: none;
-  background-color: vars.$color-main;
-
-  &:active,
-  &:hover {
-    background-color: vars.$color-main-hover;
-  }
 }
 
 .error-message {

@@ -25,7 +25,7 @@
     <one-tab [label]="Frequency.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
     <one-tab [label]="Frequency.FIX"><ng-template>FIX</ng-template></one-tab>
 
-    <div ctnEndStartFrequency>
+    <div commonContent>
       <div class="ctn-start-frequency flex-row">
         <one-select
           [options]="START_FREQUENCY"
@@ -53,6 +53,6 @@
     </div>
   </one-tabs>
 
-  <button (click)="onAddFrequencyRule()">Ajouter la règle de répétition</button>
-  <button type="submit">Ajouter</button>
+  <one-button (click)="onAddFrequencyRule()">Ajouter la règle de répétition</one-button>
+  <one-button type="submit">Ajouter</one-button>
 </form>

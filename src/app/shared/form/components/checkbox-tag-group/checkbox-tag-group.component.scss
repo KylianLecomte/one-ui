@@ -1,6 +1,13 @@
 @use '../../../../../styles/variables' as vars;
 
-div {
+:host,
+label,
+div,
+input {
+  cursor: pointer;
+}
+
+div.checkbox-tag {
   width: 22px;
   height: 22px;
 
@@ -13,34 +20,39 @@ div {
   &.enabled input {
     cursor: pointer;
   }
+
+  &.isChecked label {
+    color: vars.$color-txt-light;
+  }
+
+  &:hover label {
+    color: vars.$color-txt-light;
+  }
 }
 
-input,
-input:focus {
-  border-radius: 100%;
+input {
+  border-radius: vars.$border-radius-checkbox;
   appearance: none;
   -webkit-appearance: none;
   width: 100%;
   height: 100%;
   border: none;
   margin: 0;
+  background-color: vars.$color-main-light;
+  color: vars.$color-txt-dark;
+
+  &:hover {
+    background-color: vars.$color-main-hover;
+    color: vars.$color-txt-dark;
+  }
 
   &:checked {
     background-color: vars.$color-main;
   }
-
-  &:not(:checked) {
-    background-color: vars.$color-main-hover;
-  }
-}
-
-input:disabled {
-  background-color: vars.$color-main-disabled;
 }
 
 label {
-  color: vars.$color-white;
-
+  color: vars.$color-txt-dark;
   display: block;
   width: 22px;
   position: relative;

@@ -19,7 +19,7 @@ fa-icon {
   & .icon-profil {
     padding: 10px;
     border-radius: 1000px;
-    border: vars.$border;
+    border: vars.$border-gray;
     margin: vars.$margin-icon;
 
     & fa-icon {
@@ -50,7 +50,10 @@ li {
   }
 }
 
-li:hover,
+li:hover {
+  background-color: vars.$color-main-hover;
+}
+
 li:has(a.active) {
-  background-color: vars.$color-hover;
+  background-color: vars.$color-main-light-hover;
 }

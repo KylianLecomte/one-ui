@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { TaskService } from '../../services/task.service';
 import { ToastService } from '../../../../shared/toast/services/toast.service';
 import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
-import { TabComponent } from '../../../../shared/menu/tab/tab.component';
+import { TabComponent } from '../../../../shared/menu/tabs/tab/tab.component';
 import {
   END_FREQUENCY_VALUE,
   Frequency,
@@ -20,6 +20,7 @@ import { TaskFrequencyWeeklyComponent } from '../task-frequency-weekly/task-freq
 import { today, tomorow } from '../../../../shared/utils/date.utils';
 import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
 import { TaskFrequencyRuleComponent } from '../task-frequency-rule/task-frequency-rule.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'one-task-form',
@@ -31,6 +32,7 @@ import { TaskFrequencyRuleComponent } from '../task-frequency-rule/task-frequenc
     InputNumberComponent,
     SelectComponent,
     TaskFrequencyRuleComponent,
+    ButtonComponent,
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',

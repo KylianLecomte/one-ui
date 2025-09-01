@@ -3,21 +3,23 @@ import {
   Component,
   contentChildren,
   effect,
+  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
-import { TabComponent } from '../tab/tab.component';
+import { TabComponent } from './tab/tab.component';
 import { NgTemplateOutlet } from '@angular/common';
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
   selector: 'one-tabs',
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, ButtonComponent],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsComponent {
-  tabs = contentChildren(TabComponent);
+  tabs: Signal<readonly TabComponent[]> = contentChildren(TabComponent);
 
   selectedTab: WritableSignal<TabComponent | undefined> = signal(undefined);
 

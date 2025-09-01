@@ -10,21 +10,21 @@
 }
 
 .task {
-  border-right: vars.$border;
-  border-left: vars.$border;
+  border-right: vars.$border-gray;
+  border-left: vars.$border-gray;
   padding: 10px 20px 10px 20px;
 
   &:last-child {
-    border-bottom: vars.$border;
+    border-bottom: vars.$border-gray;
     border-bottom-left-radius: vars.$border-radius;
     border-bottom-right-radius: vars.$border-radius;
   }
 
   &:hover {
     & * {
-      background-color: vars.$color-hover;
+      background-color: vars.$color-main-light-hover;
     }
-    background-color: vars.$color-hover;
+    background-color: vars.$color-main-light-hover;
   }
 
   &.selected {
@@ -48,7 +48,7 @@
     }
   }
 
-  border-top: vars.$border;
+  border-top: vars.$border-gray;
   .main-informations {
     display: grid;
     grid-template-columns: 20px auto 30px;

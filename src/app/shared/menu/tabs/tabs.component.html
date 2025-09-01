@@ -1,21 +1,19 @@
 <ul>
   @for (tab of tabs(); track $index) {
-    <li>
-      <button
-        (click)="setSelectedTab(tab)"
-        [class.isSelected]="tab === selectedTab()"
-        type="button"
-      >
+    <li [class.isSelected]="tab === selectedTab()">
+      <one-button [withAnimation]="false" (click)="setSelectedTab(tab)" typeCss="tab">
         {{ tab.label() }}
-      </button>
+      </one-button>
     </li>
   }
 </ul>
 
-@if (selectedTab()) {
-  <div class="ctn-selected-tab">
-    <ng-container *ngTemplateOutlet="selectedTab()!.content" />
-  </div>
-}
+<div class="content">
+  @if (selectedTab()) {
+    <div class="ctn-selected-tab">
+      <ng-container *ngTemplateOutlet="selectedTab()!.content" />
+    </div>
+  }
 
-<ng-content select="[ctnEndStartFrequency]"></ng-content>
+  <ng-content select="[commonContent]"></ng-content>
+</div>

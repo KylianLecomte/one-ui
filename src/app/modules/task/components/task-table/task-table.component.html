@@ -34,9 +34,9 @@
 
         <!-- <one-tag [libelle]="'test'" [color]="'blue'"></one-tag> -->
 
-        <button (click)="onDelete(task, $event)" class="btn-icon">
+        <one-button (click)="onDelete(task, $event)" typeCss="icon">
           <fa-icon [icon]="faTrashCan"></fa-icon>
-        </button>
+        </one-button>
       </div>
       <div class="details">
         <input formControlName="description" class="input-invisible" placeholder="Description" />

@@ -19,10 +19,11 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContextMenuService } from '../../../../shared/menu/context-menu/services/context-menu.service';
 import { TaskService } from '../../services/task.service';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'one-task-table',
-  imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule],
+  imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule, ButtonComponent],
   templateUrl: './task-table.component.html',
   styleUrl: './task-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -114,9 +115,9 @@ export class TaskTableComponent {
       .pipe(
         debounceTime(300),
         distinctUntilChanged(
-          (prev, curr) => prev.name === curr.name && prev.description === curr.description,
+          (prev, curr) => prev.name === curr.name && prev.description === curr.description
         ),
-        takeUntilDestroyed(),
+        takeUntilDestroyed()
       )
       .subscribe((taskForm: TaskForm) => {
         const task: TaskDto | undefined = this.selectedTask();

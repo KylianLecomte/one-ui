@@ -3,24 +3,25 @@ $color-message-error: #a94442;
 $color-message-warning: #a97c42;
 $color-message-success: #49a942;
 
-// blue
-$color-main: #1c73ff;
-$color-main-hover: #88afec;
-$color-main-disabled: #b4ccff89;
-$color-main-light: #dae4ff;
+$color-main: #4094e4;
+$color-main-hover: #9fc9f1;
+$color-main-light: #dcebff;
+$color-main-light-hover: #edf5ff;
+$color-main-disabled: #f0f4ff;
 
-// TODO: Uniformiser les gris
-$color-light: rgba(180, 204, 255, 0.54);
-$color-hover: #f3f6ffff;
-$color-white: white;
+$color-complementary: #da6900;
+$color-complementary-hover: #ecb47f;
+$color-complementary-light: #ffcbba;
+$color-complementary-light-hover: #ffe5dc;
+$color-complementary-disabled: #ffede8;
 
-$font-color-main: #414141;
+$color-gray: #c6c7ca;
 
-$dark-gray: #65696f;
-$border-color-gray: #dadfec;
+$color-txt-light: #ffffff;
+$color-txt-dark: #2e3036;
 
 // Task state
-$color-task-todo: #414141;
+$color-task-todo: #36373b;
 $color-task-done: #49a942;
 $color-task-canceled: #a94442;
 
@@ -52,9 +53,29 @@ $button-height: 30px;
 $button-padding: 6px;
 
 // Border
+$border-gray: 1px solid $color-gray;
+$border-main-color: 1px solid $color-main;
+$border-layout: 2px solid $color-gray;
 $border-radius: 2px;
-$border: 1px solid $border-color-gray;
-$border-layout: 2px solid $border-color-gray;
+$border-radius-checkbox: 6px;
 
 // Input
 $input-padding: 2px;
+
+// Transition
+$transition-default:
+  background-color 0.15s,
+  color 0.15s,
+  border 0.15s,
+  box-shadow 0.15s;
+
+@mixin default-border-and-color {
+  border: $border-gray;
+  color: $color-txt-dark;
+  background-color: transparent;
+
+  &:hover {
+    border: $border-main-color;
+    color: $color-main;
+  }
+}
