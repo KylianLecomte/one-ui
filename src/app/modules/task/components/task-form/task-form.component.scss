@@ -1,10 +1,11 @@
 @use '../../../../../styles/variables' as vars;
 
 :host {
-  max-width: 30%;
+  max-width: 20%;
   min-width: 400px;
-  padding: vars.$layout-padding-small vars.$layout-padding-small 0 vars.$layout-padding-small;
-  border-left: vars.$border-layout;
+  padding: 20px 20px 0 20px;
+  border-left: 2px solid #c6c7ca;
+  width: 100%;
 }
 
 form fieldset {
