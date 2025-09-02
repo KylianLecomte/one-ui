@@ -46,7 +46,8 @@ $font-size-error-message: 0.8rem;
 $width-menu: 150px;
 $width-main-layout: 50%;
 $width-right-layout: calc(100% - $width-menu - $width-main-layout);
-$layour-padding: 40px;
+$layout-padding: 40px;
+$layout-padding-small: 20px;
 
 // Size
 // Input
@@ -63,6 +64,7 @@ $border-gray: 1px solid $color-gray;
 $border-main-color: 1px solid $color-main;
 $border-layout: 2px solid $color-gray;
 $border-radius: 2px;
+$border-radius-medium: 4px;
 $border-radius-checkbox: 6px;
 
 // Box-shadow

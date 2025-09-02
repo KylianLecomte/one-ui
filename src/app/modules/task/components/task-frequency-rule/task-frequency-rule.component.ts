@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Frequency, FrequencyRule, WeekDay } from '../../domain/dtos/frequency.type';
+import { Frequency, FrequencyRule, FrequencyType, WeekDay } from '../../domain/dtos/frequency.type';
 import { getPlurial } from '../../../../shared/utils/string.utils';
 import { getValuesFromMap } from '../../../../shared/utils/record.utils';
 import { toLocaleString } from '../../../../shared/utils/date.utils';
@@ -14,8 +14,8 @@ import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskFrequencyRuleComponent {
+  protected readonly FrequencyType = FrequencyType;
   frequencyRule = input.required<FrequencyRule>();
-
   select = output<ID>();
 
   get frequencyType(): string {
@@ -41,15 +41,15 @@ export class TaskFrequencyRuleComponent {
     }
   }
 
-  get start(): string {
-    return `Début : ${toLocaleString(this.frequencyRule().startDate)}`;
-  }
+  get startEnd(): string {
+    const start = toLocaleString(this.frequencyRule().startDate);
+    const end = toLocaleString(this.frequencyRule().endDate);
+    const nbOcurrence = this.frequencyRule().endNbOccurence;
 
-  get end(): string {
     if (this.frequencyRule().end === 'Date') {
-      return `Fin : ${toLocaleString(this.frequencyRule().endDate)}`;
+      return `Du ${start} au ${end}`;
     } else if (this.frequencyRule().end === "Nombre d'occurence") {
-      return `Après ${this.frequencyRule().endNbOccurence} occurences`;
+      return `${nbOcurrence} occurence${getPlurial(nbOcurrence)} à partir du ${start}`;
     }
 
     return '';

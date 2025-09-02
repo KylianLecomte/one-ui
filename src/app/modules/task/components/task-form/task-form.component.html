@@ -1,63 +1,71 @@
 <form (ngSubmit)="onSubmitAddNewTask()" [formGroup]="taskFg" class="mb-3">
-  <input
-    class="default"
-    formControlName="name"
-    id="input-task-name"
-    placeholder="Nom"
-    type="text"
-  />
-  <textarea
-    class="default"
-    formControlName="description"
-    id="input-task-description"
-    placeholder="Description"
-    type="text"
-  ></textarea>
+  <fieldset>
+    <legend>Création d'une tâche</legend>
 
-  <one-tabs formGroupName="frequencyRuleFg">
-    <one-tab [label]="Frequency.WEEKLY">
-      <ng-template>
-        <one-task-frequency-weekly [weeklyForm]="weeklyFg"></one-task-frequency-weekly>
-      </ng-template>
-    </one-tab>
-    <one-tab [label]="Frequency.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
-    <one-tab [label]="Frequency.FIX"><ng-template>FIX</ng-template></one-tab>
+    <input
+      class="default"
+      formControlName="name"
+      id="input-task-name"
+      placeholder="Nom"
+      type="text"
+    />
+    <textarea
+      class="default"
+      formControlName="description"
+      id="input-task-description"
+      placeholder="Description"
+      type="text"
+    ></textarea>
 
-    <div commonContent>
-      <div class="ctn-start-frequency flex-row">
-        <one-select
-          [options]="START_FREQUENCY"
-          formControlName="start"
-          id="frequencyStart"
-        ></one-select>
+    <one-tabs formGroupName="frequencyRuleFg">
+      <one-tab [label]="Frequency.WEEKLY">
+        <ng-template>
+          <one-task-frequency-weekly [weeklyForm]="weeklyFg"></one-task-frequency-weekly>
+        </ng-template>
+      </one-tab>
+      <one-tab [label]="Frequency.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
+      <one-tab [label]="Frequency.FIX"><ng-template>FIX</ng-template></one-tab>
 
-        <input class="default" formControlName="startDate" type="date" />
+      <div commonContent>
+        <div class="ctn-start-frequency flex-row">
+          <label class="mr-2">Début</label>
+          <input class="default" formControlName="startDate" type="date" />
+        </div>
+
+        <div class="ctn-end-frequency flex-row">
+          <label class="mr-2">Fin</label>
+          <one-select
+            [options]="END_FREQUENCY"
+            formControlName="end"
+            id="frequencyEnd"
+          ></one-select>
+
+          @if (['Maintenant', 'Date'].includes(endFrequencyValue)) {
+            <input class="default" formControlName="endDate" type="date" />
+          } @else if (["Nombre d'occurence"].includes(endFrequencyValue)) {
+            <one-input-number
+              [id]="'nbOccurence'"
+              [labelIsHidden]="true"
+              [label]="'Nombre d\'occurence'"
+              formControlName="endNbOccurence"
+            ></one-input-number>
+          }
+        </div>
+        <div class="ctn-btn-add-frequency">
+          <one-button (click)="onAddFrequencyRule()" typeCss="complementary"
+            >Ajouter la règle de répétition</one-button
+          >
+        </div>
       </div>
+    </one-tabs>
 
-      <div class="ctn-end-frequency flex-row">
-        <one-select [options]="END_FREQUENCY" formControlName="end" id="frequencyEnd"></one-select>
+    @for (frequencyRule of frequencyRules(); track frequencyRule.id) {
+      <one-task-frequency-rule
+        [frequencyRule]="frequencyRule"
+        (select)="onSelectTaskFrequencyRule($event)"
+      ></one-task-frequency-rule>
+    }
 
-        @if (['Maintenant', 'Date'].includes(endFrequencyValue)) {
-          <input class="default" formControlName="endDate" type="date" />
-        } @else if (["Nombre d'occurence"].includes(endFrequencyValue)) {
-          <one-input-number
-            [id]="'nbOccurence'"
-            [labelIsHidden]="true"
-            [label]="'Nombre d\'occurence'"
-            formControlName="endNbOccurence"
-          ></one-input-number>
-        }
-      </div>
-      <one-button (click)="onAddFrequencyRule()">Ajouter la règle de répétition</one-button>
-    </div>
-  </one-tabs>
-
-  @for (frequencyRule of frequencyRules(); track frequencyRule.id) {
-    <one-task-frequency-rule
-      [frequencyRule]="frequencyRule"
-      (select)="onSelectTaskFrequencyRule($event)"
-    ></one-task-frequency-rule>
-  }
-
-  <one-button type="submit">Ajouter</one-button>
+    <one-button type="submit">Ajouter</one-button>
+  </fieldset>
 </form>

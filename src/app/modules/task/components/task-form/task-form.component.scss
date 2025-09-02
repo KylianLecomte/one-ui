@@ -3,14 +3,18 @@
 :host {
   max-width: 30%;
   min-width: 400px;
-  padding: vars.$layour-padding vars.$layour-padding 0 vars.$layour-padding;
+  padding: vars.$layout-padding-small vars.$layout-padding-small 0 vars.$layout-padding-small;
   border-left: vars.$border-layout;
 }
 
-form {
+form fieldset {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  border: vars.$border-gray;
+  border-radius: vars.$border-radius-medium;
+  padding: vars.$padding-container;
+  background-color: vars.$color-white;
 
   & button[type='submit'] {
     width: 100px;
@@ -37,6 +41,11 @@ form {
       }
 
       margin: 0 0 vars.$margin-validation-button 0;
+    }
+
+    .ctn-btn-add-frequency {
+      display: flex;
+      justify-content: center;
     }
   }
 }

@@ -3,10 +3,16 @@
   [ngClass]="frequencyRule().isSelected ? 'selected' : ''"
   id="task-frequency-rule"
 >
-  <span>{{ frequency }}</span>
-  <span>{{ frequencyType }}</span>
   <div class="flex-row">
-    <span>{{ start }}</span>
-    <span>{{ end }}</span>
+    <span class="frequency">{{ frequency }}</span>
+    <span class="startEnd">{{ startEnd }}</span>
   </div>
+  @if (this.frequencyRule().frequencyType === FrequencyType.WEEKLY_BY_DAY) {
+    <p class="prefixFrequencyWeeklyPerDay">
+      Tous les
+      <span class="frequencyType">{{ frequencyType }}</span>
+    </p>
+  } @else {
+    <span class="frequencyType">{{ frequencyType }}</span>
+  }
 </div>

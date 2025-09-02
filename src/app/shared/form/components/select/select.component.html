@@ -3,6 +3,7 @@
   (ngModelChange)="onSelectChange($event)"
   [disabled]="isDisabled"
   [ngModel]="value"
+  class="default"
 >
   @if (placeholder()) {
     <option [ngValue]="null">

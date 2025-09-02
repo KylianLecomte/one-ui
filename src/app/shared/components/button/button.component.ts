@@ -1,16 +1,18 @@
 import {
   Component,
+  computed,
   DestroyRef,
   effect,
   ElementRef,
   inject,
   input,
   output,
+  signal,
   viewChild,
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 
-export type TypeCssButton = 'default' | 'primary' | 'secondary' | 'icon' | 'tab';
+export type TypeCssButton = 'default' | 'primary' | 'complementary' | 'icon' | 'tab';
 export type TypeButton = 'button' | 'submit' | 'reset';
 
 @Component({
@@ -25,15 +27,17 @@ export class ButtonComponent {
   typeCss = input<TypeCssButton>('default');
   type = input<TypeButton>('button');
   withAnimation = input<boolean>(true);
-
-  btn = viewChild<ElementRef<HTMLButtonElement>>('btn');
+  isAnimating = signal(false);
 
   clickEvent = output<void>();
+
+  private readonly _btnRef = viewChild<ElementRef<HTMLButtonElement>>('btn');
+  btn = computed(() => this._btnRef()?.nativeElement);
 
   constructor() {
     effect(() => {
       if (this.withAnimation()) {
-        this.btn()?.nativeElement.addEventListener('animationend', (ev) => {
+        this.btn()?.addEventListener('animationend', (ev: AnimationEvent) => {
           if (ev.animationName.endsWith('shockwave')) {
             this.animationShockWaveFinished();
           }
@@ -43,8 +47,10 @@ export class ButtonComponent {
   }
 
   onClick() {
-    console.log('click');
-    this.withAnimation() && this.btn()?.nativeElement.classList.add('shockwave');
+    if (this.withAnimation()) {
+      this.isAnimating.set(false);
+      requestAnimationFrame(() => this.isAnimating.set(true));
+    }
 
     if (this.type() !== 'submit') {
       this.clickEvent.emit();
@@ -52,14 +58,11 @@ export class ButtonComponent {
   }
 
   animationShockWaveFinished() {
-    this.withAnimation() && this.btn()?.nativeElement.classList.remove('shockwave');
+    this.withAnimation() && this.isAnimating.set(false);
   }
 
   destroy() {
     this.withAnimation() &&
-      this.btn()?.nativeElement.removeEventListener(
-        'animationend',
-        this.animationShockWaveFinished
-      );
+      this.btn()?.removeEventListener('animationend', this.animationShockWaveFinished);
   }
 }
