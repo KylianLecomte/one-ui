@@ -5,34 +5,39 @@ import { getValuesFromMap } from '../../../../shared/utils/record.utils';
 import { toLocaleString } from '../../../../shared/utils/date.utils';
 import { NgClass } from '@angular/common';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'one-task-frequency-rule',
-  imports: [NgClass],
+  imports: [NgClass, ButtonComponent, FontAwesomeModule],
   templateUrl: './task-frequency-rule.component.html',
   styleUrl: './task-frequency-rule.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskFrequencyRuleComponent {
   protected readonly FrequencyType = FrequencyType;
+  readonly faTrashCan: IconDefinition = faTrashCan;
   frequencyRule = input.required<FrequencyRule>();
   select = output<ID>();
+  delete = output<ID>();
 
   get frequencyType(): string {
-    switch (this.frequencyRule().frequencyType) {
+    switch (this.frequencyRule().weeklyRule.frequencyType) {
       case 'WEEKLY_BY_DAY':
-        return this.frequencyRule().weekDay.length > 0
-          ? `Tous les ${getValuesFromMap(this.frequencyRule().weekDay, WeekDay)}`
+        return this.frequencyRule().weeklyRule.weekDays.length > 0
+          ? `Tous les ${getValuesFromMap(this.frequencyRule().weeklyRule.weekDays, WeekDay)}`
           : '';
       case 'WEEKLY_REGULAR':
-        return `${this.frequencyRule().repeatEvery} jour${getPlurial(this.frequencyRule().repeatEvery)} sur ${this.frequencyRule().periodLength}`;
+        return `${this.frequencyRule().weeklyRule.repeatEvery} jour${getPlurial(this.frequencyRule().weeklyRule.repeatEvery)} sur ${this.frequencyRule().weeklyRule.periodLength}`;
       default:
         return '';
     }
   }
 
   get frequency(): string {
-    switch (this.frequencyRule().frequencyType) {
+    switch (this.frequencyRule().weeklyRule.frequencyType) {
       case 'WEEKLY_BY_DAY':
       case 'WEEKLY_REGULAR':
         return getValuesFromMap(Frequency.WEEKLY, Frequency);
@@ -56,7 +61,10 @@ export class TaskFrequencyRuleComponent {
   }
 
   onSelect() {
-    console.log('onSelect', this.frequencyRule());
     this.select.emit(this.frequencyRule().id);
+  }
+
+  onDelete() {
+    this.delete.emit(this.frequencyRule().id);
   }
 }

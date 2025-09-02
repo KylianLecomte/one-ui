@@ -7,12 +7,11 @@
     <span class="frequency">{{ frequency }}</span>
     <span class="startEnd">{{ startEnd }}</span>
   </div>
-  @if (this.frequencyRule().frequencyType === FrequencyType.WEEKLY_BY_DAY) {
-    <p class="prefixFrequencyWeeklyPerDay">
-      Tous les
-      <span class="frequencyType">{{ frequencyType }}</span>
-    </p>
-  } @else {
+  <div class="flex-row ctn-frequency-type">
     <span class="frequencyType">{{ frequencyType }}</span>
-  }
+
+    <one-button (click)="onDelete()" typeCss="icon">
+      <fa-icon [icon]="faTrashCan"></fa-icon>
+    </one-button>
+  </div>
 </div>

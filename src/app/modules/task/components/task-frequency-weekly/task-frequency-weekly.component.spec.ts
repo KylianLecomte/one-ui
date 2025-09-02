@@ -11,7 +11,7 @@ describe('TaskFrequencyWeeklyComponent', () => {
   const inputWeeklyForm = signal(
     new FormGroup({
       frequencyType: new FormControl({}),
-      selectedDays: new FormControl({}),
+      weekDays: new FormControl({}),
       repeatEvery: new FormControl({}),
       periodLength: new FormControl({}),
     })

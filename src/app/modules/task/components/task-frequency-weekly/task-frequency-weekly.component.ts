@@ -1,9 +1,13 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RadioComponent } from '../../../../shared/form/components/radio/radio.component';
-import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
+import {
+  InputNumberComponent
+} from '../../../../shared/form/components/input-number/input-number.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FrequencyType } from '../../domain/dtos/frequency.type';
-import { CheckboxTagGroupComponent } from '../../../../shared/form/components/checkbox-tag-group/checkbox-tag-group.component';
+import {
+  CheckboxTagGroupComponent
+} from '../../../../shared/form/components/checkbox-tag-group/checkbox-tag-group.component';
 import { Option } from '../../../../shared/form/components/base/base-input-group-form-control';
 
 @Component({
