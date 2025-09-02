@@ -38,4 +38,5 @@ export interface FrequencyRule {
   end: END_FREQUENCY_VALUE;
   endDate: Date;
   endNbOccurence: number;
+  isSelected: boolean;
 }

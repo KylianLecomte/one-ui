@@ -1,7 +1,7 @@
 <form (ngSubmit)="onClickSubmit()" [formGroup]="signInForm" class="card">
   <label for="inputEmail">E-mail<one-required /></label>
   <input
-    class="classic"
+    class="default"
     formControlName="email"
     id="inputEmail"
     placeholder="Entrez votre adresse e-mail"
@@ -12,7 +12,7 @@
   }
   <label for="inputPwd">Mot de passe<one-required /></label>
   <input
-    class="classic"
+    class="default"
     formControlName="password"
     id="inputPwd"
     placeholder="Entrez votre mot de passe"

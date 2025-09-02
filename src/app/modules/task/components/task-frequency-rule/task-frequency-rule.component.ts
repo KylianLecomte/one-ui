@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { Frequency, FrequencyRule, WeekDay } from '../../domain/dtos/frequency.type';
 import { getPlurial } from '../../../../shared/utils/string.utils';
 import { getValuesFromMap } from '../../../../shared/utils/record.utils';
 import { toLocaleString } from '../../../../shared/utils/date.utils';
+import { NgClass } from '@angular/common';
+import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 
 @Component({
   selector: 'one-task-frequency-rule',
-  imports: [],
+  imports: [NgClass],
   templateUrl: './task-frequency-rule.component.html',
   styleUrl: './task-frequency-rule.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,14 +16,16 @@ import { toLocaleString } from '../../../../shared/utils/date.utils';
 export class TaskFrequencyRuleComponent {
   frequencyRule = input.required<FrequencyRule>();
 
+  select = output<ID>();
+
   get frequencyType(): string {
     switch (this.frequencyRule().frequencyType) {
       case 'WEEKLY_BY_DAY':
         return this.frequencyRule().weekDay.length > 0
-          ? `Par jour : ${getValuesFromMap(this.frequencyRule().weekDay, WeekDay)}`
+          ? `Tous les ${getValuesFromMap(this.frequencyRule().weekDay, WeekDay)}`
           : '';
       case 'WEEKLY_REGULAR':
-        return `Régulier : ${this.frequencyRule().repeatEvery} jour${getPlurial(this.frequencyRule().repeatEvery)} sur ${this.frequencyRule().periodLength}`;
+        return `${this.frequencyRule().repeatEvery} jour${getPlurial(this.frequencyRule().repeatEvery)} sur ${this.frequencyRule().periodLength}`;
       default:
         return '';
     }
@@ -49,5 +53,10 @@ export class TaskFrequencyRuleComponent {
     }
 
     return '';
+  }
+
+  onSelect() {
+    console.log('onSelect', this.frequencyRule());
+    this.select.emit(this.frequencyRule().id);
   }
 }

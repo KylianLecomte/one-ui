@@ -1,15 +1,17 @@
 @use '../../../../../styles/variables' as vars;
 
-:host,
-label,
-div,
-input {
-  cursor: pointer;
+.default {
+  &:hover:not(:disabled),
+  &.selected:not(:disabled),
+  &:focus:not(:disabled) {
+    border: none;
+  }
 }
 
 div.checkbox-tag {
   width: 22px;
   height: 22px;
+  border: none;
 
   &.disabled label,
   &.disabled input {
@@ -25,8 +27,12 @@ div.checkbox-tag {
     color: vars.$color-txt-light;
   }
 
-  &:hover label {
+  &:hover:not(&.disabled) label {
     color: vars.$color-txt-light;
+  }
+
+  &.disabled label {
+    color: rgba(vars.$color-txt-dark, 0.5);
   }
 }
 
@@ -39,15 +45,17 @@ input {
   border: none;
   margin: 0;
   background-color: vars.$color-main-light;
-  color: vars.$color-txt-dark;
 
   &:hover {
     background-color: vars.$color-main-hover;
-    color: vars.$color-txt-dark;
   }
 
   &:checked {
     background-color: vars.$color-main;
+  }
+
+  &:disabled {
+    background-color: vars.$color-main-disabled;
   }
 }
 

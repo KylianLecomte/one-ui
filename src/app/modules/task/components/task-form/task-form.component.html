@@ -1,21 +1,19 @@
 <form (ngSubmit)="onSubmitAddNewTask()" [formGroup]="taskFg" class="mb-3">
   <input
-    class="classic"
+    class="default"
     formControlName="name"
     id="input-task-name"
     placeholder="Nom"
     type="text"
   />
   <textarea
-    class="classic"
+    class="default"
     formControlName="description"
     id="input-task-description"
     placeholder="Description"
     type="text"
   ></textarea>
-  @for (frequencyRule of frequencyRules; track frequencyRule.id) {
-    <one-task-frequency-rule [frequencyRule]="frequencyRule"></one-task-frequency-rule>
-  }
+
   <one-tabs formGroupName="frequencyRuleFg">
     <one-tab [label]="Frequency.WEEKLY">
       <ng-template>
@@ -33,14 +31,14 @@
           id="frequencyStart"
         ></one-select>
 
-        <input class="classic" formControlName="startDate" type="date" />
+        <input class="default" formControlName="startDate" type="date" />
       </div>
 
       <div class="ctn-end-frequency flex-row">
         <one-select [options]="END_FREQUENCY" formControlName="end" id="frequencyEnd"></one-select>
 
         @if (['Maintenant', 'Date'].includes(endFrequencyValue)) {
-          <input class="classic" formControlName="endDate" type="date" />
+          <input class="default" formControlName="endDate" type="date" />
         } @else if (["Nombre d'occurence"].includes(endFrequencyValue)) {
           <one-input-number
             [id]="'nbOccurence'"
@@ -50,9 +48,16 @@
           ></one-input-number>
         }
       </div>
+      <one-button (click)="onAddFrequencyRule()">Ajouter la règle de répétition</one-button>
     </div>
   </one-tabs>
 
-  <one-button (click)="onAddFrequencyRule()">Ajouter la règle de répétition</one-button>
+  @for (frequencyRule of frequencyRules(); track frequencyRule.id) {
+    <one-task-frequency-rule
+      [frequencyRule]="frequencyRule"
+      (select)="onSelectTaskFrequencyRule($event)"
+    ></one-task-frequency-rule>
+  }
+
   <one-button type="submit">Ajouter</one-button>
 </form>

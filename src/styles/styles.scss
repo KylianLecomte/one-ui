@@ -11,6 +11,7 @@ body {
   box-sizing: border-box;
   font-size: vars.$font-size-normal;
   color: vars.$color-txt-dark;
+  background-color: vars.$color-global-bg;
 }
 
 app-root {
@@ -54,31 +55,35 @@ ul {
   transition: vars.$transition-default;
 }
 
-input.classic[type='date'] {
+input.default[type='date'] {
   padding: 0 0 0 4px;
 }
 
-input.classic[type='text'],
-input.classic[type='password'],
-textarea.classic[type='text'] {
+input.default[type='text'],
+input.default[type='password'],
+textarea.default[type='text'] {
   height: vars.$height-input-text;
   padding: vars.$padding-input-text;
 }
 
-input.classic:not([type='checkbox']),
-textarea.classic {
-  border-radius: vars.$border-radius;
-  border: vars.$border-gray;
-
-  &:hover:not(:disabled),
-  &:focus:not(:disabled) {
-    border: 1px solid vars.$color-main;
-  }
-
-  &:focus:not(:disabled) {
-    box-shadow: 0 0 1px 1px vars.$color-main-hover;
-  }
+.default {
+  @include vars.default-selectable-style;
 }
+
+//input.default:not([type='checkbox']),
+//textarea.default {
+//  border-radius: vars.$border-radius;
+//  border: vars.$border-gray;
+//
+//  &:hover:not(:disabled),
+//  &:focus:not(:disabled) {
+//    border: 1px solid vars.$color-main;
+//  }
+//
+//  &:focus:not(:disabled) {
+//    box-shadow: vars.$box-shadow-input;
+//  }
+//}
 
 .input-invisible {
   width: 100%;

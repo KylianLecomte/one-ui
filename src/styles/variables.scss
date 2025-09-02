@@ -15,10 +15,14 @@ $color-complementary-light: #ffcbba;
 $color-complementary-light-hover: #ffe5dc;
 $color-complementary-disabled: #ffede8;
 
+$color-global-bg: #fff5f3;
+
 $color-gray: #c6c7ca;
 
 $color-txt-light: #ffffff;
 $color-txt-dark: #2e3036;
+
+$color-white: #ffffff;
 
 // Task state
 $color-task-todo: #36373b;
@@ -30,6 +34,8 @@ $padding-container: 20px;
 $padding-sub-container: 8px;
 $margin-right-icon: 6px;
 $margin-icon: 0 $margin-right-icon 0 0;
+$margin-validation-button: 20px;
+$margin-between-form-controls: 10px;
 
 // Font
 $font-familly: 'Montserrat', 'sans-serif', 'Inter', sans-serif;
@@ -59,6 +65,9 @@ $border-layout: 2px solid $color-gray;
 $border-radius: 2px;
 $border-radius-checkbox: 6px;
 
+// Box-shadow
+$box-shadow-input: 0 0 1px 1px $color-main-hover;
+
 // Input
 $input-padding: 2px;
 
@@ -69,13 +78,25 @@ $transition-default:
   border 0.15s,
   box-shadow 0.15s;
 
-@mixin default-border-and-color {
+@mixin default-selectable-style {
+  border-radius: $border-radius;
   border: $border-gray;
   color: $color-txt-dark;
-  background-color: transparent;
+  background-color: $color-white;
 
-  &:hover {
+  &:hover:not(:disabled) {
+    cursor: pointer;
+  }
+
+  &:hover:not(:disabled),
+  &.selected:not(:disabled),
+  &:focus:not(:disabled) {
     border: $border-main-color;
     color: $color-main;
+  }
+
+  &.selected:not(:disabled),
+  &:focus:not(:disabled) {
+    box-shadow: $box-shadow-input;
   }
 }

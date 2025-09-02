@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { ToastService } from '../../../../shared/toast/services/toast.service';
@@ -21,6 +21,7 @@ import { today, tomorow } from '../../../../shared/utils/date.utils';
 import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
 import { TaskFrequencyRuleComponent } from '../task-frequency-rule/task-frequency-rule.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 
 @Component({
   selector: 'one-task-form',
@@ -52,7 +53,7 @@ export class TaskFormComponent {
   readonly formBuilder: FormBuilder = inject(FormBuilder);
   readonly taskService: TaskService = inject(TaskService);
 
-  frequencyRules: FrequencyRule[] = [];
+  frequencyRules = signal<FrequencyRule[]>([]);
 
   taskFg: FormGroup = this.formBuilder.group({
     name: this.formBuilder.control<string>('', [Validators.required]),
@@ -85,7 +86,6 @@ export class TaskFormComponent {
 
   constructor() {
     this.weeklyFg?.get('frequencyType')?.valueChanges.subscribe((frequencyType: FrequencyType) => {
-      console.log('frequencyType change', frequencyType);
       if (frequencyType === FrequencyType.WEEKLY_BY_DAY) {
         this.weeklyFg?.get('selectedDays')?.enable();
         this.weeklyFg?.get('repeatEvery')?.disable();
@@ -132,7 +132,7 @@ export class TaskFormComponent {
 
   onAddFrequencyRule(): void {
     const newFrequencyRule: FrequencyRule = {
-      id: this.frequencyRules.length + 1,
+      id: this.frequencyRules().length + 1,
       frequencyType: this.weeklyFg.get('frequencyType')?.value,
       weekDay: this.weeklyFg.get('selectedDays')?.value,
       repeatEvery: this.weeklyFg.get('repeatEvery')?.value,
@@ -142,14 +142,24 @@ export class TaskFormComponent {
       end: this.frequencyRuleFg.get('end')?.value,
       endDate: new Date(this.frequencyRuleFg.get('endDate')?.value),
       endNbOccurence: this.frequencyRuleFg.get('endNbOccurence')?.value,
+      isSelected: false,
     };
 
-    this.frequencyRules.push(newFrequencyRule);
-    console.log(newFrequencyRule);
+    this.frequencyRules.set([...this.frequencyRules(), newFrequencyRule]);
+  }
+
+  onSelectTaskFrequencyRule(idTaskFrequencyRule: ID): void {
+    this.frequencyRules.set([
+      ...this.frequencyRules().map((rule) => {
+        return { ...rule, isSelected: rule.id === idTaskFrequencyRule };
+      }),
+    ]);
   }
 
   onSubmitAddNewTask(): void {
     console.log(this.frequencyRuleFg?.get('end')?.value);
+    // this.toastService.error("Ajout d'une nouvelle tâche", 'Formulaire invalide');
+    // this.toastService.success("Ajout d'une nouvelle tâche", 'Formulaire invalide');
 
     // if (!this.taskFg.valid) {
     //   this.toastService.error("Ajout d'une nouvelle tâche", 'Formulaire invalide');

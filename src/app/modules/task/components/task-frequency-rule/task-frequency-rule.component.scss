@@ -1,8 +1,8 @@
 @use '../../../../../styles/variables' as vars;
 
-:host {
-  border-radius: vars.$border-radius;
-  background-color: vars.$color-main-light;
+#task-frequency-rule {
+  @include vars.default-selectable-style;
+
   padding: vars.$padding-sub-container;
   display: flex;
   flex-direction: column;

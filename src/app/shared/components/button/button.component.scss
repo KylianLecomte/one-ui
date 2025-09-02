@@ -24,7 +24,7 @@
     }
 
     &.default {
-      @include vars.default-border-and-color;
+      @include vars.default-selectable-style;
     }
 
     &.icon {

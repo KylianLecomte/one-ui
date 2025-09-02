@@ -28,7 +28,7 @@ export class ButtonComponent {
 
   btn = viewChild<ElementRef<HTMLButtonElement>>('btn');
 
-  click = output<void>();
+  clickEvent = output<void>();
 
   constructor() {
     effect(() => {
@@ -43,8 +43,12 @@ export class ButtonComponent {
   }
 
   onClick() {
+    console.log('click');
     this.withAnimation() && this.btn()?.nativeElement.classList.add('shockwave');
-    this.click.emit();
+
+    if (this.type() !== 'submit') {
+      this.clickEvent.emit();
+    }
   }
 
   animationShockWaveFinished() {
