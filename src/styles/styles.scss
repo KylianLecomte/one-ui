@@ -46,9 +46,13 @@ ul {
 
 /*** COMMON ***/
 .card {
-  padding: 16px;
-  border-radius: vars.$border-radius;
   display: flex;
+  flex-direction: column;
+  padding: vars.$padding-container;
+  border: vars.$border-gray;
+  border-radius: vars.$border-radius-medium;
+  background-color: vars.$color-white;
+  gap: 1rem;
 }
 
 * {
@@ -69,21 +73,6 @@ textarea.default[type='text'] {
 .default {
   @include vars.default-selectable-style;
 }
-
-//input.default:not([type='checkbox']),
-//textarea.default {
-//  border-radius: vars.$border-radius;
-//  border: vars.$border-gray;
-//
-//  &:hover:not(:disabled),
-//  &:focus:not(:disabled) {
-//    border: 1px solid vars.$color-main;
-//  }
-//
-//  &:focus:not(:disabled) {
-//    box-shadow: vars.$box-shadow-input;
-//  }
-//}
 
 .input-invisible {
   width: 100%;

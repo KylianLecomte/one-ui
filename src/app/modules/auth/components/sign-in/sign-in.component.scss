@@ -2,20 +2,20 @@
   margin: auto;
 }
 
-form.card {
+form fieldset.card {
   flex-direction: column;
   width: 400px;
   margin: auto;
-}
 
-form.card label {
-  margin-bottom: 4px;
-}
+  & label {
+    margin-bottom: 4px;
+  }
 
-form.card .default {
-  margin-bottom: 10px;
-}
+  & .default {
+    margin-bottom: 10px;
+  }
 
-form.card one-button {
-  margin-top: 20px;
+  & one-button {
+    margin-top: 20px;
+  }
 }

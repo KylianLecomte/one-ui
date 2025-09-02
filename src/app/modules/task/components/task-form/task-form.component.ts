@@ -15,13 +15,9 @@ import {
   SelectComponent,
   SelectOption,
 } from '../../../../shared/form/components/select/select.component';
-import {
-  TaskFrequencyWeeklyComponent
-} from '../task-frequency-weekly/task-frequency-weekly.component';
+import { TaskFrequencyWeeklyComponent } from '../task-frequency-weekly/task-frequency-weekly.component';
 import { today, tomorow } from '../../../../shared/utils/date.utils';
-import {
-  InputNumberComponent
-} from '../../../../shared/form/components/input-number/input-number.component';
+import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
 import { TaskFrequencyRuleComponent } from '../task-frequency-rule/task-frequency-rule.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';

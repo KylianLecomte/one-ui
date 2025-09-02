@@ -8,14 +8,6 @@
 }
 
 form fieldset {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  border: vars.$border-gray;
-  border-radius: vars.$border-radius-medium;
-  padding: vars.$padding-container;
-  background-color: vars.$color-white;
-
   & button[type='submit'] {
     width: 100px;
   }
