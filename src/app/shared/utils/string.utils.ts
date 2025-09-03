@@ -1,3 +1,3 @@
-export function getPlurial(value: number) {
-  return value > 1 ? 's' : '';
+export function getPlurial(value: number | null | undefined) {
+  return value && value > 1 ? 's' : '';
 }

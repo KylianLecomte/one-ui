@@ -1,0 +1,137 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmitTask()" class="space-y-6">
+
+  <!-- Infos générales -->
+  <div class="space-y-2">
+    <label class="block text-sm font-medium">Nom de la tâche</label>
+    <input type="text" formControlName="name"
+           class="w-full rounded border p-2"
+           placeholder="Nom de la tâche" />
+    <div *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched"
+         class="text-sm text-red-500">
+      Le nom est requis.
+    </div>
+  </div>
+
+  <div class="space-y-2">
+    <label class="block text-sm font-medium">Description</label>
+    <textarea formControlName="description"
+              class="w-full rounded border p-2"
+              rows="3"
+              placeholder="Description optionnelle"></textarea>
+  </div>
+
+  <!-- Liste des règles existantes -->
+  <div>
+    <h3 class="text-lg font-semibold mb-2">Règles de fréquence</h3>
+
+    <div *ngIf="frequencyRulesFA.controls.length === 0" class="text-gray-500 text-sm">
+      Aucune règle définie.
+    </div>
+
+    <ul class="space-y-2">
+      <li *ngFor="let rule of frequencyRulesFA.controls; let i = index"
+          class="flex justify-between items-center rounded border p-2">
+        <div class="text-sm">
+          <span class="font-medium">Règle {{ i + 1 }}</span>
+          — {{ (rule.get('weeklyRule.frequencyType')?.value) }}
+          (début : {{ rule.get('startDate')?.value }})
+        </div>
+        <div class="flex gap-2">
+          <button type="button" class="px-3 py-1 rounded bg-blue-500 text-white text-sm"
+                  (click)="editRule(i)">Éditer</button>
+          <button type="button" class="px-3 py-1 rounded bg-red-500 text-white text-sm"
+                  (click)="deleteRule(i)">Supprimer</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Formulaire d'édition/ajout de règle -->
+  <div [formGroup]="ruleEditor" class="border rounded-lg p-4 space-y-4">
+    <h4 class="text-md font-semibold mb-2">
+      {{ editingRule() ? 'Modifier une règle' : 'Ajouter une règle' }}
+    </h4>
+
+    <div formGroupName="weeklyRule" class="space-y-3">
+      <label class="block text-sm font-medium">Type de récurrence</label>
+      <select formControlName="frequencyType" class="w-full rounded border p-2">
+        <option [ngValue]="FrequencyType.WEEKLY_BY_DAY">Par jours précis</option>
+        <option [ngValue]="FrequencyType.WEEKLY_REGULAR">Récurrence régulière</option>
+      </select>
+
+      <div *ngIf="weeklyRuleFG.get('frequencyType')?.value === FrequencyType.WEEKLY_BY_DAY">
+        <label class="block text-sm">Jours</label>
+        <div class="flex gap-2 flex-wrap">
+          <label *ngFor="let day of (Object.values(Frequency.WeekDay) as WeekDay[])"
+                 class="flex items-center gap-1">
+            <input type="checkbox"
+                   [value]="day"
+                   (change)="
+                     $event.target.checked
+                       ? weeklyRuleFG.get('weekDays')?.setValue([...(weeklyRuleFG.get('weekDays')?.value || []), day])
+                       : weeklyRuleFG.get('weekDays')?.setValue((weeklyRuleFG.get('weekDays')?.value || []).filter(d => d !== day))
+                   "
+                   [checked]="weeklyRuleFG.get('weekDays')?.value?.includes(day)" />
+            {{ day }}
+          </label>
+        </div>
+      </div>
+
+      <div *ngIf="weeklyRuleFG.get('frequencyType')?.value === FrequencyType.WEEKLY_REGULAR"
+           class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm">Répéter tous les</label>
+          <input type="number" formControlName="repeatEvery" class="w-full rounded border p-2" />
+        </div>
+        <div>
+          <label class="block text-sm">Sur une période de</label>
+          <input type="number" formControlName="periodLength" class="w-full rounded border p-2" />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm">Date de début</label>
+        <input type="date" formControlName="startDate" class="w-full rounded border p-2" />
+      </div>
+
+      <div>
+        <label class="block text-sm">Fin</label>
+        <select formControlName="end" class="w-full rounded border p-2">
+          <option *ngFor="let opt of END_FREQUENCY" [ngValue]="opt.value">{{ opt.label }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngIf="ruleEditor.get('end')?.value === 'Date'">
+      <label class="block text-sm">Date de fin</label>
+      <input type="date" formControlName="endDate" class="w-full rounded border p-2" />
+    </div>
+
+    <div *ngIf="ruleEditor.get('end')?.value === \"Nombre d'occurence\"">
+    <label class="block text-sm">Nombre d'occurrences</label>
+    <input type="number" formControlName="endNbOccurence" class="w-full rounded border p-2" />
+  </div>
+
+  <!-- Actions règle -->
+  <div class="flex gap-2">
+    <button type="button" (click)="addOrUpdateRule()"
+            class="px-4 py-2 rounded bg-green-500 text-white">
+      {{ editingRule() ? 'Mettre à jour' : 'Ajouter' }}
+    </button>
+    <button type="button" (click)="cancelEdit()"
+            class="px-4 py-2 rounded bg-gray-300">
+      Annuler
+    </button>
+  </div>
+  </div>
+
+  <!-- Actions globales -->
+  <div class="flex justify-end gap-2">
+    <button type="submit"
+            class="px-4 py-2 rounded bg-blue-600 text-white">
+      Sauvegarder la tâche
+    </button>
+  </div>
+</form>

@@ -1,35 +1,38 @@
-import { formatDate } from '@angular/common';
-
 export const LANGUAGES = 'fr-FR';
 export const TIME_ZONE = 'UTC';
 
-export function format(date: Date): string {
-  console.log(date.toISOString().split('T')[0]);
-  console.log(formatDate(date, 'yyyy-MM-dd', 'en-US'));
-
-  return formatDate(date, 'yyyy-MM-dd', 'en-US');
-  // return formatDate(date, 'dd-MM-yyyy', 'fr-FR');
+export function toStringFormDate(d: Date | null | undefined): string | null {
+  if (!d) return null;
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
 }
 
-export function today(): string {
-  return format(new Date());
+export function toDate(s: string | null | undefined): Date | null {
+  if (!s) return null;
+  const [y, m, d] = s.split('-').map(Number);
+  return new Date(y, (m ?? 1) - 1, d ?? 1, 0, 0, 0, 0);
 }
 
-export function tomorow(): string {
-  const today = new Date();
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  return format(tomorrow);
+export function todayStr(): string {
+  return toStringFormDate(new Date())!;
 }
 
-export function toLocaleString(date: Date | string) {
+export function tomorrowStr(): string {
+  const t = new Date();
+  t.setDate(t.getDate() + 1);
+  return toStringFormDate(t)!;
+}
+
+export function toLocaleString(date: Date | string): string {
   return new Date(date).toLocaleDateString(LANGUAGES, { timeZone: TIME_ZONE });
 }
 
-export function toLocalDateString(date: Date | string) {
+export function toLocalDateString(date: Date | string): string {
   return new Date(date).toLocaleDateString(LANGUAGES, { timeZone: TIME_ZONE });
 }
 
-export function toLocalTimeString(date: Date | string) {
+export function toLocalTimeString(date: Date | string): string {
   return new Date(date).toLocaleTimeString(LANGUAGES, { timeZone: TIME_ZONE });
 }

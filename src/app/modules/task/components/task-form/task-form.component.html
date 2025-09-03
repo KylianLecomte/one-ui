@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmitAddNewTask()" [formGroup]="task" class="mb-3">
+<form (ngSubmit)="onSubmitTask()" [formGroup]="taskForm" class="mb-3">
   <fieldset class="card">
     <legend>Création d'une tâche</legend>
 
@@ -17,7 +17,7 @@
       type="text"
     ></textarea>
 
-    <one-tabs formGroupName="frequencyRule">
+    <one-tabs [formGroup]="frequencyRuleForm">
       <one-tab [label]="Frequency.WEEKLY">
         <ng-template>
           <one-task-frequency-weekly [weeklyForm]="weeklyRule"></one-task-frequency-weekly>
@@ -55,18 +55,19 @@
           <one-button (click)="onAddFrequencyRule()" typeCss="complementary"
             >Ajouter la règle de répétition</one-button
           >
-          @if (this.editingFrequencyRule()) {
-            <one-button (click)="onCancelEditingFrequencyRule()">Annuler</one-button>
+          @if (!!this.selectedfrequencyRuleIndex()) {
+            <one-button (click)="onCancelEditFrequencyRule()">Annuler</one-button>
           }
         </div>
       </div>
     </one-tabs>
 
-    @for (frequencyRule of frequencyRules(); track frequencyRule.id) {
+    @for (frequencyRule of frequencyRules.controls; track $index) {
       <one-task-frequency-rule
-        [frequencyRule]="frequencyRule"
-        (select)="onSelectTaskFrequencyRule($event)"
-        (delete)="onDeleteTaskFrequencyRule($event)"
+        [isSelected]="selectedfrequencyRuleIndex() === $index"
+        [frequencyRule]="formRuleToDomain(frequencyRule.getRawValue())"
+        (select)="onEditFrequencyRule($index)"
+        (delete)="onDeleteFrequencyRule($index)"
       ></one-task-frequency-rule>
     }
 

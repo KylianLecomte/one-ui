@@ -27,20 +27,25 @@ export const WeekDay = {
 } as const;
 export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay];
 
-export interface FrequencyRule extends Dto {
-  isSelected: boolean;
-
+export interface FrequencyRuleForm {
   weeklyRule: WeeklyRule;
+  startDate: string;
+  end: END_FREQUENCY_VALUE;
+  endDate: string | null;
+  endNbOccurence: number | null;
+}
 
+export interface FrequencyRule extends Dto {
+  weeklyRule: WeeklyRule;
   startDate: Date;
   end: END_FREQUENCY_VALUE;
-  endDate: Date;
-  endNbOccurence: number;
+  endDate: Date | null;
+  endNbOccurence: number | null;
 }
 
 export interface WeeklyRule extends Dto {
   frequencyType: FrequencyType;
   weekDays: WeekDay[];
-  repeatEvery: number;
-  periodLength: number;
+  repeatEvery: number | null;
+  periodLength: number | null;
 }

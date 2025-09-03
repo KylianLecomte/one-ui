@@ -20,6 +20,7 @@ export class TaskFrequencyRuleComponent {
   protected readonly FrequencyType = FrequencyType;
   readonly faTrashCan: IconDefinition = faTrashCan;
   frequencyRule = input.required<FrequencyRule>();
+  isSelected = input<boolean>(false);
   select = output<ID>();
   delete = output<ID>();
 
@@ -48,10 +49,11 @@ export class TaskFrequencyRuleComponent {
 
   get startEnd(): string {
     const start = toLocaleString(this.frequencyRule().startDate);
-    const end = toLocaleString(this.frequencyRule().endDate);
+    const endDate: Date | null = this.frequencyRule().endDate;
+    const end = endDate ? toLocaleString(endDate) : null;
     const nbOcurrence = this.frequencyRule().endNbOccurence;
 
-    if (this.frequencyRule().end === 'Date') {
+    if (this.frequencyRule().end === 'Date' && end) {
       return `Du ${start} au ${end}`;
     } else if (this.frequencyRule().end === "Nombre d'occurence") {
       return `${nbOcurrence} occurence${getPlurial(nbOcurrence)} à partir du ${start}`;

@@ -1,8 +1,4 @@
-<div
-  (click)="onSelect()"
-  [ngClass]="frequencyRule().isSelected ? 'selected' : ''"
-  id="task-frequency-rule"
->
+<div (click)="onSelect()" [ngClass]="isSelected() ? 'selected' : ''" id="task-frequency-rule">
   <div class="flex-row">
     <span class="frequency">{{ frequency }}</span>
     <span class="startEnd">{{ startEnd }}</span>
