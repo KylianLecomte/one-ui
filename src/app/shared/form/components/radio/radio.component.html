@@ -1,4 +1,7 @@
-<label>
+<span [ngClass]="'ctn-input ' + cssLabelPosition()">
+  <label [for]="id()">
+    {{ label() }}
+  </label>
   <input
     (blur)="onTouched()"
     [checked]="selectedValue() === value"
@@ -9,7 +12,7 @@
     class="default"
     type="radio"
   />
-  <span>
-    {{ label() }}
-  </span>
-</label>
+</span>
+<div class="sub-container-radio">
+  <ng-content></ng-content>
+</div>

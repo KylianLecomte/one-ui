@@ -2,20 +2,20 @@
   <fieldset class="card">
     <legend>Création d'une tâche</legend>
 
-    <input
-      class="default"
+    <one-input-text
+      cssInputClass="default"
       formControlName="name"
-      id="input-task-name"
+      id="name"
+      label="Nom"
       placeholder="Nom"
-      type="text"
     />
-    <textarea
-      class="default"
+    <one-input-textarea
+      cssInputClass="default"
       formControlName="description"
-      id="input-task-description"
+      id="description"
+      label="Description"
       placeholder="Description"
-      type="text"
-    ></textarea>
+    ></one-input-textarea>
 
     <one-tabs [formGroup]="frequencyRuleForm">
       <one-tab [label]="Frequency.WEEKLY">
@@ -46,6 +46,7 @@
             <one-input-number
               [id]="'nbOccurence'"
               formControlName="endNbOccurence"
+              cssInputClass="default"
             ></one-input-number>
           }
         </div>

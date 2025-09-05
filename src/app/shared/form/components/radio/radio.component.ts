@@ -2,10 +2,12 @@ import { ChangeDetectionStrategy, Component, computed, input, signal } from '@an
 import { genericProvider } from '../base/generic-provider.provider';
 import { RadioControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
 import { LabelPosition } from '../../../dtos/label-position.type';
+import { getCssClassForLabelPosition } from '../../../utils/css-class.utils';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'one-radio',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './radio.component.html',
   styleUrl: './radio.component.scss',
   providers: [genericProvider(RadioComponent)],
@@ -16,19 +18,9 @@ export class RadioComponent extends RadioControlValueAccessor {
   label = input<string>();
   disabled = signal(false);
   selectedValue = signal<any>(null);
-  labelPosition = input<LabelPosition>('left');
-  cssLabelPosition = computed(() => {
-    switch (this.labelPosition()) {
-      case 'top':
-        return 'flex-col';
-      case 'bottom':
-        return 'flex-col-reverse';
-      case 'left':
-        return 'flex-row';
-      case 'right':
-        return 'flex-row-reverse';
-    }
-  });
+
+  labelPosition = input<LabelPosition>('right');
+  cssLabelPosition = computed(() => getCssClassForLabelPosition(this.labelPosition()));
 
   override writeValue(value: any) {
     super.writeValue(value);

@@ -22,6 +22,8 @@ import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 import { TaskDto } from '../../domain/dtos/task.dto';
 import { getNewTask } from '../../domain/utils/task.utils';
 import { Option } from '../../../../shared/form/components/base/base-input-group-form-control';
+import { InputTextComponent } from '../../../../shared/form/components/input-text/input-text.component';
+import { InputTextareaComponent } from '../../../../shared/form/components/input-textarea/input-textarea.component';
 
 export const VALUE_NULL_DISABLED = { value: null, disabled: true };
 
@@ -36,6 +38,8 @@ export const VALUE_NULL_DISABLED = { value: null, disabled: true };
     SelectComponent,
     TaskFrequencyRuleComponent,
     ButtonComponent,
+    InputTextComponent,
+    InputTextareaComponent,
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
@@ -81,7 +85,9 @@ export class TaskFormComponent {
         if (frequencyType === FrequencyType.WEEKLY_BY_DAY) {
           this.weeklyRule?.get('weekDays')?.enable();
           this.weeklyRule?.get('repeatEvery')?.disable();
+          this.weeklyRule?.get('repeatEvery')?.patchValue(null);
           this.weeklyRule?.get('periodLength')?.disable();
+          this.weeklyRule?.get('periodLength')?.patchValue(null);
         } else if (frequencyType === FrequencyType.WEEKLY_REGULAR) {
           this.weeklyRule?.get('weekDays')?.disable();
           this.weeklyRule?.get('repeatEvery')?.enable();
@@ -96,6 +102,7 @@ export class TaskFormComponent {
         this.frequencyRuleForm?.get('endDate')?.setValue(tomorrowStr());
         this.frequencyRuleForm?.get('endDate')?.enable();
         this.frequencyRuleForm?.get('endNbOccurence')?.disable();
+        this.frequencyRuleForm?.get('endNbOccurence')?.patchValue(null);
       } else {
         this.frequencyRuleForm?.get('endDate')?.disable();
         this.frequencyRuleForm?.get('endNbOccurence')?.enable();

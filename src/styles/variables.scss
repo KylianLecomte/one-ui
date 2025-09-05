@@ -36,6 +36,8 @@ $margin-right-icon: 6px;
 $margin-icon: 0 $margin-right-icon 0 0;
 $margin-validation-button: 20px;
 $margin-between-form-controls: 10px;
+$margin-between-form-group: 20px;
+$margin-between-label-input: 5px;
 
 // Font
 $font-familly: 'Montserrat', 'sans-serif', 'Inter', sans-serif;
@@ -51,9 +53,9 @@ $layout-padding-small: 20px;
 
 // Size
 // Input
-$height-input-text: 12px;
-$padding-input-text: 10px;
+$padding-input-text: 8px;
 $size-task-state: 20px;
+$input-padding: 8px;
 
 // Button
 $button-height: 30px;
@@ -69,9 +71,6 @@ $border-radius-checkbox: 6px;
 
 // Box-shadow
 $box-shadow-input: 0 0 1px 1px $color-main-hover;
-
-// Input
-$input-padding: 2px;
 
 // Transition
 $transition-default:
@@ -100,5 +99,33 @@ $transition-default:
   &.selected:not(:disabled),
   &:focus:not(:disabled) {
     box-shadow: $box-shadow-input;
+  }
+}
+
+@mixin base-input-style {
+  input,
+  textarea {
+    font-family: $font-familly;
+    outline: none;
+    accent-color: $color-main;
+    padding: $padding-input-text;
+  }
+
+  span {
+    &.top one-input-label:has(:not(label.visually-hidden)) {
+      margin-bottom: $margin-between-label-input;
+    }
+
+    &.bottom one-input-label:has(:not(label.visually-hidden)) {
+      margin-top: $margin-between-label-input;
+    }
+
+    &.left one-input-label:has(:not(label.visually-hidden)) {
+      margin-right: $margin-between-label-input;
+    }
+
+    &.right one-input-label:has(:not(label.visually-hidden)) {
+      margin-left: $margin-between-label-input;
+    }
   }
 }

@@ -13,6 +13,19 @@ label {
   cursor: pointer;
 }
 
+span.ctn-input {
+  width: fit-content;
+}
+
+span.ctn-input,
+.sub-container-radio {
+  margin-bottom: vars.$margin-between-form-controls;
+}
+
+.sub-container-radio {
+  padding-left: vars.$padding-container;
+}
+
 input {
   border-radius: 100%;
   width: 14px;

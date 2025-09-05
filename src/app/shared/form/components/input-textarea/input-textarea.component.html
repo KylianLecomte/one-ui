@@ -5,18 +5,14 @@
     [labelIsHidden]="labelIsHidden()"
     [label]="label()"
   ></one-input-label>
-  <input
+  <textarea
     (blur)="onTouched()"
     (input)="handleChange($event)"
     [disabled]="disabled()"
     [id]="id()"
-    [max]="max()"
-    [min]="min()"
     [name]="id()"
     [ngClass]="cssInputClass()"
     [placeholder]="placeholder()"
-    [step]="step()"
-    [value]="value()"
-    type="number"
-  />
+    >{{ value() ?? '' }}</textarea
+  >
 </span>

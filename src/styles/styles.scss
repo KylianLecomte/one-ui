@@ -66,7 +66,6 @@ input.default[type='date'] {
 input.default[type='text'],
 input.default[type='password'],
 textarea.default[type='text'] {
-  height: vars.$height-input-text;
   padding: vars.$padding-input-text;
 }
 

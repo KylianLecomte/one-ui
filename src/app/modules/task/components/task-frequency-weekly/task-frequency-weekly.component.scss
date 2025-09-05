@@ -1,15 +1,10 @@
 @use '../../../../../styles/variables' as vars;
 
-.ctn-per-jour one-radio,
-.ctn-regular one-radio {
-  margin: 0 0 vars.$margin-between-form-controls 0;
-}
+div.ctn-repeat-every {
+  display: flex;
+  gap: vars.$margin-between-form-controls;
 
-.ctn-per-jour one-checkbox-tag,
-.ctn-regular p {
-  margin: 0 0 0 20px;
-}
-
-.ctn-per-jour {
-  margin: 0 0 vars.$margin-between-form-controls 0;
+  & span {
+    align-content: center;
+  }
 }

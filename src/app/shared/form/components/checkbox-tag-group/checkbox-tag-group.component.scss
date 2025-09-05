@@ -68,6 +68,6 @@ label {
   bottom: 23px;
 }
 
-.checkbox-tag {
+.checkbox-tag:not(:first-child) {
   margin: 0 0 0 20px;
 }

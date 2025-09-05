@@ -1,25 +1,26 @@
 <form (ngSubmit)="onClickSubmit()" [formGroup]="signInForm">
   <fieldset class="card">
     <legend>Connexion</legend>
-    <label for="inputEmail">E-mail<one-required /></label>
-    <input
-      class="default"
+    <one-input-text
+      [isRequired]="true"
+      cssInputClass="default"
       formControlName="email"
-      id="inputEmail"
+      id="email"
+      label="E-mail"
       placeholder="Entrez votre adresse e-mail"
-      type="text"
-    />
+    ></one-input-text>
     @if (this.signInForm.get('email')?.errors?.['require']) {
       <span>L'adresse e-mail est obligatoire</span>
     }
-    <label for="inputPwd">Mot de passe<one-required /></label>
-    <input
-      class="default"
+
+    <one-input-text
+      [isRequired]="true"
+      cssInputClass="default"
       formControlName="password"
-      id="inputPwd"
+      id="password"
+      label="Mot de passe"
       placeholder="Entrez votre mot de passe"
-      type="password"
-    />
+    ></one-input-text>
     @if (this.signInForm.get('password')?.errors?.['require']) {
       <span>Le mot de passe est obligatoire</span>
     }

@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { SignIn } from '../../domain/dtos/auth.dto';
-import { RequiredComponent } from '../../../form/components/required/required.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { InputTextComponent } from '../../../../shared/form/components/input-text/input-text.component';
 
 @Component({
   selector: 'one-sign-in',
-  imports: [ReactiveFormsModule, RequiredComponent, ButtonComponent],
+  imports: [ReactiveFormsModule, ButtonComponent, InputTextComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })

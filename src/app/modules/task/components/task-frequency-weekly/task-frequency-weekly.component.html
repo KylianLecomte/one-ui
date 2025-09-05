@@ -6,12 +6,12 @@
       [value]="FrequencyType.WEEKLY_BY_DAY"
       formControlName="frequencyType"
       name="frequencyType"
-    ></one-radio>
-
-    <one-checkbox-tag-group
-      [options]="WEEK_DAY_OPTS"
-      formControlName="weekDays"
-    ></one-checkbox-tag-group>
+    >
+      <one-checkbox-tag-group
+        [options]="WEEK_DAY_OPTS"
+        formControlName="weekDays"
+      ></one-checkbox-tag-group>
+    </one-radio>
   </div>
 
   <div class="ctn-regular flex-col">
@@ -21,16 +21,24 @@
       [value]="FrequencyType.WEEKLY_REGULAR"
       formControlName="frequencyType"
       name="frequencyType"
-    ></one-radio>
-
-    <p>
-      <one-input-number [id]="'jours'" [max]="7" formControlName="repeatEvery"></one-input-number>
-      <span> jour(s) sur </span>
-      <one-input-number
-        [id]="'periode'"
-        [max]="7"
-        formControlName="periodLength"
-      ></one-input-number>
-    </p>
+    >
+      <div class="ctn-repeat-every">
+        <one-input-number
+          [id]="'jours'"
+          [max]="7"
+          cssInputClass="default"
+          formControlName="repeatEvery"
+          labelPosition="hidden"
+        ></one-input-number>
+        <span> jour(s) sur </span>
+        <one-input-number
+          [id]="'periode'"
+          [max]="7"
+          cssInputClass="default"
+          formControlName="periodLength"
+          labelPosition="hidden"
+        ></one-input-number>
+      </div>
+    </one-radio>
   </div>
 </div>

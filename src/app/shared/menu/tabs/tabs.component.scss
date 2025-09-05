@@ -31,11 +31,12 @@ ul {
   }
 }
 
-.ctn-selected-tab {
-  padding: 10px;
-}
-
 .content {
   border: vars.$border-gray;
   border-top: none;
+  padding: vars.$padding-container;
+
+  & .ctn-selected-tab {
+    margin: 0 0 vars.$margin-between-form-group 0;
+  }
 }

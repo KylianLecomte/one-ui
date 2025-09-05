@@ -1,1 +1,1 @@
-export type LabelPosition = 'top' | 'bottom' | 'left' | 'right';
+export type LabelPosition = 'top' | 'bottom' | 'left' | 'right' | 'hidden';
