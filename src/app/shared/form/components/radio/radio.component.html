@@ -1,9 +1,9 @@
 <label>
   <input
     (blur)="onTouched()"
-    (change)="select()"
-    [checked]="value === model"
-    [disabled]="disabled"
+    [checked]="selectedValue() === value"
+    [disabled]="disabled()"
+    [id]="id()"
     [name]="name"
     [value]="value"
     class="default"

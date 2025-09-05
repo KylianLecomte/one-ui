@@ -1,4 +1,4 @@
-import { Directive, input } from '@angular/core';
+import { Directive, input, signal } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
 @Directive({})
@@ -6,14 +6,14 @@ export abstract class BaseInputFormControl<T = any> implements ControlValueAcces
   id = input.required<string>();
   label = input<string>();
 
-  value!: T;
-  disabled = false;
+  value = signal<T | null>(null);
+  disabled = signal<boolean>(false);
 
   writeValue(value: any): void {
-    this.value = value;
+    this.value.set(value);
   }
 
-  registerOnChange(fn: (value: T) => void): void {
+  registerOnChange(fn: (value: T | null) => void): void {
     this.onChange = fn;
   }
 
@@ -22,15 +22,15 @@ export abstract class BaseInputFormControl<T = any> implements ControlValueAcces
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.set(isDisabled);
   }
 
-  protected onChange: (value: T) => void = () => {};
+  protected onChange: (value: T | null) => void = () => {};
 
   protected onTouched: () => void = () => {};
 
-  protected updateValue(value: T): void {
-    this.value = value;
+  protected updateValue(value: T | null): void {
+    this.value.set(value);
     this.onChange(value);
     this.onTouched();
   }

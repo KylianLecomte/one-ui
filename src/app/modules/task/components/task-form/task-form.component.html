@@ -40,13 +40,11 @@
             id="frequencyEnd"
           ></one-select>
 
-          @if (['Maintenant', 'Date'].includes(endFrequencyValue)) {
+          @if (['date'].includes(endFrequencyValue)) {
             <input class="default" formControlName="endDate" type="date" />
-          } @else if (["Nombre d'occurence"].includes(endFrequencyValue)) {
+          } @else if (['nbOccurence'].includes(endFrequencyValue)) {
             <one-input-number
               [id]="'nbOccurence'"
-              [labelIsHidden]="true"
-              [label]="'Nombre d\'occurence'"
               formControlName="endNbOccurence"
             ></one-input-number>
           }

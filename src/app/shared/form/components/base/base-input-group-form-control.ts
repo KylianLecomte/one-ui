@@ -1,13 +1,13 @@
 import { computed, Directive, input, signal, Signal } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 
-export interface Option {
+export interface Option<T = any> {
   id: string;
   label: string;
-  value: string;
+  value: T;
 }
 
-export interface State extends Option {
+export interface State<T = any> extends Option<T> {
   isChecked: boolean;
   isDisabled: boolean;
 }
@@ -15,21 +15,22 @@ export interface State extends Option {
 @Directive({})
 export abstract class BaseInputGroupFormControl<T = any> implements ControlValueAccessor {
   options = input.required<Option[]>();
-  value!: T;
-  disabled = signal(false);
+  protected value = signal<T | null>(null);
+  protected disabled = signal(false);
 
   states: Signal<State[]> = computed(() =>
-    this.options().map(
-      (option: Option): State => ({
+    this.options().map((option: Option): State => {
+      const value = this.value();
+      return {
         ...option,
-        isChecked: false,
+        isChecked: Array.isArray(value) ? value.includes(option.value) : false,
         isDisabled: this.disabled(),
-      })
-    )
+      };
+    })
   );
 
   writeValue(value: any): void {
-    this.value = value;
+    this.value.set(value);
   }
 
   registerOnChange(fn: (value: T) => void): void {
@@ -49,7 +50,7 @@ export abstract class BaseInputGroupFormControl<T = any> implements ControlValue
   protected onTouched: () => void = () => {};
 
   protected updateValue(value: T): void {
-    this.value = value;
+    this.value.set(value);
     this.onChange(value);
     this.onTouched();
   }

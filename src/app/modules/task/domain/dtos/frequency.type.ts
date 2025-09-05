@@ -1,7 +1,6 @@
 import { Dto } from '../../../../shared/api/domain/dtos/api.dtos';
 
-export type START_FREQUENCY_VALUE = 'Maintenant' | 'Date';
-export type END_FREQUENCY_VALUE = 'Date' | "Nombre d'occurence";
+export type END_FREQUENCY_VALUE = 'date' | 'nbOccurence';
 
 export const Frequency = {
   WEEKLY: 'Hebdomadaire',
@@ -11,8 +10,8 @@ export const Frequency = {
 export type Frequency = (typeof Frequency)[keyof typeof Frequency];
 
 export const FrequencyType = {
-  WEEKLY_BY_DAY: 'WEEKLY_BY_DAY',
-  WEEKLY_REGULAR: 'WEEKLY_REGULAR',
+  WEEKLY_BY_DAY: 'Par jour',
+  WEEKLY_REGULAR: 'Régulier',
 } as const;
 export type FrequencyType = (typeof FrequencyType)[keyof typeof FrequencyType];
 

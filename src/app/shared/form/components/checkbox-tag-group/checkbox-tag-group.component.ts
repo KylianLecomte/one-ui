@@ -13,9 +13,9 @@ import { NgClass } from '@angular/common';
 export class CheckboxTagGroupComponent extends BaseInputGroupFormControl<string[]> {
   handleChange(event: Event, state: State) {
     const input = event.target as HTMLInputElement;
-    let newValue: string[] = Array.isArray(this.value) ? [...this.value] : [];
+    const internlaValue = this.value();
+    let newValue: string[] = Array.isArray(internlaValue) ? [...internlaValue] : [];
 
-    state.isChecked = input.checked;
     if (input.checked && !newValue.includes(state.value)) {
       newValue.push(state.value);
     } else {

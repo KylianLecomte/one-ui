@@ -7,10 +7,10 @@
 
 tr {
   &:hover {
-    background-color: vars.vars.$color-main-light-hover;
+    background-color: vars.$color-main-light-hover;
 
     & * {
-      background-color: vars.vars.$color-main-light-hover;
+      background-color: vars.$color-main-light-hover;
     }
   }
 

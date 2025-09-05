@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ControlValueAccessor, FormsModule } from '@angular/forms';
+import { FormsModule, SelectControlValueAccessor } from '@angular/forms';
 import { genericProvider } from '../base/generic-provider.provider';
 
 export type SelectOption<T = any> = {
@@ -16,39 +16,8 @@ export type SelectOption<T = any> = {
   providers: [genericProvider(SelectComponent)],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectComponent<T = any> implements ControlValueAccessor {
+export class SelectComponent<T = any> extends SelectControlValueAccessor {
+  id = input.required<string>();
   options = input.required<SelectOption<T>[]>();
   placeholder = input<string>();
-
-  value: T | null = null;
-  private disabled = false;
-
-  get isDisabled() {
-    return this.disabled;
-  }
-
-  writeValue(value: T | null): void {
-    this.value = value;
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  onSelectChange(value: T | null) {
-    this.value = value;
-    this.onChange(value);
-  }
-
-  protected onChange: (value: T | null) => void = () => {};
-
-  protected onTouched: () => void = () => {};
 }

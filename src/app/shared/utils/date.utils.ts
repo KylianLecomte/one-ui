@@ -1,5 +1,5 @@
 export const LANGUAGES = 'fr-FR';
-export const TIME_ZONE = 'UTC';
+export const TIME_ZONE = 'Europe/Paris';
 
 export function toStringFormDate(d: Date | null | undefined): string | null {
   if (!d) return null;
@@ -25,14 +25,10 @@ export function tomorrowStr(): string {
   return toStringFormDate(t)!;
 }
 
-export function toLocaleString(date: Date | string): string {
+export function toLocaleDateString(date: Date | string): string {
+  if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    const [y, m, d] = date.split('-');
+    return `${d}/${m}/${y}`;
+  }
   return new Date(date).toLocaleDateString(LANGUAGES, { timeZone: TIME_ZONE });
-}
-
-export function toLocalDateString(date: Date | string): string {
-  return new Date(date).toLocaleDateString(LANGUAGES, { timeZone: TIME_ZONE });
-}
-
-export function toLocalTimeString(date: Date | string): string {
-  return new Date(date).toLocaleTimeString(LANGUAGES, { timeZone: TIME_ZONE });
 }

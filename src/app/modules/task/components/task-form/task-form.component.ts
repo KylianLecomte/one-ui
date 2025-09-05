@@ -12,22 +12,16 @@ import {
   FrequencyType,
   WeekDay,
 } from '../../domain/dtos/frequency.type';
-import {
-  SelectComponent,
-  SelectOption,
-} from '../../../../shared/form/components/select/select.component';
-import {
-  TaskFrequencyWeeklyComponent
-} from '../task-frequency-weekly/task-frequency-weekly.component';
+import { SelectComponent } from '../../../../shared/form/components/select/select.component';
+import { TaskFrequencyWeeklyComponent } from '../task-frequency-weekly/task-frequency-weekly.component';
 import { toDate, todayStr, tomorrowStr } from '../../../../shared/utils/date.utils';
-import {
-  InputNumberComponent
-} from '../../../../shared/form/components/input-number/input-number.component';
+import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
 import { TaskFrequencyRuleComponent } from '../task-frequency-rule/task-frequency-rule.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 import { TaskDto } from '../../domain/dtos/task.dto';
 import { getNewTask } from '../../domain/utils/task.utils';
+import { Option } from '../../../../shared/form/components/base/base-input-group-form-control';
 
 export const VALUE_NULL_DISABLED = { value: null, disabled: true };
 
@@ -49,9 +43,9 @@ export const VALUE_NULL_DISABLED = { value: null, disabled: true };
 })
 export class TaskFormComponent {
   protected readonly Frequency = Frequency;
-  readonly END_FREQUENCY: SelectOption<END_FREQUENCY_VALUE>[] = [
-    { label: 'Date', value: 'Date' },
-    { label: "Nombre d'occurence", value: "Nombre d'occurence" },
+  readonly END_FREQUENCY: Option<END_FREQUENCY_VALUE>[] = [
+    { id: '1', label: 'Date', value: 'date' },
+    { id: '2', label: "Nombre d'occurence", value: 'nbOccurence' },
   ];
   readonly toastService: ToastService = inject(ToastService);
   readonly fb: FormBuilder = inject(FormBuilder);
@@ -75,9 +69,9 @@ export class TaskFormComponent {
       periodLength: this.fb.control<number | null>(VALUE_NULL_DISABLED, [Validators.required]),
     }),
     startDate: this.fb.control<string>(todayStr(), [Validators.required]),
-    end: this.fb.control<END_FREQUENCY_VALUE>('Date', [Validators.required]),
+    end: this.fb.control<END_FREQUENCY_VALUE>('date', [Validators.required]),
     endDate: this.fb.control<string | null>(tomorrowStr(), [Validators.required]),
-    endNbOccurence: this.fb.control<number | null>(null, [Validators.required]),
+    endNbOccurence: this.fb.control<number | null>(VALUE_NULL_DISABLED, [Validators.required]),
   });
 
   constructor() {
@@ -91,18 +85,21 @@ export class TaskFormComponent {
         } else if (frequencyType === FrequencyType.WEEKLY_REGULAR) {
           this.weeklyRule?.get('weekDays')?.disable();
           this.weeklyRule?.get('repeatEvery')?.enable();
+          this.weeklyRule?.get('repeatEvery')?.patchValue(0);
           this.weeklyRule?.get('periodLength')?.enable();
+          this.weeklyRule?.get('periodLength')?.patchValue(0);
         }
       });
 
     this.frequencyRuleForm?.get('end')?.valueChanges.subscribe((value) => {
-      if (value === 'Date') {
+      if (value === 'date') {
         this.frequencyRuleForm?.get('endDate')?.setValue(tomorrowStr());
         this.frequencyRuleForm?.get('endDate')?.enable();
         this.frequencyRuleForm?.get('endNbOccurence')?.disable();
       } else {
         this.frequencyRuleForm?.get('endDate')?.disable();
         this.frequencyRuleForm?.get('endNbOccurence')?.enable();
+        this.frequencyRuleForm?.get('endNbOccurence')?.patchValue(0);
       }
     });
   }
@@ -120,8 +117,8 @@ export class TaskFormComponent {
   }
 
   onAddFrequencyRule(): void {
-    const formValue = this.frequencyRuleForm.getRawValue() as FrequencyRuleForm;
-    const formGroup = this.buildFrequencyRuleFormGroup(formValue);
+    console.log(this.frequencyRuleForm);
+    const formGroup = this.buildFrequencyRuleFormGroup(this.frequencyRuleForm.getRawValue());
     const idx = this.selectedfrequencyRuleIndex();
 
     if (idx === null) {
@@ -196,7 +193,7 @@ export class TaskFormComponent {
           periodLength: null,
         },
         startDate: todayStr(),
-        end: 'Date',
+        end: 'date',
         endDate: tomorrowStr(),
         endNbOccurence: null,
       }

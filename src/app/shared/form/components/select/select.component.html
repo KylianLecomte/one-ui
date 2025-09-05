@@ -1,10 +1,4 @@
-<select
-  (blur)="onTouched()"
-  (ngModelChange)="onSelectChange($event)"
-  [disabled]="isDisabled"
-  [ngModel]="value"
-  class="default"
->
+<select [id]="id()" class="default">
   @if (placeholder()) {
     <option [ngValue]="null">
       {{ placeholder() }}
@@ -12,7 +6,7 @@
   }
 
   @for (option of options(); track $index) {
-    <option [ngValue]="option.value" [disabled]="option.disabled">
+    <option [selected]="option.value === value" [value]="option.value" [disabled]="option.disabled">
       {{ option.label }}
     </option>
   }

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 import { Frequency, FrequencyRule, FrequencyType, WeekDay } from '../../domain/dtos/frequency.type';
 import { getPlurial } from '../../../../shared/utils/string.utils';
 import { getValuesFromMap } from '../../../../shared/utils/record.utils';
-import { toLocaleString } from '../../../../shared/utils/date.utils';
+import { toLocaleDateString } from '../../../../shared/utils/date.utils';
 import { NgClass } from '@angular/common';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
@@ -26,11 +26,11 @@ export class TaskFrequencyRuleComponent {
 
   get frequencyType(): string {
     switch (this.frequencyRule().weeklyRule.frequencyType) {
-      case 'WEEKLY_BY_DAY':
+      case FrequencyType.WEEKLY_BY_DAY:
         return this.frequencyRule().weeklyRule.weekDays.length > 0
           ? `Tous les ${getValuesFromMap(this.frequencyRule().weeklyRule.weekDays, WeekDay)}`
           : '';
-      case 'WEEKLY_REGULAR':
+      case FrequencyType.WEEKLY_REGULAR:
         return `${this.frequencyRule().weeklyRule.repeatEvery} jour${getPlurial(this.frequencyRule().weeklyRule.repeatEvery)} sur ${this.frequencyRule().weeklyRule.periodLength}`;
       default:
         return '';
@@ -39,8 +39,8 @@ export class TaskFrequencyRuleComponent {
 
   get frequency(): string {
     switch (this.frequencyRule().weeklyRule.frequencyType) {
-      case 'WEEKLY_BY_DAY':
-      case 'WEEKLY_REGULAR':
+      case FrequencyType.WEEKLY_BY_DAY:
+      case FrequencyType.WEEKLY_REGULAR:
         return getValuesFromMap(Frequency.WEEKLY, Frequency);
       default:
         return '';
@@ -48,14 +48,14 @@ export class TaskFrequencyRuleComponent {
   }
 
   get startEnd(): string {
-    const start = toLocaleString(this.frequencyRule().startDate);
+    const start = toLocaleDateString(this.frequencyRule().startDate);
     const endDate: Date | null = this.frequencyRule().endDate;
-    const end = endDate ? toLocaleString(endDate) : null;
+    const end = endDate ? toLocaleDateString(endDate) : null;
     const nbOcurrence = this.frequencyRule().endNbOccurence;
 
-    if (this.frequencyRule().end === 'Date' && end) {
+    if (this.frequencyRule().end === 'date' && end) {
       return `Du ${start} au ${end}`;
-    } else if (this.frequencyRule().end === "Nombre d'occurence") {
+    } else if (this.frequencyRule().end === 'nbOccurence') {
       return `${nbOcurrence} occurence${getPlurial(nbOcurrence)} à partir du ${start}`;
     }
 
