@@ -36,6 +36,16 @@ form {
 
         margin: 0 0 vars.$margin-validation-button 0;
       }
+
+      .ctn-btn-add-frequency {
+        one-button:first-child {
+          width: 100%;
+        }
+
+        display: flex;
+        flex-direction: row;
+        gap: vars.$margin-between-form-controls;
+      }
     }
   }
 }

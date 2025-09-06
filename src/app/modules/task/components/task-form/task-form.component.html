@@ -65,11 +65,11 @@
             ></one-input-number>
           }
         </div>
-        <div class="ctn-btn-add-frequency">
+        <div class="ctn-btn-add-frequency flex-row">
           <one-button (click)="onAddFrequencyRule()" typeCss="complementary"
             >Ajouter la règle de répétition</one-button
           >
-          @if (!!this.selectedfrequencyRuleIndex()) {
+          @if (this.selectedfrequencyRuleIndex() !== null) {
             <one-button (click)="onCancelEditFrequencyRule()">Annuler</one-button>
           }
         </div>

@@ -24,9 +24,7 @@ import { getNewTask } from '../../domain/utils/task.utils';
 import { Option } from '../../../../shared/form/components/base/base-input-group-form-control';
 import { InputTextComponent } from '../../../../shared/form/components/input-text/input-text.component';
 import { TextareaComponent } from '../../../../shared/form/components/textarea/textarea.component';
-import {
-  DatePickerComponent
-} from '../../../../shared/form/components/date-picker/date-picker.component';
+import { DatePickerComponent } from '../../../../shared/form/components/date-picker/date-picker.component';
 
 export const VALUE_NULL_DISABLED = { value: null, disabled: true };
 
