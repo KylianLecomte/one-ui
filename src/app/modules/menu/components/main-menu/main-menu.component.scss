@@ -4,12 +4,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: vars.$layout-padding;
+  padding: vars.$layout-padding-small;
   border-right: vars.$border-layout;
-}
-
-fa-icon {
-  color: vars.$color-main;
 }
 
 .container-profil {
@@ -38,22 +34,29 @@ fa-icon {
 
 nav {
   width: vars.$width-menu;
-}
 
-li {
-  border-radius: vars.$border-radius;
-  padding: 5px 0 5px 10px;
-  margin: 0 0 10px 0;
+  & li {
+    border-radius: vars.$border-radius;
+    padding: 10px 20px;
+    margin: 0 0 10px 0;
 
-  & a {
-    display: block;
+    color: vars.$color-txt-dark;
+
+    &:hover {
+      background-color: vars.$color-main-light-hover;
+    }
+
+    &:has(a.active) {
+      background-color: vars.$color-main-light;
+      color: vars.$color-main;
+
+      & fa-icon {
+        color: vars.$color-main;
+      }
+    }
+
+    & a {
+      display: block;
+    }
   }
-}
-
-li:hover {
-  background-color: vars.$color-main-hover;
-}
-
-li:has(a.active) {
-  background-color: vars.$color-main-light-hover;
 }

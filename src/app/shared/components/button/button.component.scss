@@ -1,8 +1,6 @@
 @use '../../../../styles/variables' as vars;
 
 :host {
-  //width: 100%;
-
   button {
     height: vars.$button-height;
     padding: vars.$button-padding;
@@ -10,7 +8,7 @@
     border-radius: vars.$border-radius;
 
     &.primary {
-      width: 100% !important;
+      width: 100%;
       padding: 8px;
       color: vars.$color-txt-light;
       border: none;
@@ -24,7 +22,7 @@
     }
 
     &.complementary {
-      width: 100% !important;
+      width: 100%;
       padding: 8px;
       color: vars.$color-txt-light;
       border: none;
@@ -38,6 +36,7 @@
     }
 
     &.default {
+      width: 100%;
       @include vars.default-selectable-style;
     }
 
