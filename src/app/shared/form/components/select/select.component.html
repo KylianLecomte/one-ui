@@ -1,13 +1,31 @@
-<select [id]="id()" class="default">
-  @if (placeholder()) {
-    <option [ngValue]="null">
-      {{ placeholder() }}
-    </option>
-  }
+<one-input-label
+  [cssClassWrapper]="cssClassWrapper"
+  [id]="id()"
+  [isRequired]="isRequired()"
+  [labelIsHidden]="labelIsHidden()"
+  [label]="label()"
+>
+  <select
+    (change)="handleChange($event)"
+    [disabled]="disabled()"
+    [id]="id()"
+    [ngClass]="cssClassInput()"
+    [value]="value()"
+  >
+    @if (placeholder()) {
+      <option [value]="null">
+        {{ placeholder() }}
+      </option>
+    }
 
-  @for (option of options(); track $index) {
-    <option [selected]="option.value === value" [value]="option.value" [disabled]="option.disabled">
-      {{ option.label }}
-    </option>
-  }
-</select>
+    @for (option of options(); track $index) {
+      <option
+        [selected]="option.value === value()"
+        [value]="option.value"
+        [disabled]="option.disabled"
+      >
+        {{ option.label }}
+      </option>
+    }
+  </select>
+</one-input-label>

@@ -8,30 +8,34 @@
   width: 100%;
 }
 
-form fieldset {
-  & button[type='submit'] {
-    width: 100px;
-  }
+form {
+  margin-bottom: 30px !important;
 
-  & textarea {
-    resize: vertical;
-  }
-
-  div[commonContent] {
-    .ctn-start-frequency {
-      margin: 0 0 vars.$margin-between-form-controls 0;
-
-      & one-select {
-        margin: 0 vars.$margin-between-form-controls 0 0;
-      }
+  & fieldset {
+    & button[type='submit'] {
+      width: 100px;
     }
 
-    .ctn-end-frequency {
-      & one-select {
-        margin: 0 vars.$margin-between-form-controls 0 0;
+    & textarea {
+      resize: vertical;
+    }
+
+    div[commonContent] {
+      .ctn-start-frequency {
+        margin: 0 0 vars.$margin-between-form-controls 0;
+
+        & one-select {
+          margin: 0 vars.$margin-between-form-controls 0 0;
+        }
       }
 
-      margin: 0 0 vars.$margin-validation-button 0;
+      .ctn-end-frequency {
+        & one-select {
+          margin: 0 vars.$margin-between-form-controls 0 0;
+        }
+
+        margin: 0 0 vars.$margin-validation-button 0;
+      }
     }
   }
 }

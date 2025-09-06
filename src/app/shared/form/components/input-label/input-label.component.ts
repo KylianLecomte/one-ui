@@ -13,4 +13,5 @@ export class InputLabelComponent {
   label = input<string>();
   isRequired = input<boolean>(false);
   labelIsHidden = input<boolean>(false);
+  cssClassWrapper = input<string[]>([]);
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputTextareaComponent } from './input-textarea.component';
+import { DatePickerComponent } from './date-picker.component';
 
-describe('InputTextareaComponent', () => {
-  let component: InputTextareaComponent;
-  let fixture: ComponentFixture<InputTextareaComponent>;
+describe('DatePickerComponent', () => {
+  let component: DatePickerComponent;
+  let fixture: ComponentFixture<DatePickerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [InputTextareaComponent]
+      imports: [DatePickerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(InputTextareaComponent);
+    fixture = TestBed.createComponent(DatePickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

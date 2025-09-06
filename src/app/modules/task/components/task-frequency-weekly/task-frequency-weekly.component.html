@@ -24,17 +24,17 @@
     >
       <div class="ctn-repeat-every">
         <one-input-number
+          [cssClassInput]="['default']"
           [id]="'jours'"
           [max]="7"
-          cssInputClass="default"
           formControlName="repeatEvery"
           labelPosition="hidden"
         ></one-input-number>
         <span> jour(s) sur </span>
         <one-input-number
+          [cssClassInput]="['default']"
           [id]="'periode'"
           [max]="7"
-          cssInputClass="default"
           formControlName="periodLength"
           labelPosition="hidden"
         ></one-input-number>

@@ -1,21 +1,23 @@
-<form (ngSubmit)="onSubmitTask()" [formGroup]="taskForm" class="mb-3">
+<form (ngSubmit)="onSubmitTask()" [formGroup]="taskForm">
   <fieldset class="card">
     <legend>Création d'une tâche</legend>
 
     <one-input-text
-      cssInputClass="default"
+      [cssClassInput]="['default']"
       formControlName="name"
       id="name"
       label="Nom"
+      labelPosition="top"
       placeholder="Nom"
     />
-    <one-input-textarea
-      cssInputClass="default"
+    <one-textarea
+      [cssClassInput]="['default']"
       formControlName="description"
       id="description"
       label="Description"
+      labelPosition="top"
       placeholder="Description"
-    ></one-input-textarea>
+    ></one-textarea>
 
     <one-tabs [formGroup]="frequencyRuleForm">
       <one-tab [label]="Frequency.WEEKLY">
@@ -28,25 +30,38 @@
 
       <div commonContent>
         <div class="ctn-start-frequency flex-row">
-          <label class="mr-2">Début</label>
-          <input class="default" formControlName="startDate" type="date" />
+          <one-date-picker
+            [cssClassInput]="['default']"
+            formControlName="startDate"
+            id="startDate"
+            label="Début"
+            labelPosition="left"
+          />
         </div>
 
         <div class="ctn-end-frequency flex-row">
-          <label class="mr-2">Fin</label>
           <one-select
+            [cssClassInput]="['default']"
             [options]="END_FREQUENCY"
             formControlName="end"
             id="frequencyEnd"
+            label="Fin"
+            labelPosition="left"
           ></one-select>
 
           @if (['date'].includes(endFrequencyValue)) {
-            <input class="default" formControlName="endDate" type="date" />
+            <one-date-picker
+              [cssClassInput]="['default']"
+              formControlName="endDate"
+              id="endDate"
+              labelPosition="hidden"
+            />
           } @else if (['nbOccurence'].includes(endFrequencyValue)) {
             <one-input-number
+              labelPosition="hidden"
               [id]="'nbOccurence'"
               formControlName="endNbOccurence"
-              cssInputClass="default"
+              [cssClassInput]="['default']"
             ></one-input-number>
           }
         </div>

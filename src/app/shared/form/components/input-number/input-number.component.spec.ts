@@ -39,7 +39,12 @@ const inputMax = signal(10);
 @Component({
   template: `
     <form [formGroup]="form">
-      <one-input-number id="jours" label="Jours" formControlName="jours"></one-input-number>
+      <one-input-number
+        labelPosition="left"
+        id="jours"
+        label="Jours"
+        formControlName="jours"
+      ></one-input-number>
     </form>
   `,
   imports: [ReactiveFormsModule, InputNumberComponent],

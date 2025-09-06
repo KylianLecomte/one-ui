@@ -13,11 +13,11 @@ label {
   cursor: pointer;
 }
 
-span.ctn-input {
+span.wrapper-input {
   width: fit-content;
 }
 
-span.ctn-input,
+span.wrapper-input,
 .sub-container-radio {
   margin-bottom: vars.$margin-between-form-controls;
 }

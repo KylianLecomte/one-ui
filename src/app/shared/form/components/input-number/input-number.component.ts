@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { BaseInputFormControl, InputNumberType } from '../base/base-input-form-control';
+import { InputNumberType } from '../base/base-input-form-control';
 import { genericProvider } from '../base/generic-provider.provider';
 import { NgClass } from '@angular/common';
 import { InputLabelComponent } from '../input-label/input-label.component';
+import { BaseInputCvaWithLabel } from '../base/base-input-cva-with-label';
 
 @Component({
   selector: 'one-input-number',
@@ -12,7 +13,7 @@ import { InputLabelComponent } from '../input-label/input-label.component';
   providers: [genericProvider(InputNumberComponent)],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputNumberComponent extends BaseInputFormControl<InputNumberType> {
+export class InputNumberComponent extends BaseInputCvaWithLabel<InputNumberType> {
   min = input<number>(0);
   max = input<number>(99);
   step = input<number>(1);

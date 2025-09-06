@@ -53,9 +53,8 @@ $layout-padding-small: 20px;
 
 // Size
 // Input
-$padding-input-text: 8px;
 $size-task-state: 20px;
-$input-padding: 8px;
+$padding-input: 4px;
 
 // Button
 $button-height: 30px;
@@ -93,7 +92,6 @@ $transition-default:
   &.selected:not(:disabled),
   &:focus:not(:disabled) {
     border: $border-main-color;
-    color: $color-main;
   }
 
   &.selected:not(:disabled),
@@ -104,28 +102,11 @@ $transition-default:
 
 @mixin base-input-style {
   input,
-  textarea {
+  textarea,
+  select {
     font-family: $font-familly;
     outline: none;
     accent-color: $color-main;
-    padding: $padding-input-text;
-  }
-
-  span {
-    &.top one-input-label:has(:not(label.visually-hidden)) {
-      margin-bottom: $margin-between-label-input;
-    }
-
-    &.bottom one-input-label:has(:not(label.visually-hidden)) {
-      margin-top: $margin-between-label-input;
-    }
-
-    &.left one-input-label:has(:not(label.visually-hidden)) {
-      margin-right: $margin-between-label-input;
-    }
-
-    &.right one-input-label:has(:not(label.visually-hidden)) {
-      margin-left: $margin-between-label-input;
-    }
+    padding: $padding-input;
   }
 }

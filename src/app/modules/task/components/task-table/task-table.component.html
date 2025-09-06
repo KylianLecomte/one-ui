@@ -26,7 +26,7 @@
 
         @if (isSelectedTask(task)) {
           <div class="task-name">
-            <input formControlName="name" class="input-invisible" />
+            <input formControlName="name" class="borderless" />
           </div>
         } @else {
           <span>{{ task.name }}</span>
@@ -39,7 +39,7 @@
         </one-button>
       </div>
       <div class="details">
-        <input formControlName="description" class="input-invisible" placeholder="Description" />
+        <input formControlName="description" class="borderless" placeholder="Description" />
       </div>
     </div>
   }

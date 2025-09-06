@@ -1,19 +1,19 @@
-<span [ngClass]="cssClassBase">
-  <one-input-label
-    [id]="id()"
-    [isRequired]="isRequired()"
-    [labelIsHidden]="labelIsHidden()"
-    [label]="label()"
-  ></one-input-label>
+<one-input-label
+  [cssClassWrapper]="cssClassWrapper"
+  [id]="id()"
+  [isRequired]="isRequired()"
+  [labelIsHidden]="labelIsHidden()"
+  [label]="label()"
+>
   <input
     (blur)="onTouched()"
     (input)="handleChange($event)"
     [disabled]="disabled()"
     [id]="id()"
     [name]="id()"
-    [ngClass]="cssInputClass()"
+    [ngClass]="cssClassInput()"
     [placeholder]="placeholder()"
     [value]="value()"
     type="text"
   />
-</span>
+</one-input-label>

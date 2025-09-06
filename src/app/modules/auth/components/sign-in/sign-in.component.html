@@ -2,11 +2,12 @@
   <fieldset class="card">
     <legend>Connexion</legend>
     <one-input-text
+      [cssClassInput]="['default']"
       [isRequired]="true"
-      cssInputClass="default"
       formControlName="email"
       id="email"
       label="E-mail"
+      labelPosition="top"
       placeholder="Entrez votre adresse e-mail"
     ></one-input-text>
     @if (this.signInForm.get('email')?.errors?.['require']) {
@@ -14,11 +15,12 @@
     }
 
     <one-input-text
+      [cssClassInput]="['default']"
       [isRequired]="true"
-      cssInputClass="default"
       formControlName="password"
       id="password"
       label="Mot de passe"
+      labelPosition="top"
       placeholder="Entrez votre mot de passe"
     ></one-input-text>
     @if (this.signInForm.get('password')?.errors?.['require']) {

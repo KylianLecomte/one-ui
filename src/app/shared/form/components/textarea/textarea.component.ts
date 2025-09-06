@@ -1,18 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BaseInputFormControl, InputStringType } from '../base/base-input-form-control';
+import { InputStringType } from '../base/base-input-form-control';
 import { NgClass } from '@angular/common';
 import { InputLabelComponent } from '../input-label/input-label.component';
 import { genericProvider } from '../base/generic-provider.provider';
+import { BaseInputCvaWithLabel } from '../base/base-input-cva-with-label';
 
 @Component({
-  selector: 'one-input-textarea',
+  selector: 'one-textarea',
   imports: [NgClass, InputLabelComponent],
-  templateUrl: './input-textarea.component.html',
-  styleUrl: './input-textarea.component.scss',
-  providers: [genericProvider(InputTextareaComponent)],
+  templateUrl: './textarea.component.html',
+  styleUrl: './textarea.component.scss',
+  providers: [genericProvider(TextareaComponent)],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputTextareaComponent extends BaseInputFormControl<InputStringType> {
+export class TextareaComponent extends BaseInputCvaWithLabel<InputStringType> {
   protected override extractValueFromEvent(event: Event) {
     const input = event.target as HTMLTextAreaElement;
     return input.value ? String(input.value) : null;

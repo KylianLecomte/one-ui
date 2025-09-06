@@ -7,16 +7,13 @@
 >
   <input
     (blur)="onTouched()"
-    (input)="handleChange($event)"
+    (change)="handleChange($event)"
     [disabled]="disabled()"
     [id]="id()"
-    [max]="max()"
-    [min]="min()"
     [name]="id()"
     [ngClass]="cssClassInput()"
     [placeholder]="placeholder()"
-    [step]="step()"
-    [value]="value()"
-    type="number"
+    [value]="value() ?? ''"
+    type="date"
   />
 </one-input-label>

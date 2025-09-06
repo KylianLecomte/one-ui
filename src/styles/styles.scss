@@ -59,31 +59,8 @@ ul {
   transition: vars.$transition-default;
 }
 
-input.default[type='date'] {
-  padding: 0 0 0 4px;
-}
-
-input.default[type='text'],
-input.default[type='password'],
-textarea.default[type='text'] {
-  padding: vars.$padding-input-text;
-}
-
 .default {
   @include vars.default-selectable-style;
-}
-
-.input-invisible {
-  width: 100%;
-  border: none;
-  font-size: inherit;
-  font-weight: inherit;
-  font-family: inherit;
-  color: inherit;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0;
 }
 
 .error-message {

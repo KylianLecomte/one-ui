@@ -1,29 +1,18 @@
-import { computed, Directive, input, signal } from '@angular/core';
+import { Directive, input, signal } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { getCssClassForLabelPosition } from '../../../utils/css-class.utils';
-import { LabelPosition } from '../../../dtos/label-position.type';
 
 export type InputStringType = string | null;
 export type InputNumberType = number | null;
+export type InputDateType = string | null;
 
 @Directive({})
 export abstract class BaseInputFormControl<T = any> implements ControlValueAccessor {
   id = input.required<string>();
   label = input<string>();
   placeholder = input<string>('');
-  isRequired = input<boolean>(false);
-  labelPosition = input<LabelPosition>('top');
-  cssInputClass = input<string>('');
 
   value = signal<T | null>(null);
   disabled = signal<boolean>(false);
-
-  labelIsHidden = computed(() => this.labelPosition() === 'hidden' || !this.label());
-  cssLabelPosition = computed(() => getCssClassForLabelPosition(this.labelPosition()));
-
-  protected get cssClassBase(): string[] {
-    return ['ctn-input', this.cssLabelPosition(), this.labelPosition()];
-  }
 
   writeValue(value: any): void {
     this.value.set(value);

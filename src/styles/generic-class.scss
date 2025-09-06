@@ -32,6 +32,19 @@
   border: 0;
 }
 
+.borderless {
+  width: 100%;
+  border: none;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  color: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
+}
+
 // Flex
 .flex-col {
   display: flex;
