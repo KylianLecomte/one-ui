@@ -1,46 +1,48 @@
-<div class="grid" id="one-table">
+<div class="grid card" id="one-table">
   <div class="header">
     <span>Due today</span>
   </div>
-  @for (task of tasks(); track task.id) {
-    <div
-      [formGroup]="taskForm"
-      [class]="getSelectedClass(task)"
-      (contextmenu)="onClickRow(task)"
-      (click)="onClickRow(task)"
-    >
-      <div class="main-informations">
-        <div (click)="onCheck(task)" class="task-state">
-          @switch (task.status) {
-            @case (TaskStatus.Todo) {
-              <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
+  <div>
+    @for (task of tasks(); track task.id) {
+      <div
+        [formGroup]="taskForm"
+        [class]="getSelectedClass(task)"
+        (contextmenu)="onClickRow(task)"
+        (click)="onClickRow(task)"
+      >
+        <div class="main-informations">
+          <div (click)="onCheck(task)" class="task-state">
+            @switch (task.status) {
+              @case (TaskStatus.Todo) {
+                <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
+              }
+              @case (TaskStatus.Done) {
+                <fa-icon class="task-done" [icon]="faCircleCheck"></fa-icon>
+              }
+              @case (TaskStatus.Canceled) {
+                <fa-icon class="task-canceled" [icon]="faTimesCircle"></fa-icon>
+              }
             }
-            @case (TaskStatus.Done) {
-              <fa-icon class="task-done" [icon]="faCircleCheck"></fa-icon>
-            }
-            @case (TaskStatus.Canceled) {
-              <fa-icon class="task-canceled" [icon]="faTimesCircle"></fa-icon>
-            }
-          }
-        </div>
-
-        @if (isSelectedTask(task)) {
-          <div class="task-name">
-            <input formControlName="name" class="borderless" />
           </div>
-        } @else {
-          <span>{{ task.name }}</span>
-        }
 
-        <!-- <one-tag [libelle]="'test'" [color]="'blue'"></one-tag> -->
+          @if (isSelectedTask(task)) {
+            <div class="task-name">
+              <input formControlName="name" class="borderless" />
+            </div>
+          } @else {
+            <span>{{ task.name }}</span>
+          }
 
-        <one-button (click)="onDelete(task, $event)" typeCss="icon">
-          <fa-icon [icon]="faTrashCan"></fa-icon>
-        </one-button>
+          <!-- <one-tag [libelle]="'test'" [color]="'blue'"></one-tag> -->
+
+          <one-button (click)="onDelete(task, $event)" typeCss="icon">
+            <fa-icon [icon]="faTrashCan"></fa-icon>
+          </one-button>
+        </div>
+        <div class="details">
+          <input formControlName="description" class="borderless" placeholder="Description" />
+        </div>
       </div>
-      <div class="details">
-        <input formControlName="description" class="borderless" placeholder="Description" />
-      </div>
-    </div>
-  }
+    }
+  </div>
 </div>
