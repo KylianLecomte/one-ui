@@ -21,7 +21,7 @@ form {
     }
 
     div[commonContent] {
-      .ctn-start-frequency {
+      .ctn-start-repetition {
         margin: 0 0 vars.$margin-between-form-controls 0;
 
         & one-select {
@@ -29,7 +29,7 @@ form {
         }
       }
 
-      .ctn-end-frequency {
+      .ctn-end-repetition {
         & one-select {
           margin: 0 vars.$margin-between-form-controls 0 0;
         }
@@ -37,7 +37,7 @@ form {
         margin: 0 0 vars.$margin-validation-button 0;
       }
 
-      .ctn-btn-add-frequency {
+      .ctn-btn-add-repetition {
         one-button:first-child {
           width: 100%;
         }

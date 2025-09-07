@@ -38,6 +38,6 @@ export function getNewTask(taskName: string, description?: string): TaskDto {
     status: TaskStatus.Todo,
     statusDate: new Date(),
     description: description ?? '',
-    frequencyRules: [],
+    repetitionRules: [],
   };
 }

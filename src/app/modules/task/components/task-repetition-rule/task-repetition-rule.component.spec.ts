@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskFrequencyRuleComponent } from './task-frequency-rule.component';
+import { TaskRepetitionRuleComponent } from './task-repetition-rule.component';
 import { provideZonelessChangeDetection } from '@angular/core';
 
-describe('TaskFrequencyRuleComponent', () => {
-  let component: TaskFrequencyRuleComponent;
-  let fixture: ComponentFixture<TaskFrequencyRuleComponent>;
+describe('TaskRepetitionRuleComponent', () => {
+  let component: TaskRepetitionRuleComponent;
+  let fixture: ComponentFixture<TaskRepetitionRuleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskFrequencyRuleComponent],
+      imports: [TaskRepetitionRuleComponent],
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TaskFrequencyRuleComponent);
+    fixture = TestBed.createComponent(TaskRepetitionRuleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

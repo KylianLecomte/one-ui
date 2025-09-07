@@ -1,20 +1,27 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FrequencyType, WeekDay } from '../../domain/dtos/frequency.type';
+import { RepetitionRuleType, WeekDay } from '../../domain/dtos/repetition-rule-type';
 import { CheckboxTagGroupComponent } from '../../../../shared/form/components/checkbox-tag-group/checkbox-tag-group.component';
 import { Option } from '../../../../shared/form/components/base/base-input-group-form-control';
 import { RadioComponent } from '../../../../shared/form/components/radio/radio.component';
+import { InputTextComponent } from '../../../../shared/form/components/input-text/input-text.component';
 
 @Component({
-  selector: 'one-task-frequency-weekly',
-  imports: [InputNumberComponent, ReactiveFormsModule, CheckboxTagGroupComponent, RadioComponent],
-  templateUrl: './task-frequency-weekly.component.html',
-  styleUrl: './task-frequency-weekly.component.scss',
+  selector: 'one-task-weekly-repetition',
+  imports: [
+    InputNumberComponent,
+    ReactiveFormsModule,
+    CheckboxTagGroupComponent,
+    RadioComponent,
+    InputTextComponent,
+  ],
+  templateUrl: './task-weekly-repetition.component.html',
+  styleUrl: './task-weekly-repetition.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskFrequencyWeeklyComponent {
-  protected readonly FrequencyType = FrequencyType;
+export class TaskWeeklyRepetitionComponent {
+  protected readonly RepetitionRuleType = RepetitionRuleType;
 
   weeklyForm = input.required<FormGroup>();
 

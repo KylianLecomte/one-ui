@@ -19,17 +19,17 @@
       placeholder="Description"
     ></one-textarea>
 
-    <one-tabs [formGroup]="frequencyRuleForm">
-      <one-tab [label]="Frequency.WEEKLY">
+    <one-tabs [formGroup]="repetitionRuleForm">
+      <one-tab [label]="Repetition.WEEKLY">
         <ng-template>
-          <one-task-frequency-weekly [weeklyForm]="weeklyRule"></one-task-frequency-weekly>
+          <one-task-weekly-repetition [weeklyForm]="weeklyRule"></one-task-weekly-repetition>
         </ng-template>
       </one-tab>
-      <one-tab [label]="Frequency.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
-      <one-tab [label]="Frequency.FIX"><ng-template>FIX</ng-template></one-tab>
+      <one-tab [label]="Repetition.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
+      <one-tab [label]="Repetition.FIX"><ng-template>FIX</ng-template></one-tab>
 
       <div commonContent>
-        <div class="ctn-start-frequency flex-row">
+        <div class="ctn-start-repetition flex-row">
           <one-date-picker
             [cssClassInput]="['default']"
             formControlName="startDate"
@@ -39,50 +39,50 @@
           />
         </div>
 
-        <div class="ctn-end-frequency flex-row">
+        <div class="ctn-end-repetition flex-row">
           <one-select
             [cssClassInput]="['default']"
-            [options]="END_FREQUENCY"
+            [options]="END_REPETITION"
             formControlName="end"
-            id="frequencyEnd"
+            id="repetitionEnd"
             label="Fin"
             labelPosition="left"
           ></one-select>
 
-          @if (['date'].includes(endFrequencyValue)) {
+          @if (endRepetitionValue === 'date') {
             <one-date-picker
               [cssClassInput]="['default']"
               formControlName="endDate"
               id="endDate"
               labelPosition="hidden"
             />
-          } @else if (['nbOccurence'].includes(endFrequencyValue)) {
+          } @else if (endRepetitionValue === 'nbOccurence') {
             <one-input-number
-              labelPosition="hidden"
-              [id]="'nbOccurence'"
-              formControlName="endNbOccurence"
               [cssClassInput]="['default']"
+              formControlName="endNbOccurence"
+              id="endNbOccurence"
+              labelPosition="hidden"
             ></one-input-number>
           }
         </div>
-        <div class="ctn-btn-add-frequency flex-row">
-          <one-button (click)="onAddFrequencyRule()" typeCss="complementary"
+        <div class="ctn-btn-add-repetition flex-row">
+          <one-button (click)="onAddRepetitionRule()" typeCss="complementary"
             >Ajouter la règle de répétition</one-button
           >
-          @if (this.selectedfrequencyRuleIndex() !== null) {
-            <one-button (click)="onCancelEditFrequencyRule()">Annuler</one-button>
+          @if (this.selectedRepetitionRuleIndex() !== null) {
+            <one-button (click)="onCancelEditRepetitionRule()">Annuler</one-button>
           }
         </div>
       </div>
     </one-tabs>
 
-    @for (frequencyRule of frequencyRules.controls; track $index) {
-      <one-task-frequency-rule
-        [isSelected]="selectedfrequencyRuleIndex() === $index"
-        [frequencyRule]="formRuleToDomain(frequencyRule.getRawValue())"
-        (select)="onEditFrequencyRule($index)"
-        (delete)="onDeleteFrequencyRule($index)"
-      ></one-task-frequency-rule>
+    @for (repetitionRule of repetitionRules.controls; track $index) {
+      <one-task-repetition-rule
+        [isSelected]="selectedRepetitionRuleIndex() === $index"
+        [repetitionRule]="formRuleToDomain(repetitionRule.getRawValue())"
+        (select)="onEditRepetitionRule($index)"
+        (delete)="onDeleteRepetitionRule($index)"
+      ></one-task-repetition-rule>
     }
 
     <one-button type="submit">Ajouter</one-button>

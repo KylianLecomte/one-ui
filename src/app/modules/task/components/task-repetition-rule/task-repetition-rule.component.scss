@@ -1,6 +1,6 @@
 @use '../../../../../styles/variables' as vars;
 
-#task-frequency-rule {
+#task-repetition-rule {
   @include vars.default-selectable-style;
 
   padding: vars.$padding-sub-container;
@@ -9,7 +9,7 @@
   flex-direction: column;
   gap: 4px;
 
-  & .frequencyType,
+  & .repetitionRuleType,
   & .startEnd {
     font-size: 0.85rem;
   }
@@ -18,8 +18,8 @@
     justify-content: space-between;
   }
 
-  & .ctn-frequency-type > p,
-  & .ctn-frequency-type > span {
+  & .ctn-repetition-type > p,
+  & .ctn-repetition-type > span {
     margin: auto 0;
   }
 }

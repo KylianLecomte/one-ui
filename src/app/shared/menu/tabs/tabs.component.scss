@@ -1,12 +1,17 @@
 @use '../../../../styles/variables' as vars;
 
+ul,
+.content {
+  border: vars.$border-gray;
+}
+
 ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding: 2px 10px 0 10px;
-  border: 1px solid #ccc;
   border-bottom: none;
+  border-radius: vars.$border-radius vars.$border-radius 0 0;
 
   & li {
     border: none;
@@ -32,8 +37,8 @@ ul {
 }
 
 .content {
-  border: vars.$border-gray;
   border-top: none;
+  border-radius: 0 0 vars.$border-radius vars.$border-radius;
   padding: vars.$padding-container;
 
   & .ctn-selected-tab {

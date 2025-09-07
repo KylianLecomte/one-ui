@@ -18,10 +18,13 @@
   border-left: vars.$border-gray;
   padding: 10px 20px 10px 20px;
 
+  &:first-child {
+    border-radius: vars.$border-radius vars.$border-radius 0 0;
+  }
+
   &:last-child {
     border-bottom: vars.$border-gray;
-    border-bottom-left-radius: vars.$border-radius;
-    border-bottom-right-radius: vars.$border-radius;
+    border-radius: 0 0 vars.$border-radius vars.$border-radius;
   }
 
   &:hover {

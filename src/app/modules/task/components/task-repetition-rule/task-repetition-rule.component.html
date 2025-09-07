@@ -1,0 +1,13 @@
+<div (click)="onSelect()" [ngClass]="isSelected() ? 'selected' : ''" id="task-repetition-rule">
+  <div class="flex-row">
+    <span class="repetition">{{ repetition }}</span>
+    <span class="startEnd">{{ startEnd }}</span>
+  </div>
+  <div class="flex-row ctn-repetition-type">
+    <span class="repetitionRuleType">{{ repetitionRuleType }}</span>
+
+    <one-button (click)="onDelete()" typeCss="icon">
+      <fa-icon [icon]="faTrashCan"></fa-icon>
+    </one-button>
+  </div>
+</div>

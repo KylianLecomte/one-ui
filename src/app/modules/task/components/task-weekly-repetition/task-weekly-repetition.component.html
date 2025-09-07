@@ -1,0 +1,44 @@
+<div [formGroup]="weeklyForm()" class="flex-col" id="one-task-repetition-weekly">
+  <div class="ctn-per-jour flex-col">
+    <one-radio
+      [id]="RepetitionRuleType.WEEKLY_BY_DAY"
+      [label]="RepetitionRuleType.WEEKLY_BY_DAY.valueOf()"
+      [value]="RepetitionRuleType.WEEKLY_BY_DAY"
+      formControlName="repetitionRuleType"
+      name="repetitionRuleType"
+    >
+    </one-radio>
+    <one-checkbox-tag-group
+      [options]="WEEK_DAY_OPTS"
+      formControlName="weekDays"
+    ></one-checkbox-tag-group>
+  </div>
+
+  <div class="ctn-regular flex-col">
+    <one-radio
+      [id]="RepetitionRuleType.WEEKLY_REGULAR"
+      [label]="RepetitionRuleType.WEEKLY_REGULAR.valueOf()"
+      [value]="RepetitionRuleType.WEEKLY_REGULAR"
+      formControlName="repetitionRuleType"
+      name="repetitionRuleType"
+    >
+    </one-radio>
+    <div class="ctn-repeat-every">
+      <one-input-number
+        [cssClassInput]="['default']"
+        [max]="7"
+        formControlName="repeatEvery"
+        id="repeatEvery"
+        labelPosition="hidden"
+      ></one-input-number>
+      <span> jour(s) sur </span>
+      <one-input-number
+        [cssClassInput]="['default']"
+        [max]="7"
+        formControlName="periodLength"
+        id="periodLength"
+        labelPosition="hidden"
+      ></one-input-number>
+    </div>
+  </div>
+</div>

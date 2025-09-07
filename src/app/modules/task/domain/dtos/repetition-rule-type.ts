@@ -1,19 +1,19 @@
 import { Dto } from '../../../../shared/api/domain/dtos/api.dtos';
 
-export type END_FREQUENCY_VALUE = 'date' | 'nbOccurence';
+export type END_REPETITION_VALUE = 'date' | 'nbOccurence';
 
-export const Frequency = {
+export const Repetition = {
   WEEKLY: 'Hebdomadaire',
   MONTHLY: 'Mensuel',
   FIX: 'Fix',
 } as const;
-export type Frequency = (typeof Frequency)[keyof typeof Frequency];
+export type Repetition = (typeof Repetition)[keyof typeof Repetition];
 
-export const FrequencyType = {
+export const RepetitionRuleType = {
   WEEKLY_BY_DAY: 'Par jour',
   WEEKLY_REGULAR: 'Régulier',
 } as const;
-export type FrequencyType = (typeof FrequencyType)[keyof typeof FrequencyType];
+export type RepetitionRuleType = (typeof RepetitionRuleType)[keyof typeof RepetitionRuleType];
 
 export const WeekDay = {
   MONDAY: 'lundi',
@@ -26,24 +26,24 @@ export const WeekDay = {
 } as const;
 export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay];
 
-export interface FrequencyRuleForm {
-  weeklyRule: WeeklyRule;
+export interface RepetitionRuleForm {
+  weeklyRule: WeeklyRepetitionRule;
   startDate: string;
-  end: END_FREQUENCY_VALUE;
+  end: END_REPETITION_VALUE;
   endDate: string | null;
   endNbOccurence: number | null;
 }
 
-export interface FrequencyRule extends Dto {
-  weeklyRule: WeeklyRule;
+export interface RepetitionRule extends Dto {
+  weeklyRepetitionRule: WeeklyRepetitionRule;
   startDate: Date;
-  end: END_FREQUENCY_VALUE;
+  end: END_REPETITION_VALUE;
   endDate: Date | null;
   endNbOccurence: number | null;
 }
 
-export interface WeeklyRule extends Dto {
-  frequencyType: FrequencyType;
+export interface WeeklyRepetitionRule extends Dto {
+  repetitionRuleType: RepetitionRuleType;
   weekDays: WeekDay[];
   repeatEvery: number | null;
   periodLength: number | null;
