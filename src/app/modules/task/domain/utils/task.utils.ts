@@ -1,5 +1,5 @@
 import { TaskDto } from '../dtos/task.dto';
-import { TaskStatus } from '../dtos/task-status.enum';
+import { TaskStatus } from '../types/task-status.type';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 
 export function toSortedTasks(tasks: TaskDto[]): TaskDto[] {
@@ -19,8 +19,8 @@ export function taskSortingOnStatus(task1: TaskDto, task2: TaskDto): number {
   }
 
   if (
-    task1.status === TaskStatus.Todo ||
-    (name1 === TaskStatus.Done && name2 === TaskStatus.Canceled)
+    task1.status === TaskStatus.TODO ||
+    (name1 === TaskStatus.DONE && name2 === TaskStatus.CANCELED)
   ) {
     return -1;
   }
@@ -35,7 +35,7 @@ export function getTasksFilteredOnId(tasks: TaskDto[], id: ID): TaskDto[] {
 export function getNewTask(taskName: string, description?: string): TaskDto {
   return {
     name: taskName,
-    status: TaskStatus.Todo,
+    status: TaskStatus.TODO,
     statusDate: new Date(),
     description: description ?? '',
     repetitionRules: [],

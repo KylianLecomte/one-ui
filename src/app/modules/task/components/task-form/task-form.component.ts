@@ -4,14 +4,6 @@ import { TaskService } from '../../services/task.service';
 import { ToastService } from '../../../../shared/toast/services/toast.service';
 import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/menu/tabs/tab/tab.component';
-import {
-  END_REPETITION_VALUE,
-  Repetition,
-  RepetitionRule,
-  RepetitionRuleForm,
-  RepetitionRuleType,
-  WeekDay,
-} from '../../domain/dtos/repetition-rule-type';
 import { SelectComponent } from '../../../../shared/form/components/select/select.component';
 import { toDate, todayStr, tomorrowStr } from '../../../../shared/utils/date.utils';
 import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
@@ -24,6 +16,12 @@ import { InputTextComponent } from '../../../../shared/form/components/input-tex
 import { TextareaComponent } from '../../../../shared/form/components/textarea/textarea.component';
 import { DatePickerComponent } from '../../../../shared/form/components/date-picker/date-picker.component';
 import { TaskWeeklyRepetitionComponent } from '../task-weekly-repetition/task-weekly-repetition.component';
+import { RepetitionRuleType } from '../../domain/types/repetition-rule.type';
+import { WeekDay } from '../../domain/types/week-day.type';
+import { EndRepetition } from '../../domain/types/end-repetition.type';
+import { RepetitionRuleForm } from '../../domain/dtos/repetition-rule-form.dto';
+import { RepetitionRule } from '../../domain/dtos/repetition-rule.dto';
+import { RepetitionLabels } from '../../domain/types/repetition.type';
 
 export const VALUE_NULL_DISABLED = { value: null, disabled: true };
 
@@ -47,23 +45,21 @@ export const VALUE_NULL_DISABLED = { value: null, disabled: true };
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskFormComponent {
-  protected readonly Repetition = Repetition;
-  readonly END_REPETITION: Option<END_REPETITION_VALUE>[] = [
-    { id: '1', label: 'Date', value: 'date' },
-    { id: '2', label: "Nombre d'occurence", value: 'nbOccurence' },
+  protected readonly RepetitionLabels = RepetitionLabels;
+  protected readonly EndRepetition = EndRepetition;
+  readonly END_REPETITION: Option<EndRepetition>[] = [
+    { id: '1', label: 'Date', value: EndRepetition.DATE },
+    { id: '2', label: "Nombre d'occurence", value: EndRepetition.NB_OCCURENCE },
   ];
   readonly toastService: ToastService = inject(ToastService);
   readonly fb: FormBuilder = inject(FormBuilder);
   readonly taskService: TaskService = inject(TaskService);
-
   selectedRepetitionRuleIndex = signal<number | null>(null);
-
   taskForm: FormGroup = this.fb.group({
     name: this.fb.control<string>('', [Validators.required]),
     description: this.fb.control<string>(''),
     repetitionRules: this.fb.array([] as FormGroup[]),
   });
-
   repetitionRuleForm: FormGroup = this.fb.group({
     weeklyRule: this.fb.group({
       repetitionRuleType: this.fb.control<RepetitionRuleType>(RepetitionRuleType.WEEKLY_BY_DAY, [
@@ -74,12 +70,13 @@ export class TaskFormComponent {
       periodLength: this.fb.control<number | null>(VALUE_NULL_DISABLED, [Validators.required]),
     }),
     startDate: this.fb.control<string>(todayStr(), [Validators.required]),
-    end: this.fb.control<END_REPETITION_VALUE>('date', [Validators.required]),
+    end: this.fb.control<EndRepetition>(EndRepetition.DATE, [Validators.required]),
     endDate: this.fb.control<string | null>(tomorrowStr(), [Validators.required]),
     endNbOccurence: this.fb.control<number | null>(VALUE_NULL_DISABLED, [Validators.required]),
   });
 
   constructor() {
+    console.log(RepetitionRuleType.WEEKLY_BY_DAY, RepetitionRuleType.WEEKLY_BY_DAY.valueOf());
     this.weeklyRule
       ?.get('repetitionRuleType')
       ?.valueChanges.subscribe((repetitionRuleType: RepetitionRuleType) => {
@@ -99,7 +96,7 @@ export class TaskFormComponent {
       });
 
     this.repetitionRuleForm?.get('end')?.valueChanges.subscribe((value) => {
-      if (value === 'date') {
+      if (value === EndRepetition.DATE) {
         this.repetitionRuleForm?.get('endDate')?.setValue(tomorrowStr());
         this.repetitionRuleForm?.get('endDate')?.enable();
         this.repetitionRuleForm?.get('endNbOccurence')?.disable();
@@ -120,8 +117,14 @@ export class TaskFormComponent {
     return this.repetitionRuleForm.get('weeklyRule') as FormGroup;
   }
 
-  get endRepetitionValue(): END_REPETITION_VALUE {
+  get endRepetitionValue(): EndRepetition {
     return this.repetitionRuleForm.get('end')?.value;
+  }
+
+  get labelBtnAddRule(): string {
+    return this.selectedRepetitionRuleIndex() !== null
+      ? 'Modifier la règle de répétition'
+      : 'Ajouter la règle de répétition';
   }
 
   onAddRepetitionRule(): void {
@@ -138,6 +141,7 @@ export class TaskFormComponent {
     }
 
     this.resetRepetitionRuleForm();
+    this.selectedRepetitionRuleIndex.set(null);
   }
 
   onEditRepetitionRule(repetitionRuleIdx: number): void {
@@ -205,7 +209,7 @@ export class TaskFormComponent {
           periodLength: null,
         },
         startDate: todayStr(),
-        end: 'date',
+        end: EndRepetition.DATE,
         endDate: tomorrowStr(),
         endNbOccurence: null,
       }
@@ -234,7 +238,7 @@ export class TaskFormComponent {
         periodLength: this.fb.control<number | null>(from.weeklyRule.periodLength),
       }),
       startDate: this.fb.control<string>(from.startDate, [Validators.required]),
-      end: this.fb.control<END_REPETITION_VALUE>(from.end, [Validators.required]),
+      end: this.fb.control<EndRepetition>(from.end, [Validators.required]),
       endDate: this.fb.control<string | null>(from.endDate),
       endNbOccurence: this.fb.control<number | null>(from.endNbOccurence),
     });

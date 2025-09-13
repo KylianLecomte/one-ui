@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCircleCheck, faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { TaskStatus } from '../../domain/dtos/task-status.enum';
+import { TaskStatus } from '../../domain/types/task-status.type';
 import { TaskDto } from '../../domain/dtos/task.dto';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
@@ -71,7 +71,7 @@ export class TaskTableComponent {
   }
 
   onCheck(task: TaskDto): void {
-    task.status = task.status === TaskStatus.Todo ? TaskStatus.Done : TaskStatus.Todo;
+    task.status = task.status === TaskStatus.TODO ? TaskStatus.DONE : TaskStatus.TODO;
     this.taskService.update(task);
   }
 

@@ -20,13 +20,13 @@
     ></one-textarea>
 
     <one-tabs [formGroup]="repetitionRuleForm">
-      <one-tab [label]="Repetition.WEEKLY">
+      <one-tab [label]="RepetitionLabels.WEEKLY">
         <ng-template>
           <one-task-weekly-repetition [weeklyForm]="weeklyRule"></one-task-weekly-repetition>
         </ng-template>
       </one-tab>
-      <one-tab [label]="Repetition.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
-      <one-tab [label]="Repetition.FIX"><ng-template>FIX</ng-template></one-tab>
+      <one-tab [label]="RepetitionLabels.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
+      <one-tab [label]="RepetitionLabels.FIX"><ng-template>FIX</ng-template></one-tab>
 
       <div commonContent>
         <div class="ctn-start-repetition flex-row">
@@ -49,14 +49,14 @@
             labelPosition="left"
           ></one-select>
 
-          @if (endRepetitionValue === 'date') {
+          @if (endRepetitionValue === EndRepetition.DATE) {
             <one-date-picker
               [cssClassInput]="['default']"
               formControlName="endDate"
               id="endDate"
               labelPosition="hidden"
             />
-          } @else if (endRepetitionValue === 'nbOccurence') {
+          } @else if (endRepetitionValue === EndRepetition.NB_OCCURENCE) {
             <one-input-number
               [cssClassInput]="['default']"
               formControlName="endNbOccurence"
@@ -66,9 +66,9 @@
           }
         </div>
         <div class="ctn-btn-add-repetition flex-row">
-          <one-button (click)="onAddRepetitionRule()" typeCss="complementary"
-            >Ajouter la règle de répétition</one-button
-          >
+          <one-button (click)="onAddRepetitionRule()" typeCss="complementary">{{
+            labelBtnAddRule
+          }}</one-button>
           @if (this.selectedRepetitionRuleIndex() !== null) {
             <one-button (click)="onCancelEditRepetitionRule()">Annuler</one-button>
           }

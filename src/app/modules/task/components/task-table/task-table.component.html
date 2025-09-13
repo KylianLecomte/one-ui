@@ -13,13 +13,13 @@
         <div class="main-informations">
           <div (click)="onCheck(task)" class="task-state">
             @switch (task.status) {
-              @case (TaskStatus.Todo) {
+              @case (TaskStatus.TODO) {
                 <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
               }
-              @case (TaskStatus.Done) {
+              @case (TaskStatus.DONE) {
                 <fa-icon class="task-done" [icon]="faCircleCheck"></fa-icon>
               }
-              @case (TaskStatus.Canceled) {
+              @case (TaskStatus.CANCELED) {
                 <fa-icon class="task-canceled" [icon]="faTimesCircle"></fa-icon>
               }
             }
