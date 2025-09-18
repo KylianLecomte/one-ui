@@ -11,7 +11,7 @@ import { RepetitionRule } from '../../domain/dtos/repetition-rule.dto';
 import { RepetitionRuleType } from '../../domain/types/repetition-rule.type';
 import { WeekDayLabels } from '../../domain/types/week-day.type';
 import { Repetition, RepetitionLabels } from '../../domain/types/repetition.type';
-import { EndRepetition } from '../../domain/types/end-repetition.type';
+import { EndRepetitionType } from '../../domain/types/end-repetition.type';
 
 @Component({
   selector: 'one-task-repetition-rule',
@@ -56,9 +56,9 @@ export class TaskRepetitionRuleComponent {
     const end = endDate ? toLocaleDateString(endDate) : null;
     const nbOcurrence = this.repetitionRule().endNbOccurence;
 
-    if (this.repetitionRule().end === EndRepetition.DATE && end) {
+    if (this.repetitionRule().endRepetitionType === EndRepetitionType.DATE && end) {
       return `Du ${start} au ${end}`;
-    } else if (this.repetitionRule().end === EndRepetition.NB_OCCURENCE) {
+    } else if (this.repetitionRule().endRepetitionType === EndRepetitionType.NB_OCCURENCE) {
       return `${nbOcurrence} occurence${getPlurial(nbOcurrence)} à partir du ${start}`;
     }
 
