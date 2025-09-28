@@ -14,12 +14,12 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 import { ContextMenuItem } from '../../../../shared/menu/context-menu/models/context-menu-data.model';
-import { TaskForm } from '../../domain/dtos/task-form.dto';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContextMenuService } from '../../../../shared/menu/context-menu/services/context-menu.service';
 import { TaskService } from '../../services/task.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { TaskForm } from '../../domain/dtos/task-form.dto';
 
 @Component({
   selector: 'one-task-table',
@@ -102,10 +102,13 @@ export class TaskTableComponent {
     effect(() => {
       const task: TaskDto | undefined = this.selectedTask();
       if (task) {
-        this.taskForm.setValue({
-          name: task.name,
-          description: task.description,
-        });
+        this.taskForm.setValue(
+          {
+            name: task.name,
+            description: task.description,
+          },
+          { emitEvent: false }
+        );
       }
     });
   }

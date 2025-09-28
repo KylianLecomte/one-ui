@@ -78,7 +78,6 @@ export class TaskFormComponent {
   });
 
   constructor() {
-    console.log(RepetitionRuleType.WEEKLY_BY_DAY, RepetitionRuleType.WEEKLY_BY_DAY.valueOf());
     this.weeklyRule
       ?.get('repetitionRuleType')
       ?.valueChanges.subscribe((repetitionRuleType: RepetitionRuleType) => {
@@ -130,14 +129,11 @@ export class TaskFormComponent {
   }
 
   onAddRepetitionRule(): void {
-    console.log(this.repetitionRuleForm.getRawValue());
     const formGroup = this.buildRepetitionRuleFormGroup(this.repetitionRuleForm.getRawValue());
-    console.log(formGroup);
     const idx = this.selectedRepetitionRuleIndex();
 
     if (idx === null) {
       this.repetitionRules.push(formGroup);
-      console.log(this.repetitionRules);
     } else {
       this.repetitionRules.setControl(idx, formGroup);
     }
@@ -181,8 +177,6 @@ export class TaskFormComponent {
     task.repetitionRules = this.repetitionRules.controls.map((fg) =>
       this.formRuleToDomain(fg.getRawValue())
     );
-
-    console.log(task);
 
     this.taskService.create(task, () => this.resetAllForm());
   }
