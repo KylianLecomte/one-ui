@@ -1,6 +1,7 @@
 import { TaskDto } from '../dtos/task.dto';
 import { TaskStatus } from '../types/task-status.type';
-import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
+import { ID } from '../../../shared/api/domain/dtos/api.dtos';
+import { todayStr } from '../../../shared/utils/date.utils';
 
 export function toSortedTasks(tasks: TaskDto[]): TaskDto[] {
   return tasks.sort(taskSortingOnStatus);
@@ -36,7 +37,7 @@ export function getNewTask(taskName: string, description?: string): TaskDto {
   return {
     name: taskName,
     status: TaskStatus.TODO,
-    statusDate: new Date(),
+    statusDate: todayStr(),
     description: description ?? '',
     repetitionRules: [],
   };

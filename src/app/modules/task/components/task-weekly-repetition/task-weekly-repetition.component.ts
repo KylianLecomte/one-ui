@@ -1,14 +1,11 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {
-  RepetitionRuleType,
-  RepetitionRuleTypeLabels,
-} from '../../domain/types/repetition-rule.type';
+import { RepetitionRuleType, RepetitionRuleTypeLabels } from '../../types/repetition-rule.type';
 import { CheckboxTagGroupComponent } from '../../../../shared/form/components/checkbox-tag-group/checkbox-tag-group.component';
 import { Option } from '../../../../shared/form/components/base/base-input-group-form-control';
 import { RadioComponent } from '../../../../shared/form/components/radio/radio.component';
-import { WeekDay } from '../../domain/types/week-day.type';
+import { WeekDay } from '../../types/week-day.type';
 
 @Component({
   selector: 'one-task-weekly-repetition',

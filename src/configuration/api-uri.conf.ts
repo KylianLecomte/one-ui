@@ -15,7 +15,7 @@ export const API_URI_CONF = {
   task: {
     base: '/task',
     create: (): string => `${API_URI_CONF.task.base}`,
-    updateById: (id: ID): string => `${API_URI_CONF.task.base}/${id}`,
+    updateById: (): string => `${API_URI_CONF.task.base}`,
     deleteById: (id: ID): string => `${API_URI_CONF.task.base}/${id}`,
   },
 };

@@ -1,5 +1,5 @@
 import { getValuesFromMap } from './record.utils';
-import { WeekDay } from '../../modules/task/domain/types/repetition-rule.type';
+import { WeekDay } from '../../modules/task/types/repetition-rule.type';
 
 describe('getValuesFromMap', () => {
   it("Should return 'lundi, dimanche'", () => {

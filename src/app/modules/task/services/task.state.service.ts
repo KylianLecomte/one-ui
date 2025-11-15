@@ -1,7 +1,7 @@
 import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { TaskDto } from '../domain/dtos/task.dto';
+import { TaskDto } from '../dtos/task.dto';
 import { ID } from '../../../shared/api/domain/dtos/api.dtos';
-import { getTasksFilteredOnId, toSortedTasks } from '../domain/utils/task.utils';
+import { getTasksFilteredOnId, toSortedTasks } from '../utils/task.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +17,8 @@ export abstract class TaskStateService {
   isTasksLoaded: WritableSignal<boolean> = signal(false);
   isTasksLoading: WritableSignal<boolean> = signal(false);
 
-  updateStateSelected(id: ID): void {
-    const taskFounded: TaskDto | undefined = this.getTaskById(id);
-    if (taskFounded) {
-      this.selectedTaskId.set(taskFounded.id);
-    }
+  updateStateSelected(id?: ID): void {
+    this.selectedTaskId.set(this.getTaskById(id)?.id);
   }
 
   protected updateStateTask(updatedTask: TaskDto): void {

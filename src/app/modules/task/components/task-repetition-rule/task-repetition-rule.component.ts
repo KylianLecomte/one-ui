@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { getPlurial } from '../../../../shared/utils/string.utils';
 import { getValuesFromMap } from '../../../../shared/utils/record.utils';
-import { toLocaleDateString } from '../../../../shared/utils/date.utils';
 import { NgClass } from '@angular/common';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { RepetitionRule } from '../../domain/dtos/repetition-rule.dto';
-import { RepetitionRuleType } from '../../domain/types/repetition-rule.type';
-import { WeekDayLabels } from '../../domain/types/week-day.type';
-import { Repetition, RepetitionLabels } from '../../domain/types/repetition.type';
-import { EndRepetitionType } from '../../domain/types/end-repetition.type';
+import { RepetitionRule } from '../../dtos/repetition-rule.dto';
+import { RepetitionRuleType } from '../../types/repetition-rule.type';
+import { WeekDayLabels } from '../../types/week-day.type';
+import { Repetition, RepetitionLabels } from '../../types/repetition.type';
+import { EndRepetitionType } from '../../types/end-repetition.type';
 
 @Component({
   selector: 'one-task-repetition-rule',
@@ -51,15 +50,14 @@ export class TaskRepetitionRuleComponent {
   }
 
   get startEnd(): string {
-    const start = toLocaleDateString(this.repetitionRule().startDate);
-    const endDate: Date | null = this.repetitionRule().endDate;
-    const end = endDate ? toLocaleDateString(endDate) : null;
+    const startDate = this.repetitionRule().startDate;
+    const endDate: string | null = this.repetitionRule().endDate;
     const nbOcurrence = this.repetitionRule().endNbOccurence;
 
-    if (this.repetitionRule().endRepetitionType === EndRepetitionType.DATE && end) {
-      return `Du ${start} au ${end}`;
+    if (this.repetitionRule().endRepetitionType === EndRepetitionType.DATE && endDate) {
+      return `Du ${startDate} au ${endDate}`;
     } else if (this.repetitionRule().endRepetitionType === EndRepetitionType.NB_OCCURENCE) {
-      return `${nbOcurrence} occurence${getPlurial(nbOcurrence)} à partir du ${start}`;
+      return `${nbOcurrence} occurence${getPlurial(nbOcurrence)} à partir du ${startDate}`;
     }
 
     return '';

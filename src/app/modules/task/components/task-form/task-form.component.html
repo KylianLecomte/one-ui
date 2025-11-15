@@ -22,7 +22,9 @@
     <one-tabs [formGroup]="repetitionRuleForm">
       <one-tab [label]="RepetitionLabels.WEEKLY">
         <ng-template>
-          <one-task-weekly-repetition [weeklyForm]="weeklyRule"></one-task-weekly-repetition>
+          <one-task-weekly-repetition
+            [weeklyForm]="weeklyRepetitionRule"
+          ></one-task-weekly-repetition>
         </ng-template>
       </one-tab>
       <one-tab [label]="RepetitionLabels.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
@@ -79,12 +81,19 @@
     @for (repetitionRule of repetitionRules.controls; track $index) {
       <one-task-repetition-rule
         [isSelected]="selectedRepetitionRuleIndex() === $index"
-        [repetitionRule]="formRuleToDomain(repetitionRule.getRawValue())"
+        [repetitionRule]="repetitionRule.getRawValue()"
         (select)="onEditRepetitionRule($index)"
         (delete)="onDeleteRepetitionRule($index)"
       ></one-task-repetition-rule>
     }
 
-    <one-button type="submit">Ajouter</one-button>
+    @if (selectedTask()) {
+      <div class="task-form-buttons flex-row">
+        <one-button type="submit">Modifier</one-button>
+        <one-button (click)="onCancelTask()">Annuler</one-button>
+      </div>
+    } @else {
+      <one-button type="submit">Ajouter</one-button>
+    }
   </fieldset>
 </form>

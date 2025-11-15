@@ -47,5 +47,18 @@ form {
         gap: vars.$margin-between-form-controls;
       }
     }
+
+    .task-form-buttons {
+      width: 100%;
+      gap: vars.$margin-between-form-controls;
+
+      one-button:first-child {
+        flex: 2;
+      }
+
+      one-button:last-child {
+        flex: 1;
+      }
+    }
   }
 }

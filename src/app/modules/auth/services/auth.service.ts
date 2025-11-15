@@ -59,11 +59,14 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
-    return this.httpClient.post<AccessToken>(
+    console.log('call refresh accss token');
+    const a = this.httpClient.post<AccessToken>(
       `${LOCAL_API_PATH}${API_URI_CONF.auth.token()}`,
       body,
-      { headers },
+      { headers }
     );
+    console.log(a);
+    return a;
   }
 
   logout(): void {
@@ -77,5 +80,16 @@ export class AuthService {
         console.error(error);
       },
     });
+  }
+
+  clearSession(): void {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('connectedUser');
+  }
+
+  storeTokens(tokens: { accessToken: string; refreshToken: string }) {
+    localStorage.setItem('accessToken', tokens.accessToken);
+    localStorage.setItem('refreshToken', tokens.refreshToken);
   }
 }

@@ -1,104 +1,78 @@
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpHandlerFn,
-  HttpInterceptorFn,
-  HttpRequest,
-} from '@angular/common/http';
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
-import { AuthService } from '../services/auth.service';
-import { inject } from '@angular/core';
+import { catchError, switchMap, throwError } from 'rxjs';
 import { TypeToken, UserStorageUtils } from '../../../shared/storage/UserStorage.utils';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { RouterService } from '../../../shared/routing/route.service';
-import { API_URI_CONF } from '../../../../configuration/api-uri.conf';
-import { HttpHeadersUtils } from '../../../shared/utils/http-headers.utils';
-import { AccessToken, AuthUser } from '../domain/dtos/auth.dto';
-import { AuthUtils } from '../utils/auth.utils';
 
-export const authInterceptor: HttpInterceptorFn = (
-  req: HttpRequest<unknown>,
-  next: HttpHandlerFn,
-): Observable<HttpEvent<unknown>> => {
-  const authService: AuthService = inject(AuthService);
-  const routerService: RouterService = inject(RouterService);
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const authService = inject(AuthService);
+  const routerService = inject(RouterService);
 
-  const isPublic: boolean =
-    req.url.includes(API_URI_CONF.auth.signIn()) || req.url.includes(API_URI_CONF.auth.signUp());
+  let isRefreshing = false;
 
-  if (isPublic) {
+  const isTokenEndpoint = req.url.includes('/auth/token');
+
+  // Ne jamais ajouter de token ni refresh sur /auth/token
+  if (isTokenEndpoint) {
     return next(req);
   }
 
-  const accessToken: string | undefined = UserStorageUtils.getToken(TypeToken.ACCESS_TOKEN);
+  const accessToken = UserStorageUtils.getToken(TypeToken.ACCESS_TOKEN);
 
+  // Ajouter le token seulement si ce n’est pas /auth/token
+  let authReq = req;
   if (accessToken) {
-    req = getRequestWithBearerToken(req, accessToken);
+    authReq = req.clone({
+      setHeaders: { Authorization: `Bearer ${accessToken}` },
+    });
   }
 
-  return next(req).pipe(
-    catchError((error: HttpErrorResponse): Observable<HttpEvent<any>> => {
-      if (!req.url.includes(API_URI_CONF.auth.base) && error.status === 401) {
-        return handle401Error(req, next, authService, routerService);
-      }
+  return next(authReq).pipe(
+    catchError((error: HttpErrorResponse) => {
+      const refreshToken = UserStorageUtils.getToken(TypeToken.REFRESH_TOKEN);
 
-      return throwError((): HttpErrorResponse => {
-        console.error(error);
-        AuthUtils.resetAuth(routerService);
-        return error;
-      });
-    }),
-  );
-};
+      // 401 → refresh uniquement si pas déjà en train de refresh
+      console.log(error);
+      if (error.status === 401 && !isRefreshing) {
+        isRefreshing = true;
 
-const getRequestWithBearerToken = <T>(req: HttpRequest<T>, accessToken: string) => {
-  return req.clone({
-    setHeaders: HttpHeadersUtils.getBearerHeader(accessToken),
-  });
-};
+        if (!refreshToken) {
+          return forceLogout(routerService);
+        }
 
-const handle401Error: <T>(
-  req: HttpRequest<T>,
-  next: HttpHandlerFn,
-  authService: AuthService,
-  routerService: RouterService,
-) => Observable<HttpEvent<unknown>> = <T>(
-  req: HttpRequest<T>,
-  next: HttpHandlerFn,
-  authService: AuthService,
-  routerService: RouterService,
-): Observable<HttpEvent<unknown>> => {
-  console.log('401 error');
+        return authService.refreshAccessToken(refreshToken).pipe(
+          switchMap((tokens) => {
+            isRefreshing = false;
 
-  const refreshToken: string | undefined = UserStorageUtils.getToken(TypeToken.REFRESH_TOKEN);
+            UserStorageUtils.updateAccessToken(tokens);
 
-  if (!refreshToken) {
-    routerService.toSignInPage();
-    return throwError(
-      (): HttpErrorResponse =>
-        new HttpErrorResponse({
-          status: 401,
-          error: { message: 'Refresh token is undefined' },
-        }),
-    );
-  }
+            const retryReq = authReq.clone({
+              setHeaders: {
+                Authorization: `Bearer ${tokens.accessToken}`,
+              },
+            });
 
-  return authService.refreshAccessToken(refreshToken).pipe(
-    switchMap((responseAccessToken: AccessToken): Observable<HttpEvent<unknown>> => {
-      const currentAuthUser: AuthUser | undefined = UserStorageUtils.get();
-
-      if (!currentAuthUser) {
-        return throwError(
-          (): HttpErrorResponse =>
-            new HttpErrorResponse({
-              status: 401,
-              error: { message: 'Fail to get user from localStorage' },
-            }),
+            return next(retryReq);
+          }),
+          catchError(() => {
+            isRefreshing = false;
+            return forceLogout(routerService);
+          })
         );
       }
 
-      UserStorageUtils.updateAccessToken(responseAccessToken);
+      if ([401, 403, 500].includes(error.status)) {
+        return forceLogout(routerService);
+      }
 
-      return next(getRequestWithBearerToken(req, responseAccessToken.accessToken));
-    }),
+      return throwError(() => error);
+    })
   );
 };
+
+function forceLogout(routerService: RouterService) {
+  UserStorageUtils.removeCurrentUser();
+  routerService.toSignInPage();
+  return throwError(() => new Error('Session expired'));
+}

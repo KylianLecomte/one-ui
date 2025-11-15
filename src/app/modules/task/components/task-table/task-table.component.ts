@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCircleCheck, faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { TaskStatus } from '../../domain/types/task-status.type';
-import { TaskDto } from '../../domain/dtos/task.dto';
+import { TaskStatus } from '../../types/task-status.type';
+import { TaskDto } from '../../dtos/task.dto';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { ID } from '../../../../shared/api/domain/dtos/api.dtos';
@@ -19,7 +19,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ContextMenuService } from '../../../../shared/menu/context-menu/services/context-menu.service';
 import { TaskService } from '../../services/task.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { TaskForm } from '../../domain/dtos/task-form.dto';
 
 @Component({
   selector: 'one-task-table',
@@ -122,11 +121,11 @@ export class TaskTableComponent {
         ),
         takeUntilDestroyed()
       )
-      .subscribe((taskForm: TaskForm) => {
+      .subscribe((taskDto: TaskDto) => {
         const task: TaskDto | undefined = this.selectedTask();
         if (task) {
-          task.name = taskForm.name ?? task.name;
-          task.description = taskForm.description ?? task.description;
+          task.name = taskDto.name ?? task.name;
+          task.description = taskDto.description ?? task.description;
           this.taskService.update(task);
         }
       });
