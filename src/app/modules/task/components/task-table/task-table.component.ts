@@ -71,6 +71,7 @@ export class TaskTableComponent {
 
   onCheck(task: TaskDto): void {
     task.status = task.status === TaskStatus.TODO ? TaskStatus.DONE : TaskStatus.TODO;
+    console.log(task);
     this.taskService.update(task);
   }
 
@@ -123,6 +124,7 @@ export class TaskTableComponent {
       )
       .subscribe((taskDto: TaskDto) => {
         const task: TaskDto | undefined = this.selectedTask();
+        console.log(task);
         if (task) {
           task.name = taskDto.name ?? task.name;
           task.description = taskDto.description ?? task.description;

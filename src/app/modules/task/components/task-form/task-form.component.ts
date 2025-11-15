@@ -10,7 +10,6 @@ import { InputNumberComponent } from '../../../../shared/form/components/input-n
 import { TaskRepetitionRuleComponent } from '../task-repetition-rule/task-repetition-rule.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { TaskDto } from '../../dtos/task.dto';
-import { getNewTask } from '../../utils/task.utils';
 import { Option } from '../../../../shared/form/components/base/base-input-group-form-control';
 import { InputTextComponent } from '../../../../shared/form/components/input-text/input-text.component';
 import { TextareaComponent } from '../../../../shared/form/components/textarea/textarea.component';
@@ -21,6 +20,7 @@ import { WeekDay } from '../../types/week-day.type';
 import { EndRepetitionType } from '../../types/end-repetition.type';
 import { RepetitionRule } from '../../dtos/repetition-rule.dto';
 import { RepetitionLabels } from '../../types/repetition.type';
+import { getNewTask } from '../../utils/task.utils';
 
 export const VALUE_NULL_DISABLED = { value: null, disabled: true };
 
@@ -135,10 +135,6 @@ export class TaskFormComponent {
       : 'Ajouter la règle de répétition';
   }
 
-  get addButtonLabel(): string {
-    return this.selectedTask() ? 'Modifier' : 'Ajouter';
-  }
-
   onAddRepetitionRule(): void {
     const formGroup = this.buildRepetitionRuleFormGroup(this.repetitionRuleForm.getRawValue());
     const idx = this.selectedRepetitionRuleIndex();
@@ -170,9 +166,6 @@ export class TaskFormComponent {
   onCancelTask(): void {
     this.taskService.updateStateSelected();
     this.onCancelEditRepetitionRule();
-
-    console.log(this.selectedRepetitionRuleIndex());
-    console.log(this.selectedTask());
   }
 
   onCancelEditRepetitionRule(): void {
@@ -186,19 +179,32 @@ export class TaskFormComponent {
       return;
     }
 
-    console.log(this.selectedTask());
+    const selectedTask: TaskDto | undefined = this.selectedTask();
 
+    if (selectedTask) {
+      this.submitUpdatingTask(selectedTask);
+    } else {
+      this.submitNewTask();
+    }
+  }
+
+  submitNewTask(): void {
     const task: TaskDto = getNewTask(
       this.taskForm.get('name')!.value,
       this.taskForm.get('description')?.value
     );
     task.repetitionRules = this.repetitionRules.controls.map((fg) => fg.getRawValue());
+    this.taskService.create(task, () => this.resetAllForm());
+  }
 
-    if (this.selectedTask()) {
-      this.taskService.update(task, () => this.resetAllForm());
-    } else {
-      this.taskService.create(task, () => this.resetAllForm());
-    }
+  submitUpdatingTask(selectedTask: TaskDto): void {
+    const task: TaskDto = {
+      ...selectedTask,
+      name: this.taskForm.get('name')!.value,
+      description: this.taskForm.get('description')?.value,
+      repetitionRules: this.repetitionRules.controls.map((fg) => fg.getRawValue()),
+    };
+    this.taskService.update(task, () => this.resetAllForm());
   }
 
   resetAllForm(forms?: { taskForm?: TaskDto; ruleForm?: RepetitionRule }): void {
