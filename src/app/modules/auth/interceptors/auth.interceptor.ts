@@ -4,10 +4,12 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { RouterService } from '../../../shared/routing/route.service';
+import { ToastService } from '../../../shared/toast/services/toast.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const routerService = inject(RouterService);
+  const toastService = inject(ToastService);
 
   let isRefreshing = false;
 
@@ -32,13 +34,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: HttpErrorResponse) => {
       const refreshToken = UserStorageUtils.getToken(TypeToken.REFRESH_TOKEN);
 
-      // 401 → refresh uniquement si pas déjà en train de refresh
       console.log(error);
       if (error.status === 401 && !isRefreshing) {
         isRefreshing = true;
 
         if (!refreshToken) {
-          return forceLogout(routerService);
+          return forceLogout(routerService, toastService);
         }
 
         return authService.refreshAccessToken(refreshToken).pipe(
@@ -57,13 +58,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           }),
           catchError(() => {
             isRefreshing = false;
-            return forceLogout(routerService);
+            return forceLogout(routerService, toastService);
           })
         );
       }
 
       if ([401, 403, 500].includes(error.status)) {
-        return forceLogout(routerService);
+        return forceLogout(routerService, toastService);
       }
 
       return throwError(() => error);
@@ -71,8 +72,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   );
 };
 
-function forceLogout(routerService: RouterService) {
+function forceLogout(routerService: RouterService, toastService: ToastService) {
   UserStorageUtils.removeCurrentUser();
   routerService.toSignInPage();
+  toastService.error('Déconnexion', 'Session expirée');
   return throwError(() => new Error('Session expired'));
 }
