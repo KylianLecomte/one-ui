@@ -1,5 +1,3 @@
-@use '../../../../../styles/variables' as vars;
-
 :host {
   width: inherit;
   padding: 40px 40px 0 40px;
@@ -14,30 +12,30 @@
 }
 
 .task {
-  border-right: vars.$border-gray;
-  border-left: vars.$border-gray;
+  border-right: var(--border-gray);
+  border-left: var(--border-gray);
   padding: 10px 20px 10px 20px;
 
   &:first-child {
-    border-radius: vars.$border-radius vars.$border-radius 0 0;
+    border-radius: var(--border-radius) var(--border-radius 0 0);
   }
 
   &:last-child {
-    border-bottom: vars.$border-gray;
-    border-radius: 0 0 vars.$border-radius vars.$border-radius;
+    border-bottom: var(--border-gray);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
   }
 
   &:hover {
     & * {
-      background-color: vars.$color-main-light-hover;
+      background-color: var(--color-main-light-hover);
     }
-    background-color: vars.$color-main-light-hover;
+    background-color: var(--color-main-light-hover);
   }
 
   &.selected {
-    background-color: vars.$color-main-light;
+    background-color: var(--color-main-light);
     & * {
-      background-color: vars.$color-main-light;
+      background-color: var(--color-main-light);
     }
 
     .main-informations {
@@ -55,7 +53,7 @@
     }
   }
 
-  border-top: vars.$border-gray;
+  border-top: var(--border-gray);
   .main-informations {
     display: grid;
     grid-template-columns: 20px auto 30px;
@@ -65,20 +63,20 @@
     & .task-todo,
     & .task-done,
     & .task-canceled {
-      width: vars.$size-task-state;
-      height: vars.$size-task-state;
+      width: var(--size-task-state);
+      height: var(--size-task-state);
     }
 
     & .task-todo {
-      color: vars.$color-task-todo;
+      color: var(--color-task-todo);
     }
 
     & .task-done {
-      color: vars.$color-task-done;
+      color: var(--color-task-done);
     }
 
     & .task-canceled {
-      color: vars.$color-task-canceled;
+      color: var(--color-task-canceled);
     }
   }
 }

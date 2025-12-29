@@ -12,11 +12,12 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "one",
+      "prefix": "cm",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "preserveSymlinks": true,
             "outputPath": "dist/one-ui",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -30,7 +31,8 @@
             ],
             "styles": [
               "src/styles/styles.scss",
-              "src/styles/generic-class.scss"
+              "src/styles/generic-class.scss",
+              "node_modules/@coach-me/cm-ds/theme/theme.scss"
             ],
             "scripts": []
           },
@@ -51,15 +53,24 @@
               "outputHashing": "all"
             },
             "development": {
+              "sourceMap": {
+                "scripts": true,
+                "styles": true,
+                "vendor": true
+              },
               "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+              "extractLicenses": false
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "prebundle": {
+              "exclude": ["@coach-me/cm-ds"]
+            }
+          },
           "configurations": {
             "production": {
               "buildTarget": "one-ui:build:production"

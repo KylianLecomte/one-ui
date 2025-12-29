@@ -3,7 +3,7 @@ import { ContextMenuService } from './services/context-menu.service';
 import { ContextMenuItem } from './models/context-menu-data.model';
 
 @Component({
-  selector: 'one-context-menu',
+  selector: 'cm-context-menu',
   imports: [],
   templateUrl: './context-menu.component.html',
   styleUrl: './context-menu.component.scss',

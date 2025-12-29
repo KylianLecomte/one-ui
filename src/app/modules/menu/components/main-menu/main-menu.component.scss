@@ -1,11 +1,9 @@
-@use '../../../../../styles/variables' as vars;
-
 :host {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: vars.$layout-padding-small;
-  border-right: vars.$border-layout;
+  padding: var(--layout-padding-small);
+  border-right: var(--border-layout);
 }
 
 .container-profil {
@@ -15,8 +13,8 @@
   & .icon-profil {
     padding: 10px;
     border-radius: 1000px;
-    border: vars.$border-gray;
-    margin: vars.$margin-icon;
+    border: var(--border-gray);
+    margin: var(--margin-icon);
 
     & fa-icon {
       display: block;
@@ -33,25 +31,25 @@
 }
 
 nav {
-  width: vars.$width-menu;
+  width: var(--width-menu);
 
   & li {
-    border-radius: vars.$border-radius;
+    border-radius: var(--border-radius);
     padding: 10px 20px;
     margin: 0 0 10px 0;
 
-    color: vars.$color-txt-dark;
+    color: var(--color-txt-dark);
 
     &:hover {
-      background-color: vars.$color-main-light-hover;
+      background-color: var(--color-main-light-hover);
     }
 
     &:has(a.active) {
-      background-color: vars.$color-main-light;
-      color: vars.$color-main;
+      background-color: var(--color-main-light);
+      color: var(--color-main);
 
       & fa-icon {
-        color: vars.$color-main;
+        color: var(--color-main);
       }
     }
 

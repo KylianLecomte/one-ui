@@ -1,44 +1,44 @@
 <div [formGroup]="weeklyForm()" class="flex-col" id="one-task-repetition-weekly">
   <div class="ctn-per-jour flex-col">
-    <one-radio
+    <cm-radio
       [id]="RepetitionRuleType.WEEKLY_BY_DAY"
       [label]="RepetitionRuleTypeLabels.WEEKLY_BY_DAY"
       [value]="RepetitionRuleType.WEEKLY_BY_DAY"
       formControlName="repetitionRuleType"
       name="repetitionRuleType"
     >
-    </one-radio>
-    <one-checkbox-tag-group
+    </cm-radio>
+    <cm-checkbox-tag-group
       [options]="WEEK_DAY_OPTS"
       formControlName="weekDays"
-    ></one-checkbox-tag-group>
+    ></cm-checkbox-tag-group>
   </div>
 
   <div class="ctn-regular flex-col">
-    <one-radio
+    <cm-radio
       [id]="RepetitionRuleType.WEEKLY_REGULAR"
       [label]="RepetitionRuleTypeLabels.WEEKLY_REGULAR"
       [value]="RepetitionRuleType.WEEKLY_REGULAR"
       formControlName="repetitionRuleType"
       name="repetitionRuleType"
     >
-    </one-radio>
+    </cm-radio>
     <div class="ctn-repeat-every">
-      <one-input-number
+      <cm-input-number
         [cssClassInput]="['default']"
         [max]="7"
         formControlName="repeatEvery"
         id="repeatEvery"
         labelPosition="hidden"
-      ></one-input-number>
+      ></cm-input-number>
       <span> jour(s) sur </span>
-      <one-input-number
+      <cm-input-number
         [cssClassInput]="['default']"
         [max]="7"
         formControlName="periodLength"
         id="periodLength"
         labelPosition="hidden"
-      ></one-input-number>
+      ></cm-input-number>
     </div>
   </div>
 </div>

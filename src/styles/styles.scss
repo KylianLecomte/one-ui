@@ -1,4 +1,4 @@
-@use './variables' as vars;
+@use '@coach-me/cm-ds/theme/theme' as theme;
 
 /*** RESET ***/
 html,
@@ -7,11 +7,11 @@ body {
   margin: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  font-family: vars.$font-familly;
+  font-family: var(--font-familly);
   box-sizing: border-box;
-  font-size: vars.$font-size-normal;
-  color: vars.$color-txt-dark;
-  background-color: vars.$color-global-bg;
+  font-size: var(--font-size-normal);
+  color: var(--color-txt-dark);
+  background-color: var(--color-global-bg);
 }
 
 app-root {
@@ -23,9 +23,9 @@ app-root {
 input,
 textarea,
 button {
-  font-family: vars.$font-familly;
+  font-family: var(--font-familly);
   outline: none;
-  accent-color: vars.$color-main;
+  accent-color: var(--color-main);
 }
 
 a {
@@ -48,26 +48,26 @@ ul {
 .card {
   display: flex;
   flex-direction: column;
-  padding: vars.$padding-container;
-  border: vars.$border-gray;
-  border-radius: vars.$border-radius-medium;
-  background-color: vars.$color-white;
+  padding: var(--padding-container);
+  border: var(--border-gray);
+  border-radius: var(--border-radius-medium);
+  background-color: var(--color-white);
   gap: 1rem;
 }
 
 * {
-  transition: vars.$transition-default;
+  transition: var(--transition-default);
 }
 
 .default {
-  @include vars.default-selectable-style;
+  @include theme.default-selectable-style;
 }
 
 .error-message {
-  color: vars.$color-message-error;
-  font-size: vars.$font-size-error-message;
+  color: var(--color-message-error);
+  font-size: var(--font-size-error-message);
 }
 
 fa-icon {
-  margin: vars.$margin-icon;
+  margin: var(--margin-icon);
 }

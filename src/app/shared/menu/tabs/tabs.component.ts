@@ -12,7 +12,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
-  selector: 'one-tabs',
+  selector: 'cm-tabs',
   imports: [NgTemplateOutlet, ButtonComponent],
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss',

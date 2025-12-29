@@ -13,7 +13,7 @@ import { Repetition, RepetitionLabels } from '../../types/repetition.type';
 import { EndRepetitionType } from '../../types/end-repetition.type';
 
 @Component({
-  selector: 'one-task-repetition-rule',
+  selector: 'cm-task-repetition-rule',
   imports: [NgClass, ButtonComponent, FontAwesomeModule],
   templateUrl: './task-repetition-rule.component.html',
   styleUrl: './task-repetition-rule.component.scss',

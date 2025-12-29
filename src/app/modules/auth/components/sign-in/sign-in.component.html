@@ -1,7 +1,7 @@
 <form (ngSubmit)="onClickSubmit()" [formGroup]="signInForm">
   <fieldset class="card">
     <legend>Connexion</legend>
-    <one-input-text
+    <cm-input-text
       [cssClassInput]="['default']"
       [isRequired]="true"
       formControlName="email"
@@ -9,12 +9,12 @@
       label="E-mail"
       labelPosition="top"
       placeholder="Entrez votre adresse e-mail"
-    ></one-input-text>
+    ></cm-input-text>
     @if (this.signInForm.get('email')?.errors?.['require']) {
       <span>L'adresse e-mail est obligatoire</span>
     }
 
-    <one-input-text
+    <cm-input-text
       [cssClassInput]="['default']"
       [isRequired]="true"
       formControlName="password"
@@ -22,10 +22,10 @@
       label="Mot de passe"
       labelPosition="top"
       placeholder="Entrez votre mot de passe"
-    ></one-input-text>
+    ></cm-input-text>
     @if (this.signInForm.get('password')?.errors?.['require']) {
       <span>Le mot de passe est obligatoire</span>
     }
-    <one-button type="submit" typeCss="primary">Sign in</one-button>
+    <cm-button type="submit" typeCss="primary">Sign in</cm-button>
   </fieldset>
 </form>

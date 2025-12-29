@@ -1,9 +1,0 @@
-<span [ngClass]="cssClassWrapper()" class="wrapper-input">
-  <label [for]="id()" [ngClass]="labelIsHidden() ? 'visually-hidden' : ''"
-    >{{ label() }}
-    @if (isRequired()) {
-      <one-required />
-    }
-  </label>
-  <ng-content></ng-content>
-</span>

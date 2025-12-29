@@ -7,13 +7,13 @@ import { AuthService } from './modules/auth/services/auth.service';
 import { ContextMenuComponent } from './shared/menu/context-menu/context-menu.component';
 
 @Component({
-  selector: 'one-root',
+  selector: 'cm-root',
   imports: [RouterOutlet, ToasterComponent, MainMenuComponent, ContextMenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title: string = 'one-ui';
+  title: string = 'coach-me-ui';
 
   authService: AuthService = inject(AuthService);
 

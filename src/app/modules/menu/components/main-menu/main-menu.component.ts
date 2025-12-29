@@ -7,7 +7,7 @@ import { faArrowRightFromBracket, faUtensils } from '@fortawesome/free-solid-svg
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
-  selector: 'one-main-menu',
+  selector: 'cm-main-menu',
   imports: [RouterLink, RouterLinkActive, FaIconComponent, ButtonComponent],
   templateUrl: './main-menu.component.html',
   styleUrl: './main-menu.component.scss',

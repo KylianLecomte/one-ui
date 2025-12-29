@@ -30,7 +30,7 @@ interface ColumnDefWithId extends ColumnDef {
 }
 
 @Component({
-  selector: 'one-table',
+  selector: 'cm-table',
   imports: [NgTemplateOutlet, GetCellValuePipe],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',

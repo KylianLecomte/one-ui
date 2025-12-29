@@ -1,17 +1,15 @@
-@use '../../../../../styles/variables' as vars;
-
 .ctn-per-jour {
-  margin-bottom: vars.$margin-between-form-group;
+  margin-bottom: var(--margin-between-form-group);
 }
 
 one-checkbox-tag-group {
-  padding-left: vars.$padding-container;
+  padding-left: var(--padding-container);
 }
 
 div.ctn-repeat-every {
   display: flex;
-  gap: vars.$margin-between-form-controls;
-  padding-left: vars.$padding-container;
+  gap: var(--margin-between-form-controls);
+  padding-left: var(--padding-container);
 
   & span {
     align-content: center;

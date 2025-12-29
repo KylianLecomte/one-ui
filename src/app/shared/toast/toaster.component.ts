@@ -8,7 +8,7 @@ import { Toast } from './domain/dtos/toast.dto';
 import { ButtonComponent } from '../components/button/button.component';
 
 @Component({
-  selector: 'one-toaster',
+  selector: 'cm-toaster',
   imports: [FontAwesomeModule, NgClass, ButtonComponent],
   templateUrl: './toaster.component.html',
   styleUrl: './toaster.component.scss',

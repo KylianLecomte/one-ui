@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'one-tag',
+  selector: 'cm-tag',
   imports: [],
   templateUrl: './tag.component.html',
   styleUrl: './tag.component.scss',

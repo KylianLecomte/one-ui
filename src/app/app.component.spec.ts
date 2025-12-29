@@ -20,6 +20,6 @@ describe('AppComponent', () => {
   it(`should have the 'one-ui' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('one-ui');
+    expect(app.title).toEqual('coach-me-ui');
   });
 });

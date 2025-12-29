@@ -1,10 +1,8 @@
 import {
   Component,
   computed,
-  DestroyRef,
   effect,
   ElementRef,
-  inject,
   input,
   output,
   signal,
@@ -16,14 +14,12 @@ export type TypeCssButton = 'default' | 'primary' | 'complementary' | 'icon' | '
 export type TypeButton = 'button' | 'submit' | 'reset';
 
 @Component({
-  selector: 'one-button',
+  selector: 'cm-button',
   imports: [NgClass],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  destroyRef = inject(DestroyRef);
-
   typeCss = input<TypeCssButton>('default');
   type = input<TypeButton>('button');
   withAnimation = input<boolean>(true);

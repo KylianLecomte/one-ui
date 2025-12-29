@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'one-tab',
+  selector: 'cm-tab',
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

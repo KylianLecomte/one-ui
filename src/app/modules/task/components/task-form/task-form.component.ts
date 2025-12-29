@@ -4,16 +4,10 @@ import { TaskService } from '../../services/task.service';
 import { ToastService } from '../../../../shared/toast/services/toast.service';
 import { TabsComponent } from '../../../../shared/menu/tabs/tabs.component';
 import { TabComponent } from '../../../../shared/menu/tabs/tab/tab.component';
-import { SelectComponent } from '../../../../shared/form/components/select/select.component';
 import { todayStr, tomorrowStr } from '../../../../shared/utils/date.utils';
-import { InputNumberComponent } from '../../../../shared/form/components/input-number/input-number.component';
 import { TaskRepetitionRuleComponent } from '../task-repetition-rule/task-repetition-rule.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { TaskDto } from '../../dtos/task.dto';
-import { Option } from '../../../../shared/form/components/base/base-input-group-form-control';
-import { InputTextComponent } from '../../../../shared/form/components/input-text/input-text.component';
-import { TextareaComponent } from '../../../../shared/form/components/textarea/textarea.component';
-import { DatePickerComponent } from '../../../../shared/form/components/date-picker/date-picker.component';
 import { TaskWeeklyRepetitionComponent } from '../task-weekly-repetition/task-weekly-repetition.component';
 import { RepetitionRuleType } from '../../types/repetition-rule.type';
 import { WeekDay } from '../../types/week-day.type';
@@ -21,11 +15,17 @@ import { EndRepetitionType } from '../../types/end-repetition.type';
 import { RepetitionRule } from '../../dtos/repetition-rule.dto';
 import { RepetitionLabels } from '../../types/repetition.type';
 import { getNewTask } from '../../utils/task.utils';
+import { InputNumberComponent } from '@coach-me/cm-ds/component/input-number';
+import { SelectComponent } from '@coach-me/cm-ds/component/select';
+import { InputTextComponent } from '@coach-me/cm-ds/component/input-text';
+import { TextareaComponent } from '@coach-me/cm-ds/component/textarea';
+import { DatePickerComponent } from '@coach-me/cm-ds/component/date-picker';
+import { Option } from '@coach-me/cm-ds/form/model';
 
 export const VALUE_NULL_DISABLED = { value: null, disabled: true };
 
 @Component({
-  selector: 'one-task-form',
+  selector: 'cm-task-form',
   imports: [
     ReactiveFormsModule,
     TabsComponent,

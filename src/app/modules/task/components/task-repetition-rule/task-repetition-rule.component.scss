@@ -1,9 +1,9 @@
-@use '../../../../../styles/variables' as vars;
+@use '@coach-me/cm-ds/theme/theme' as theme;
 
 #task-repetition-rule {
-  @include vars.default-selectable-style;
+  @include theme.default-selectable-style;
 
-  padding: vars.$padding-sub-container;
+  padding: var(--padding-sub-container);
   padding-bottom: 0;
   display: flex;
   flex-direction: column;

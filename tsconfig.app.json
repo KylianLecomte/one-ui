@@ -4,7 +4,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    "paths": {
+      "@coach-me/cm-ds/*": ["../ng-ds/dist/one/ng-ds/*"],
+      "@coach-me/cm-ds": ["../ng-ds/dist/one/ng-ds"],
+    }
   },
   "files": ["src/main.ts"],
   "include": ["src/**/*.d.ts"]

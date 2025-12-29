@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { SignIn } from '../../domain/dtos/auth.dto';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { InputTextComponent } from '../../../../shared/form/components/input-text/input-text.component';
+import { InputTextComponent } from '@coach-me/cm-ds/component/input-text';
 
 @Component({
-  selector: 'one-sign-in',
+  selector: 'cm-sign-in',
   imports: [ReactiveFormsModule, ButtonComponent, InputTextComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',

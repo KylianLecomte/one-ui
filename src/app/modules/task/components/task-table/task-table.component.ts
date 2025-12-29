@@ -21,7 +21,7 @@ import { TaskService } from '../../services/task.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
-  selector: 'one-task-table',
+  selector: 'cm-task-table',
   imports: [ReactiveFormsModule, FontAwesomeModule, FormsModule, ButtonComponent],
   templateUrl: './task-table.component.html',
   styleUrl: './task-table.component.scss',
@@ -75,13 +75,13 @@ export class TaskTableComponent {
     this.taskService.update(task);
   }
 
-  @HostListener('window:keydown.delete', ['$event'])
-  onDelete(task: TaskDto, event?: any): void {
-    const id: ID = task.id;
+  @HostListener('window:keydown.delete')
+  onDelete(task?: TaskDto): void {
+    const id: ID = task?.id ?? this.selectedTaskId();
     if (id) {
       this.taskService.delete(id);
     }
-    event?.stopPropagation();
+    // event?.stopPropagation();
   }
 
   @HostListener('contextmenu', ['$event'])

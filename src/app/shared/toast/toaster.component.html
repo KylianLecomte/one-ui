@@ -1,6 +1,6 @@
 <div class="toastr-container">
   @for (toast of toasts; track toast.id) {
-    <div class="toast" [ngClass]="toast.type" @toastAnimation>
+    <div @toastAnimation [ngClass]="toast.type" class="toast">
       <div class="toast-icon">
         <fa-icon [icon]="toast.icon"></fa-icon>
       </div>
@@ -8,7 +8,7 @@
         <div class="toast-title">{{ toast.title }}</div>
         <div class="toast-message">{{ toast.message }}</div>
       </div>
-      <one-button class="close-btn" (click)="removeToast(toast.id)">x</one-button>
+      <cm-button (click)="removeToast(toast.id)" class="close-btn">x</cm-button>
       <div class="toast-loader"></div>
     </div>
   }

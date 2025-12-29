@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { SignUp } from '../../domain/dtos/auth.dto';
-import { RequiredComponent } from '../../../form/components/required/required.component';
 import { equalValuesValidator } from '../../../../shared/form/validators/equalValuesValidator';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { RequiredComponent } from '@coach-me/cm-ds/component/required';
 
 @Component({
-  selector: 'one-sign-up',
+  selector: 'cm-sign-up',
   imports: [ReactiveFormsModule, RequiredComponent, ButtonComponent],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',

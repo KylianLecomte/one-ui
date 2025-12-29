@@ -1,5 +1,5 @@
 <form (ngSubmit)="onClickSubmit()" [formGroup]="signUpForm" class="card">
-  <label for="inputEmail">E-mail<one-required /></label>
+  <label for="inputEmail">E-mail<cm-required /></label>
   <input
     class="default"
     formControlName="email"
@@ -10,7 +10,7 @@
   @if (this.signUpForm.get('email')?.errors?.['require']) {
     <span class="error-message">L'adresse e-mail est obligatoire</span>
   }
-  <label for="inputPwd">Mot de passe<one-required /></label>
+  <label for="inputPwd">Mot de passe<cm-required /></label>
   <input
     class="default"
     formControlName="password"
@@ -21,7 +21,7 @@
   @if (this.signUpForm.get('password')?.errors?.['require']) {
     <span class="error-message">Le mot de passe est obligatoire</span>
   }
-  <label for="inputConfirmPwd">Confirmation du mot de passe<one-required /></label>
+  <label for="inputConfirmPwd">Confirmation du mot de passe<cm-required /></label>
   <input
     class="default"
     formControlName="confirmationPassword"
@@ -35,5 +35,5 @@
   @if (this.signUpForm.errors?.['equalValues']) {
     <span class="error-message">Le mot de passe sa confirmation doivent être identique</span>
   }
-  <one-button class="primary" type="submit">S'inscrire</one-button>
+  <cm-button class="primary" type="submit">S'inscrire</cm-button>
 </form>

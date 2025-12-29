@@ -1,112 +1,112 @@
-// Color
-$color-message-error: #a94442;
-$color-message-warning: #a97c42;
-$color-message-success: #49a942;
-
-$color-main: #4094e4;
-$color-main-hover: #9fc9f1;
-$color-main-light: #dcebff;
-$color-main-light-hover: #edf5ff;
-$color-main-disabled: #f0f4ff;
-
-$color-complementary: #da6900;
-$color-complementary-hover: #ecb47f;
-$color-complementary-light: #ffcbba;
-$color-complementary-light-hover: #ffe5dc;
-$color-complementary-disabled: #ffede8;
-
-$color-global-bg: #fff5f3;
-
-$color-gray: #c6c7ca;
-
-$color-txt-light: #ffffff;
-$color-txt-dark: #4c4c50;
-
-$color-white: #ffffff;
-
-// Task state
-$color-task-todo: #36373b;
-$color-task-done: #49a942;
-$color-task-canceled: #a94442;
-
-// Spacing
-$padding-container: 20px;
-$padding-sub-container: 8px;
-$margin-right-icon: 6px;
-$margin-icon: 0 $margin-right-icon 0 0;
-$margin-validation-button: 20px;
-$margin-between-form-controls: 10px;
-$margin-between-form-group: 20px;
-$margin-between-label-input: 5px;
-
-// Font
-$font-familly: 'Montserrat', 'sans-serif', 'Inter', sans-serif;
-$font-size-normal: 1rem;
-$font-size-error-message: 0.8rem;
-
-// Layout
-$width-menu: 150px;
-$width-main-layout: 50%;
-$width-right-layout: calc(100% - $width-menu - $width-main-layout);
-$layout-padding: 40px;
-$layout-padding-small: 20px;
-
-// Size
-// Input
-$size-task-state: 20px;
-$padding-input: 8px;
-
-// Button
-$button-height: 30px;
-$button-padding: 6px;
-
-// Border
-$border-gray: 1px solid $color-gray;
-$border-main-color: 1px solid $color-main;
-$border-layout: 2px solid $color-gray;
-$border-radius: 4px;
-$border-radius-medium: 6px;
-$border-radius-checkbox: 6px;
-
-// Box-shadow
-$box-shadow-input: 0 0 1px 1px $color-main-hover;
-
-// Transition
-$transition-default:
-  background-color 0.15s,
-  color 0.15s,
-  border 0.15s,
-  box-shadow 0.15s;
-
-@mixin default-selectable-style {
-  border-radius: $border-radius;
-  border: $border-gray;
-  color: $color-txt-dark;
-  background-color: $color-white;
-
-  &:hover:not(:disabled) {
-    cursor: pointer;
-  }
-
-  &:hover:not(:disabled),
-  &.selected:not(:disabled),
-  &:focus:not(:disabled) {
-    border: $border-main-color;
-  }
-
-  &.selected:not(:disabled),
-  &:focus:not(:disabled) {
-    box-shadow: $box-shadow-input;
-  }
-}
-
-@mixin base-input-style {
-  input,
-  textarea,
-  select {
-    font-family: $font-familly;
-    outline: none;
-    accent-color: $color-main;
-    padding: $padding-input;
-  }
-}
+//// Color
+//$color-message-error: #a94442;
+//$color-message-warning: #a97c42;
+//$color-message-success: #49a942;
+//
+//$color-main: #4094e4;
+//$color-main-hover: #9fc9f1;
+//$color-main-light: #dcebff;
+//$color-main-light-hover: #edf5ff;
+//$color-main-disabled: #f0f4ff;
+//
+//$color-complementary: #da6900;
+//$color-complementary-hover: #ecb47f;
+//$color-complementary-light: #ffcbba;
+//$color-complementary-light-hover: #ffe5dc;
+//$color-complementary-disabled: #ffede8;
+//
+//$color-global-bg: #fff5f3;
+//
+//$color-gray: #c6c7ca;
+//
+//$color-txt-light: #ffffff;
+//$color-txt-dark: #4c4c50;
+//
+//$color-white: #ffffff;
+//
+//// Task state
+//$color-task-todo: #36373b;
+//$color-task-done: #49a942;
+//$color-task-canceled: #a94442;
+//
+//// Spacing
+//$padding-container: 20px;
+//$padding-sub-container: 8px;
+//$margin-right-icon: 6px;
+//$margin-icon: 0 $margin-right-icon 0 0;
+//$margin-validation-button: 20px;
+//$margin-between-form-controls: 10px;
+//$margin-between-form-group: 20px;
+//$margin-between-label-input: 5px;
+//
+//// Font
+//$font-familly: 'Montserrat', 'sans-serif', 'Inter', sans-serif;
+//$font-size-normal: 1rem;
+//$font-size-error-message: 0.8rem;
+//
+//// Layout
+//$width-menu: 150px;
+//$width-main-layout: 50%;
+//$width-right-layout: calc(100% - $width-menu - $width-main-layout);
+//$layout-padding: 40px;
+//$layout-padding-small: 20px;
+//
+//// Size
+//// Input
+//$size-task-state: 20px;
+//$padding-input: 8px;
+//
+//// Button
+//$button-height: 30px;
+//$button-padding: 6px;
+//
+//// Border
+//$border-gray: 1px solid $color-gray;
+//$border-main-color: 1px solid $color-main;
+//$border-layout: 2px solid $color-gray;
+//$border-radius: 4px;
+//$border-radius-medium: 6px;
+//$border-radius-checkbox: 6px;
+//
+//// Box-shadow
+//$box-shadow-input: 0 0 1px 1px $color-main-hover;
+//
+//// Transition
+//$transition-default:
+//  background-color 0.15s,
+//  color 0.15s,
+//  border 0.15s,
+//  box-shadow 0.15s;
+//
+//@mixin default-selectable-style {
+//  border-radius: $border-radius;
+//  border: $border-gray;
+//  color: $color-txt-dark;
+//  background-color: $color-white;
+//
+//  &:hover:not(:disabled) {
+//    cursor: pointer;
+//  }
+//
+//  &:hover:not(:disabled),
+//  &.selected:not(:disabled),
+//  &:focus:not(:disabled) {
+//    border: $border-main-color;
+//  }
+//
+//  &.selected:not(:disabled),
+//  &:focus:not(:disabled) {
+//    box-shadow: $box-shadow-input;
+//  }
+//}
+//
+//@mixin base-input-style {
+//  input,
+//  textarea,
+//  select {
+//    font-family: $font-familly;
+//    outline: none;
+//    accent-color: $color-main;
+//    padding: $padding-input;
+//  }
+//}

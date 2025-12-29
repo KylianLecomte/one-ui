@@ -2,7 +2,7 @@
   <fieldset class="card">
     <legend>Création d'une tâche</legend>
 
-    <one-input-text
+    <cm-input-text
       [cssClassInput]="['default']"
       formControlName="name"
       id="name"
@@ -10,29 +10,29 @@
       labelPosition="top"
       placeholder="Nom"
     />
-    <one-textarea
+    <cm-textarea
       [cssClassInput]="['default']"
       formControlName="description"
       id="description"
       label="Description"
       labelPosition="top"
       placeholder="Description"
-    ></one-textarea>
+    ></cm-textarea>
 
-    <one-tabs [formGroup]="repetitionRuleForm">
-      <one-tab [label]="RepetitionLabels.WEEKLY">
+    <cm-tabs [formGroup]="repetitionRuleForm">
+      <cm-tab [label]="RepetitionLabels.WEEKLY">
         <ng-template>
-          <one-task-weekly-repetition
+          <cm-task-weekly-repetition
             [weeklyForm]="weeklyRepetitionRule"
-          ></one-task-weekly-repetition>
+          ></cm-task-weekly-repetition>
         </ng-template>
-      </one-tab>
-      <one-tab [label]="RepetitionLabels.MONTHLY"><ng-template>MONTHLY</ng-template></one-tab>
-      <one-tab [label]="RepetitionLabels.FIX"><ng-template>FIX</ng-template></one-tab>
+      </cm-tab>
+      <cm-tab [label]="RepetitionLabels.MONTHLY"><ng-template>MONTHLY</ng-template></cm-tab>
+      <cm-tab [label]="RepetitionLabels.FIX"><ng-template>FIX</ng-template></cm-tab>
 
       <div commonContent>
         <div class="ctn-start-repetition flex-row">
-          <one-date-picker
+          <cm-date-picker
             [cssClassInput]="['default']"
             formControlName="startDate"
             id="startDate"
@@ -42,58 +42,58 @@
         </div>
 
         <div class="ctn-end-repetition flex-row">
-          <one-select
+          <cm-select
             [cssClassInput]="['default']"
             [options]="END_REPETITION"
             formControlName="endRepetitionType"
             id="repetitionEnd"
             label="Fin"
             labelPosition="left"
-          ></one-select>
+          ></cm-select>
 
           @if (endRepetitionValue === EndRepetition.DATE) {
-            <one-date-picker
+            <cm-date-picker
               [cssClassInput]="['default']"
               formControlName="endDate"
               id="endDate"
               labelPosition="hidden"
             />
           } @else if (endRepetitionValue === EndRepetition.NB_OCCURENCE) {
-            <one-input-number
+            <cm-input-number
               [cssClassInput]="['default']"
               formControlName="endNbOccurence"
               id="endNbOccurence"
               labelPosition="hidden"
-            ></one-input-number>
+            ></cm-input-number>
           }
         </div>
         <div class="ctn-btn-add-repetition flex-row">
-          <one-button (click)="onAddRepetitionRule()" typeCss="complementary">{{
+          <cm-button (click)="onAddRepetitionRule()" typeCss="complementary">{{
             labelBtnAddRule
-          }}</one-button>
+          }}</cm-button>
           @if (this.selectedRepetitionRuleIndex() !== null) {
-            <one-button (click)="onCancelEditRepetitionRule()">Annuler</one-button>
+            <cm-button (click)="onCancelEditRepetitionRule()">Annuler</cm-button>
           }
         </div>
       </div>
-    </one-tabs>
+    </cm-tabs>
 
     @for (repetitionRule of repetitionRules.controls; track $index) {
-      <one-task-repetition-rule
+      <cm-task-repetition-rule
+        (delete)="onDeleteRepetitionRule($index)"
+        (select)="onEditRepetitionRule($index)"
         [isSelected]="selectedRepetitionRuleIndex() === $index"
         [repetitionRule]="repetitionRule.getRawValue()"
-        (select)="onEditRepetitionRule($index)"
-        (delete)="onDeleteRepetitionRule($index)"
-      ></one-task-repetition-rule>
+      ></cm-task-repetition-rule>
     }
 
     @if (selectedTask()) {
       <div class="task-form-buttons flex-row">
-        <one-button type="submit">Modifier</one-button>
-        <one-button (click)="onCancelTask()">Annuler</one-button>
+        <cm-button type="submit">Modifier</cm-button>
+        <cm-button (click)="onCancelTask()">Annuler</cm-button>
       </div>
     } @else {
-      <one-button type="submit">Ajouter</one-button>
+      <cm-button type="submit">Ajouter</cm-button>
     }
   </fieldset>
 </form>

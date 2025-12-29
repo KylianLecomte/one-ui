@@ -1,43 +1,43 @@
-@use '../../../../styles/variables' as vars;
+@use '@coach-me/cm-ds/theme/theme' as theme;
 
 :host {
   button {
-    height: vars.$button-height;
-    padding: vars.$button-padding;
+    height: var(--button-height);
+    padding: var(--button-padding);
     cursor: pointer;
-    border-radius: vars.$border-radius;
+    border-radius: var(--border-radius);
 
     &.primary {
       width: 100%;
       padding: 8px;
-      color: vars.$color-txt-light;
+      color: var(--color-txt-light);
       border: none;
-      background-color: vars.$color-main;
+      background-color: var(--color-main);
 
       &:active,
       &:hover {
         border: none;
-        background-color: vars.$color-main-hover;
+        background-color: var(--color-main-hover);
       }
     }
 
     &.complementary {
       width: 100%;
       padding: 8px;
-      color: vars.$color-txt-light;
+      color: var(--color-txt-light);
       border: none;
-      background-color: vars.$color-complementary;
+      background-color: var(--color-complementary);
 
       &:active,
       &:hover {
         border: none;
-        background-color: vars.$color-complementary-hover;
+        background-color: var(--color-complementary-hover);
       }
     }
 
     &.default {
       width: 100%;
-      @include vars.default-selectable-style;
+      @include theme.default-selectable-style;
     }
 
     &.icon {
@@ -53,7 +53,7 @@
 
       &:hover {
         border: none;
-        color: vars.$color-main;
+        color: var(--color-main);
       }
     }
 
@@ -101,5 +101,5 @@
   }
 }
 
-@include shockwave('main', vars.$color-main);
-@include shockwave('complementary', vars.$color-complementary);
+@include shockwave('main', var(--color-main));
+@include shockwave('complementary', var(--color-complementary));

@@ -1,9 +1,9 @@
 <ul>
   @for (tab of tabs(); track $index) {
     <li [class.isSelected]="tab === selectedTab()">
-      <one-button [withAnimation]="false" (click)="setSelectedTab(tab)" typeCss="tab">
+      <cm-button (click)="setSelectedTab(tab)" [withAnimation]="false" typeCss="tab">
         {{ tab.label() }}
-      </one-button>
+      </cm-button>
     </li>
   }
   <hr noshade />

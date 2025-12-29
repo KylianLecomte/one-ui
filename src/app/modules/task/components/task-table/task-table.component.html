@@ -5,42 +5,42 @@
   <div>
     @for (task of tasks(); track task.id) {
       <div
-        [formGroup]="taskForm"
-        [class]="getSelectedClass(task)"
-        (contextmenu)="onClickRow(task)"
         (click)="onClickRow(task)"
+        (contextmenu)="onClickRow(task)"
+        [class]="getSelectedClass(task)"
+        [formGroup]="taskForm"
       >
         <div class="main-informations">
           <div (click)="onCheck(task)" class="task-state">
             @switch (task.status) {
               @case (TaskStatus.TODO) {
-                <fa-icon class="task-todo" [icon]="faCircle"></fa-icon>
+                <fa-icon [icon]="faCircle" class="task-todo"></fa-icon>
               }
               @case (TaskStatus.DONE) {
-                <fa-icon class="task-done" [icon]="faCircleCheck"></fa-icon>
+                <fa-icon [icon]="faCircleCheck" class="task-done"></fa-icon>
               }
               @case (TaskStatus.CANCELED) {
-                <fa-icon class="task-canceled" [icon]="faTimesCircle"></fa-icon>
+                <fa-icon [icon]="faTimesCircle" class="task-canceled"></fa-icon>
               }
             }
           </div>
 
           @if (isSelectedTask(task)) {
             <div class="task-name">
-              <input formControlName="name" class="borderless" />
+              <input class="borderless" formControlName="name" />
             </div>
           } @else {
             <span>{{ task.name }}</span>
           }
 
-          <!-- <one-tag [libelle]="'test'" [color]="'blue'"></one-tag> -->
+          <!-- <coach-me-tag [libelle]="'test'" [color]="'blue'"></coach-me-tag> -->
 
-          <one-button (click)="onDelete(task, $event)" typeCss="icon">
+          <cm-button (clickEvent)="onDelete(task)" typeCss="icon">
             <fa-icon [icon]="faTrashCan"></fa-icon>
-          </one-button>
+          </cm-button>
         </div>
         <div class="details">
-          <input formControlName="description" class="borderless" placeholder="Description" />
+          <input class="borderless" formControlName="description" placeholder="Description" />
         </div>
       </div>
     }

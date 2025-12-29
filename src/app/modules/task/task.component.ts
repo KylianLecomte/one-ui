@@ -5,7 +5,7 @@ import { TaskTableComponent } from './components/task-table/task-table.component
 import { TaskFormComponent } from './components/task-form/task-form.component';
 
 @Component({
-  selector: 'one-task',
+  selector: 'cm-task',
   imports: [
     ReactiveFormsModule,
     FontAwesomeModule,
